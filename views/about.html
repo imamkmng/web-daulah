@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - Daulah Abbasiyah</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* About Page Styles */
+        .about-section {
+            background: var(--putih);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 20px var(--shadow);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .about-section h2 {
+            color: var(--hijau-tua);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--emas);
+        }
+
+        .about-section h3 {
+            color: var(--emas-gelap);
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-section p {
+            color: var(--hitam);
+            line-height: 1.9;
+            font-size: 1.05rem;
+            text-align: justify;
+            margin-bottom: 1.2rem;
+        }
+
+        .about-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-section li {
+            color: var(--hitam);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .about-section li strong {
+            color: var(--hijau-tua);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--abu-terang);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--emas);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(8, 76, 65, 0.2);
+        }
+
+        .feature-card h4 {
+            color: var(--hijau-tua);
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .team-section {
+            background: linear-gradient(135deg, var(--hijau-sage), var(--krem));
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .team-section h3 {
+            color: var(--hijau-tua);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-section p {
+            color: var(--hitam);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .about-section {
+                padding: 1.5rem;
+            }
+
+            .about-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .about-section h3 {
+                font-size: 1.3rem;
+            }
+
+            .about-section p,
+            .about-section li {
+                font-size: 0.95rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Daulah Abbasiyah</div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/index.html">Beranda</a></li>
+                <li><a href="/timeline.html">Timeline</a></li>
+                <li><a href="/infografis.html">Infografis</a></li>
+                <li><a href="/tokoh.html">Tokoh</a></li>
+                <li><a href="/uji-kemampuan.html">Kuis</a></li>
+                <li><a href="/papan-peringkat.html">Peringkat</a></li>
+                <li><a href="/about.html">Tentang</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Tentang Website Ini</h1>
+            <p>Platform pembelajaran interaktif untuk memahami sejarah Daulah Abbasiyah</p>
+        </section>
+
+        <div class="about-section">
+            <h2>Visi & Misi</h2>
+            <p><strong>Visi:</strong> Menjadi platform pembelajaran sejarah Islam yang interaktif, mudah dipahami, dan inspiratif bagi generasi muda untuk mengenal warisan peradaban Islam khususnya era Daulah Abbasiyah.</p>
+
+            <p><strong>Misi:</strong></p>
+            <ul>
+                <li>Menyajikan materi sejarah Daulah Abbasiyah dengan cara yang menarik dan interaktif</li>
+                <li>Memfasilitasi pembelajaran mandiri melalui kuis dan evaluasi</li>
+                <li>Menginspirasi generasi muda untuk menghargai kontribusi peradaban Islam terhadap dunia</li>
+                <li>Menyediakan sumber belajar yang akurat dan mudah diakses</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h2>Tentang Proyek</h2>
+            <p>Website Pembelajaran Daulah Abbasiyah adalah platform edukasi interaktif yang dikembangkan untuk membantu siswa, mahasiswa, dan masyarakat umum memahami salah satu periode paling gemilang dalam sejarah peradaban Islam.</p>
+
+            <p>Proyek ini lahir dari kebutuhan akan media pembelajaran sejarah yang tidak hanya informatif, tetapi juga engaging dan mudah diakses. Kami percaya bahwa sejarah bukan sekadar kumpulan tanggal dan nama, melainkan kisah inspiratif yang dapat memberikan pelajaran berharga bagi kehidupan kita saat ini.</p>
+
+            <h3>Fitur Utama</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>📅 Timeline Interaktif</h4>
+                    <p>Jelajahi kronologi peristiwa penting dalam sejarah Daulah Abbasiyah dari tahun 750 M hingga 1258 M dengan tampilan visual yang menarik.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📊 Infografis Visual</h4>
+                    <p>Pahami konsep-konsep kompleks melalui visualisasi data yang mudah dipahami, termasuk peta kekuasaan, silsilah, dan faktor keruntuhan.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>👤 Profil Tokoh</h4>
+                    <p>Kenali para khalifah visioner dan ilmuwan jenius yang menjadi penggerak peradaban pada masa Daulah Abbasiyah.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🎯 Kuis Interaktif</h4>
+                    <p>Uji pemahaman Anda melalui kuis pilihan ganda dan game drag-and-drop yang menyenangkan.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🏆 Papan Peringkat</h4>
+                    <p>Lihat pencapaian Anda dan bandingkan skor dengan pengguna lain dalam papan peringkat real-time.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>📱 Mobile-Friendly</h4>
+                    <p>Akses pembelajaran dari perangkat apa pun - desktop, tablet, atau smartphone dengan tampilan yang responsif.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="team-section">
+            <h3>Dikembangkan untuk Pendidikan</h3>
+            <p>Website ini dikembangkan sebagai proyek pembelajaran dengan tujuan edukatif. Kami berkomitmen untuk terus meningkatkan konten dan fitur agar dapat memberikan manfaat maksimal bagi pengguna.</p>
+            <p><strong>Kontak:</strong> Untuk pertanyaan, saran, atau kritik, silakan hubungi kami melalui email atau media sosial yang tertera di footer website.</p>
+        </div>
+
+        <div class="btn-container">
+            <a href="/index.html" class="btn-lanjutkan">← Kembali ke Beranda</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah</p>
+        <p>Dibuat untuk tujuan pendidikan</p>
+    </footer>
+
+    <script src="/js/common.js"></script>
+</body>
+</html>

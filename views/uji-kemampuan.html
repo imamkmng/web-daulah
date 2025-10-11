@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uji Kemampuan - Daulah Abbasiyah</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Enhanced Quiz & Game Interactivity */
+        .quiz-progress {
+            background: var(--putih);
+            padding: 1rem 2rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px var(--shadow);
+            text-align: center;
+        }
+
+        .quiz-progress h3 {
+            color: var(--hijau-tua);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: var(--krem);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--hijau-sage);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--hijau-tua), var(--hijau-sage));
+            width: 0%;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Enhanced Game Instructions */
+        .game-instruction {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Mobile Touch Support for Drag Items */
+        .drag-item {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            touch-action: none;
+            position: relative;
+        }
+
+        .drag-item.touch-dragging {
+            opacity: 0.5;
+            transform: scale(1.1) rotate(5deg);
+            z-index: 1000;
+        }
+
+        .drag-item::after {
+            content: '👆 Seret';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--hijau-tua);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .drag-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Enhanced Question Interactivity */
+        .question {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 0;
+            background: var(--emas);
+            transition: height 0.3s ease;
+        }
+
+        .question.answered::before {
+            height: 100%;
+        }
+
+        .question.answered {
+            border-left-color: var(--emas);
+        }
+
+        .option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .option:hover {
+            background: var(--hijau-sage) !important;
+            padding-left: 1.5rem !important;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"]:checked + label {
+            font-weight: 600;
+            color: var(--hijau-tua);
+        }
+
+        .option input[type="radio"]:checked {
+            transform: scale(1.2);
+        }
+
+        /* Game Completion Indicator */
+        .game-container {
+            position: relative;
+        }
+
+        .game-status {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .game-status.complete {
+            display: block;
+            background: linear-gradient(135deg, #90EE90, #98FB98);
+            color: #006400;
+            animation: fadeInScale 0.5s ease-out;
+        }
+
+        /* Mobile Enhancements */
+        @media (max-width: 768px) {
+            .game-layout {
+                gap: 2rem;
+            }
+
+            .drag-item {
+                font-size: 0.95rem;
+                padding: 1.2rem 0.8rem;
+            }
+
+            .drop-zone {
+                min-height: 80px;
+                font-size: 0.9rem;
+            }
+
+            .drag-item::after {
+                content: '👆 Tekan & Seret';
+            }
+
+            .question h4 {
+                font-size: 1rem;
+            }
+
+            .option label {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quiz-progress {
+                padding: 0.8rem 1rem;
+            }
+
+            .quiz-progress h3 {
+                font-size: 1rem;
+            }
+
+            .drag-item {
+                padding: 1rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .drop-zone {
+                padding: 0.8rem;
+                min-height: 70px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Visual Feedback for Selected Options */
+        .option-selected {
+            background: var(--hijau-sage);
+            border-radius: 5px;
+            animation: optionSelect 0.3s ease;
+        }
+
+        @keyframes optionSelect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* Quiz Slide Navigation Styles */
+        .quiz-slide {
+            display: none;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        .quiz-slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding: 1.5rem 0;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-prev {
+            background: var(--hijau-sage);
+            color: var(--hijau-tua);
+        }
+
+        .btn-prev:hover:not(:disabled) {
+            background: var(--hijau-tua);
+            color: var(--putih);
+            transform: translateX(-5px);
+        }
+
+        .btn-next {
+            background: var(--emas);
+            color: var(--putih);
+        }
+
+        .btn-next:hover:not(:disabled) {
+            background: #B8941C;
+            transform: translateX(5px);
+        }
+
+        .slide-indicator {
+            text-align: center;
+            color: var(--hijau-tua);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-navigation {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .quiz-navigation {
+                flex-direction: column-reverse;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Daulah Abbasiyah</div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/index.html">Beranda</a></li>
+                <li><a href="/timeline.html">Timeline</a></li>
+                <li><a href="/infografis.html">Infografis</a></li>
+                <li><a href="/tokoh.html">Tokoh</a></li>
+                <li><a href="/uji-kemampuan.html">Kuis</a></li>
+                <li><a href="/papan-peringkat.html">Peringkat</a></li>
+                <li><a href="/about.html">Tentang</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Uji Kemampuan Pengetahuanmu!</h1>
+            <p>Anda telah menjelajahi sejarah gemilang Daulah Abbasiyah. Sebelum lanjut ke kuis utama, mari kita mulai dengan permainan interaktif yang seru! Masukkan nama Anda di bawah ini untuk memulai.</p>
+        </section>
+
+        <div class="quiz-container">
+            <!-- User Input -->
+            <div class="user-input">
+                <label for="userName">Nama Pengguna:</label>
+                <input type="text" id="userName" placeholder="Masukkan nama Anda..." required>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="quiz-progress">
+                <h3>Progres Kuis: <span id="progressText">0/10 Soal</span></h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <!-- Bagian 1: Game Drag & Drop -->
+            <div class="game-container">
+                <h3>Cocokkan Ilmuwan dengan Penemuannya!</h3>
+                <p class="game-instruction">Seret nama ilmuwan di sebelah kiri ke kotak penemuannya yang benar di sebelah kanan.</p>
+
+                <div class="game-layout">
+                    <!-- Kolom Kiri: Kartu yang bisa di-drag -->
+                    <div class="drag-items">
+                        <div class="drag-item" draggable="true" data-scientist="al-khawarizmi">Al-Khawarizmi</div>
+                        <div class="drag-item" draggable="true" data-scientist="jabir-hayyan">Jabir bin Hayyan</div>
+                        <div class="drag-item" draggable="true" data-scientist="ar-razi">Ar-Razi</div>
+                        <div class="drag-item" draggable="true" data-scientist="al-batany">Jabir Al-Batany</div>
+                    </div>
+
+                    <!-- Kolom Kanan: Drop zones -->
+                    <div class="drop-zones">
+                        <div class="drop-zone" data-answer="al-khawarizmi">
+                            <span>Bapak Aljabar</span>
+                        </div>
+                        <div class="drop-zone" data-answer="jabir-hayyan">
+                            <span>Bapak Ilmu Kimia</span>
+                        </div>
+                        <div class="drop-zone" data-answer="ar-razi">
+                            <span>Penjelasan Campak & Cacar</span>
+                        </div>
+                        <div class="drop-zone" data-answer="al-batany">
+                            <span>Penemu Teropong Bintang</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-status" id="gameStatus">
+                    ✅ Sempurna! Semua ilmuwan berhasil dicocokan dengan benar!
+                </div>
+            </div>
+
+            <!-- Bagian 2: Kuis Pilihan Ganda -->
+            <div class="quiz-section">
+                <h2>Kuis Utama Daulah Abbasiyah</h2>
+                <p style="text-align: center; font-style: italic; margin-bottom: 2rem;">Pilih jawaban yang paling tepat.</p>
+
+                <!-- Soal 1 -->
+                <div class="quiz-slide active">
+                <div class="question">
+                    <h4>1. Siapakah pendiri Daulah Abbasiyah?</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q1" value="a" id="q1a">
+                            <label for="q1a">a. Harun al-Rasyid</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" value="b" id="q1b">
+                            <label for="q1b">b. Abu al-Abbas As-Saffah</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" value="c" id="q1c">
+                            <label for="q1c">c. Al-Mansur</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" value="d" id="q1d">
+                            <label for="q1d">d. Al-Ma'mun</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Soal 2 -->
+                <div class="quiz-slide">
+                <div class="question">
+                    <h4>2. Kota megah yang dibangun oleh Khalifah Al-Mansur sebagai ibu kota baru adalah...</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q2" value="a" id="q2a">
+                            <label for="q2a">a. Damaskus</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q2" value="b" id="q2b">
+                            <label for="q2b">b. Kufah</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q2" value="c" id="q2c">
+                            <label for="q2c">c. Baghdad</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q2" value="d" id="q2d">
+                            <label for="q2d">d. Kairo</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Soal 3 -->
+                <div class="quiz-slide">
+                <div class="question">
+                    <h4>3. Puncak masa keemasan Daulah Abbasiyah sering dikaitkan dengan masa pemerintahan Khalifah...</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q3" value="a" id="q3a">
+                            <label for="q3a">a. Al-Mutawakkil</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q3" value="b" id="q3b">
+                            <label for="q3b">b. Abdullah as-Saffah</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q3" value="c" id="q3c">
+                            <label for="q3c">c. Harun al-Rasyid</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q3" value="d" id="q3d">
+                            <label for="q3d">d. Al-Amin</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Soal 4 -->
+                <div class="quiz-slide">
+                <div class="question">
+                    <h4>4. Lembaga ilmu pengetahuan terkemuka di Baghdad yang dikembangkan oleh Khalifah Al-Ma'mun adalah...</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q4" value="a" id="q4a">
+                            <label for="q4a">a. Universitas Al-Azhar</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q4" value="b" id="q4b">
+                            <label for="q4b">b. Baitul Hikmah</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q4" value="c" id="q4c">
+                            <label for="q4c">c. Darul Ulum</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q4" value="d" id="q4d">
+                            <label for="q4d">d. Madrasah Nizhamiyah</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Soal 5 -->
+                <div class="quiz-slide">
+                <div class="question">
+                    <h4>5. Ilmuwan Muslim yang dikenal sebagai "Bapak Aljabar" adalah...</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q5" value="a" id="q5a">
+                            <label for="q5a">a. Ar-Razi</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q5" value="b" id="q5b">
+                            <label for="q5b">b. Jabir bin Hayyan</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q5" value="c" id="q5c">
+                            <label for="q5c">c. Al-Khawarizmi</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q5" value="d" id="q5d">
+                            <label for="q5d">d. Jabir Al-Batany</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Soal 6 -->
+                <div class="quiz-slide">
+                <div class="question">
+                    <h4>6. Apa penyebab utama runtuhnya kekuasaan Daulah Abbasiyah di Baghdad pada tahun 1258 M?</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q6" value="a" id="q6a">
+                            <label for="q6a">a. Perang Salib</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q6" value="b" id="q6b">
+                            <label for="q6b">b. Wabah penyakit</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q6" value="c" id="q6c">
+                            <label for="q6c">c. Bencana alam</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q6" value="d" id="q6d">
+                            <label for="q6d">d. Invasi Bangsa Mongol</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Soal 7 -->
+                <div class="quiz-slide">
+                <div class="question">
+                    <h4>7. Ar-Razi adalah seorang ilmuwan yang memberikan kontribusi besar dalam bidang...</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q7" value="a" id="q7a">
+                            <label for="q7a">a. Kimia</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q7" value="b" id="q7b">
+                            <label for="q7b">b. Kedokteran</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q7" value="c" id="q7c">
+                            <label for="q7c">c. Astronomi</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q7" value="d" id="q7d">
+                            <label for="q7d">d. Matematika</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Soal 8 -->
+                <div class="quiz-slide">
+                <div class="question">
+                    <h4>8. Garis keturunan Daulah Abbasiyah berasal dari...</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q8" value="a" id="q8a">
+                            <label for="q8a">a. Ali bin Abi Thalib</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q8" value="b" id="q8b">
+                            <label for="q8b">b. Umar bin Khattab</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q8" value="c" id="q8c">
+                            <label for="q8c">c. Abbas bin Abdul Muthalib</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q8" value="d" id="q8d">
+                            <label for="q8d">d. Muawiyah bin Abi Sufyan</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Soal 9 -->
+                <div class="quiz-slide">
+                <div class="question">
+                    <h4>9. Siapakah ilmuwan yang dijuluki sebagai "Bapak Ilmu Kimia"?</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q9" value="a" id="q9a">
+                            <label for="q9a">a. Al-Khawarizmi</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q9" value="b" id="q9b">
+                            <label for="q9b">b. Jabir bin Hayyan</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q9" value="c" id="q9c">
+                            <label for="q9c">c. Ar-Razi</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q9" value="d" id="q9d">
+                            <label for="q9d">d. Al-Ma'mun</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Soal 10 -->
+                <div class="quiz-slide">
+                <div class="question">
+                    <h4>10. Kapan era Daulah Abbasiyah dimulai?</h4>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q10" value="a" id="q10a">
+                            <label for="q10a">a. 661 M</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q10" value="b" id="q10b">
+                            <label for="q10b">b. 750 M</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q10" value="c" id="q10c">
+                            <label for="q10c">c. 800 M</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q10" value="d" id="q10d">
+                            <label for="q10d">d. 1258 M</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Quiz Navigation -->
+                <div class="quiz-navigation">
+                    <button class="nav-btn btn-prev" id="prevBtn" disabled>
+                        ← Sebelumnya
+                    </button>
+                    <div class="slide-indicator">
+                        <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+                    </div>
+                    <button class="nav-btn btn-next" id="nextBtn">
+                        Berikutnya →
+                    </button>
+                </div>
+
+                <div class="btn-container" style="margin-top: 2rem;">
+                    <button id="submitQuiz" class="btn-lanjutkan" style="display: none;">Selesai</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Container (hidden initially) -->
+        <div id="resultContainer" class="result-container" style="display: none;">
+            <h2>Hasil Kuis Anda</h2>
+            <p class="score" id="scoreDisplay"></p>
+            <p id="resultMessage">Luar biasa! Pengetahuanmu sangat baik. Lihat posisimu di Papan Peringkat!</p>
+            <div class="btn-container">
+                <a href="/papan-peringkat.html" class="btn-lanjutkan">Lihat Papan Peringkat</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah</p>
+        <p>Dibuat untuk tujuan pendidikan</p>
+    </footer>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        // ===================================
+        // QUIZ SLIDE NAVIGATION
+        // ===================================
+        const slides = document.querySelectorAll('.quiz-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitQuiz');
+        const currentSlideSpan = document.getElementById('currentSlide');
+        const totalSlidesSpan = document.getElementById('totalSlides');
+        let currentSlideIndex = 0;
+
+        // Set total slides
+        totalSlidesSpan.textContent = slides.length;
+
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            // Show current slide
+            slides[index].classList.add('active');
+
+            // Update indicator
+            currentSlideSpan.textContent = index + 1;
+
+            // Update button states
+            prevBtn.disabled = (index === 0);
+
+            // Show submit button on last slide, hide next button
+            if (index === slides.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            } else {
+                nextBtn.style.display = 'flex';
+                submitBtn.style.display = 'none';
+            }
+
+            // Scroll to top of quiz section smoothly
+            document.querySelector('.quiz-section').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Next button handler
+        nextBtn.addEventListener('click', () => {
+            if (currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                showSlide(currentSlideIndex);
+            }
+        });
+
+        // Previous button handler
+        prevBtn.addEventListener('click', () => {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                showSlide(currentSlideIndex);
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                showSlide(currentSlideIndex);
+            } else if (e.key === 'ArrowLeft' && currentSlideIndex > 0) {
+                currentSlideIndex--;
+                showSlide(currentSlideIndex);
+            }
+        });
+
+        // ===================================
+        // ENHANCED QUIZ PROGRESS TRACKING
+        // ===================================
+        const progressText = document.getElementById('progressText');
+        const progressFill = document.getElementById('progressFill');
+        let answeredCount = 0;
+
+        // Track quiz progress
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const questionDiv = e.target.closest('.question');
+                const questionName = e.target.name;
+
+                // Mark question as answered
+                if (!questionDiv.classList.contains('answered')) {
+                    questionDiv.classList.add('answered');
+                    answeredCount++;
+
+                    // Update progress
+                    progressText.textContent = `${answeredCount}/10 Soal`;
+                    const percentage = (answeredCount / 10) * 100;
+                    progressFill.style.width = percentage + '%';
+                }
+
+                // Add visual feedback
+                const option = e.target.closest('.option');
+                option.classList.add('option-selected');
+                setTimeout(() => {
+                    option.classList.remove('option-selected');
+                }, 300);
+            });
+        });
+
+        // ===================================
+        // MOBILE TOUCH SUPPORT FOR DRAG & DROP
+        // ===================================
+        if (document.querySelector('.game-container')) {
+            const dragItems = document.querySelectorAll('.drag-item');
+            const dropZones = document.querySelectorAll('.drop-zone');
+            let correctMatchesCount = 0;
+
+            // Touch events for mobile
+            dragItems.forEach(item => {
+                let touchStartX, touchStartY;
+                let isDragging = false;
+                let clone = null;
+
+                item.addEventListener('touchstart', (e) => {
+                    if (item.style.display === 'none') return;
+
+                    isDragging = true;
+                    const touch = e.touches[0];
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+
+                    item.classList.add('touch-dragging');
+
+                    // Create visual clone
+                    clone = item.cloneNode(true);
+                    clone.style.position = 'fixed';
+                    clone.style.zIndex = '9999';
+                    clone.style.pointerEvents = 'none';
+                    clone.style.width = item.offsetWidth + 'px';
+                    clone.style.left = touchStartX - (item.offsetWidth / 2) + 'px';
+                    clone.style.top = touchStartY - (item.offsetHeight / 2) + 'px';
+                    document.body.appendChild(clone);
+                }, { passive: true });
+
+                item.addEventListener('touchmove', (e) => {
+                    if (!isDragging || !clone) return;
+
+                    const touch = e.touches[0];
+                    clone.style.left = touch.clientX - (item.offsetWidth / 2) + 'px';
+                    clone.style.top = touch.clientY - (item.offsetHeight / 2) + 'px';
+
+                    // Highlight drop zones on hover
+                    dropZones.forEach(zone => {
+                        const rect = zone.getBoundingClientRect();
+                        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                            zone.classList.add('drag-over');
+                        } else {
+                            zone.classList.remove('drag-over');
+                        }
+                    });
+                }, { passive: true });
+
+                item.addEventListener('touchend', (e) => {
+                    if (!isDragging) return;
+
+                    isDragging = false;
+                    item.classList.remove('touch-dragging');
+
+                    if (clone) {
+                        const touch = e.changedTouches[0];
+                        let droppedOnZone = null;
+
+                        dropZones.forEach(zone => {
+                            const rect = zone.getBoundingClientRect();
+                            if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                                droppedOnZone = zone;
+                            }
+                            zone.classList.remove('drag-over');
+                        });
+
+                        if (droppedOnZone) {
+                            const scientistId = item.getAttribute('data-scientist');
+                            const correctAnswer = droppedOnZone.getAttribute('data-answer');
+
+                            if (scientistId === correctAnswer) {
+                                // Correct answer
+                                droppedOnZone.classList.add('correct');
+                                droppedOnZone.innerHTML = '';
+                                droppedOnZone.appendChild(item.cloneNode(true));
+                                item.style.display = 'none';
+
+                                correctMatchesCount++;
+                                checkGameCompletion();
+                            } else {
+                                // Incorrect answer
+                                droppedOnZone.classList.add('incorrect');
+                                setTimeout(() => {
+                                    droppedOnZone.classList.remove('incorrect');
+                                }, 500);
+                            }
+                        }
+
+                        clone.remove();
+                        clone = null;
+                    }
+                }, { passive: true });
+            });
+
+            // Check if game is complete
+            function checkGameCompletion() {
+                if (correctMatchesCount === 4) {
+                    const gameStatus = document.getElementById('gameStatus');
+                    gameStatus.classList.add('complete');
+
+                    // Scroll to game status
+                    setTimeout(() => {
+                        gameStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 300);
+                }
+            }
+
+            // Also track desktop drag-drop completion
+            dropZones.forEach(zone => {
+                const originalDropHandler = zone.ondrop;
+                zone.addEventListener('drop', (e) => {
+                    // Wait for main.js to process the drop
+                    setTimeout(() => {
+                        if (zone.classList.contains('correct')) {
+                            correctMatchesCount++;
+                            checkGameCompletion();
+                        }
+                    }, 100);
+                });
+            });
+        }
+
+        // ===================================
+        // SMOOTH SCROLL TO QUIZ SECTION
+        // ===================================
+        const userName = document.getElementById('userName');
+        if (userName) {
+            userName.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && userName.value.trim()) {
+                    document.querySelector('.game-container').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

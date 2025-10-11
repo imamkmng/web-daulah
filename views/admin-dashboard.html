@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Daulah Abbasiyah</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Daulah Abbasiyah - Admin</div>
+            <ul class="nav-links">
+                <li><a href="/index.html">Beranda</a></li>
+                <li><a href="/admin-login.html" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Dasbor Admin: Hasil Uji Kemampuan</h1>
+        </section>
+
+        <div class="leaderboard">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <h2>Semua Data Skor</h2>
+                <div style="display: flex; gap: 1rem;">
+                    <button id="downloadBtn" class="btn-download">Download Data (CSV)</button>
+                    <button id="resetBtn" class="btn-download" style="background: linear-gradient(135deg, #DC143C, #8B0000); color: var(--putih);">Reset Semua Data</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Pengguna</th>
+                        <th>Skor</th>
+                        <th>Tanggal & Waktu</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                    <tr>
+                        <td colspan="4" style="text-align: center;">Memuat data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah</p>
+        <p>Dibuat untuk tujuan pendidikan</p>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
+        if (!isLoggedIn) {
+            window.location.href = '/admin-login.html';
+        }
+
+        // Load all scores
+        async function loadScores() {
+            try {
+                const response = await fetch('/api/scores');
+                const scores = await response.json();
+
+                const tbody = document.getElementById('adminTableBody');
+                tbody.innerHTML = '';
+
+                if (scores.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Belum ada data.</td></tr>';
+                    return;
+                }
+
+                scores.forEach((score, index) => {
+                    const row = document.createElement('tr');
+
+                    const date = new Date(score.timestamp);
+                    const formattedDate = date.toLocaleDateString('id-ID', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${score.name}</td>
+                        <td>${score.score}/10</td>
+                        <td>${formattedDate}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading scores:', error);
+                const tbody = document.getElementById('adminTableBody');
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Gagal memuat data.</td></tr>';
+            }
+        }
+
+        // Download CSV
+        document.getElementById('downloadBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/admin/download');
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `scores_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Error downloading CSV:', error);
+                alert('Gagal mengunduh data.');
+            }
+        });
+
+        // Reset all data
+        document.getElementById('resetBtn').addEventListener('click', async () => {
+            if (!confirm('Apakah Anda yakin ingin menghapus semua data peringkat? Tindakan ini tidak dapat dibatalkan!')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin/reset', {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(`Berhasil! ${result.deletedRows} data telah dihapus.`);
+                    loadScores(); // Reload the table
+                } else {
+                    alert('Gagal mereset data: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error resetting data:', error);
+                alert('Gagal mereset data.');
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            sessionStorage.removeItem('adminLoggedIn');
+        });
+
+        // Load scores when page loads
+        window.addEventListener('DOMContentLoaded', loadScores);
+    </script>
+</body>
+</html>

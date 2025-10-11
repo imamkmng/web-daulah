@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Sejarah - Daulah Abbasiyah</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Enhanced Timeline Styles */
+        .timeline-intro {
+            background: var(--putih);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: 0 3px 15px var(--shadow);
+            text-align: center;
+        }
+
+        .timeline-intro h3 {
+            color: var(--hijau-tua);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-intro p {
+            color: var(--hitam);
+            line-height: 1.8;
+        }
+
+        .timeline-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-content {
+            background: var(--putih);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px var(--shadow);
+            max-width: 350px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            border: 2px solid var(--hijau-sage);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            left: calc(50% + 100px);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            right: calc(50% + 100px);
+            text-align: right;
+        }
+
+        .timeline-content h3 {
+            color: var(--emas-gelap);
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+            font-size: 1.15rem;
+            line-height: 1.4;
+        }
+
+        .timeline-content .date {
+            color: var(--hijau-tua);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .timeline-content p {
+            color: var(--hitam);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            display: none;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .timeline-content.expanded p {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline-content .read-more {
+            color: var(--emas);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content .read-more:hover {
+            color: var(--emas-gelap);
+            transform: translateX(5px);
+        }
+
+        /* Mobile Timeline */
+        @media (max-width: 992px) {
+            .timeline-content {
+                position: static;
+                max-width: 100%;
+                margin: 1rem 0 1rem 100px;
+                transform: none;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-content {
+                margin: 1rem 0 1rem 80px;
+                padding: 1.2rem;
+            }
+
+            .timeline-content h3 {
+                font-size: 1.05rem;
+            }
+
+            .timeline-content p {
+                font-size: 0.9rem;
+                line-height: 1.7;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-content {
+                padding: 1rem;
+            }
+
+            .timeline-content .date {
+                font-size: 1.1rem;
+            }
+
+            .timeline-content h3 {
+                font-size: 1rem;
+            }
+
+            .timeline-content p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Enhanced Timeline Point for Better Readability */
+        .timeline-point {
+            min-width: 100px;
+            min-height: 100px;
+            padding: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Interactive Point Indicator */
+        .timeline-point::before {
+            content: '📍';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-point:hover::before {
+            opacity: 1;
+            font-size: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-point {
+                min-width: 85px;
+                min-height: 85px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-point {
+                min-width: 75px;
+                min-height: 75px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Next Section Info */
+        .next-section-info {
+            background: linear-gradient(135deg, var(--hijau-tua) 0%, var(--hijau-sage) 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 3rem 0 1.5rem 0;
+            box-shadow: 0 5px 20px var(--shadow);
+            text-align: center;
+            color: var(--putih);
+        }
+
+        .next-section-info h3 {
+            color: var(--emas);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .next-section-info p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .next-section-info {
+                padding: 2rem 1.5rem;
+            }
+
+            .next-section-info h3 {
+                font-size: 1.4rem;
+            }
+
+            .next-section-info p {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .next-section-info {
+                padding: 1.5rem 1rem;
+            }
+
+            .next-section-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .next-section-info p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Daulah Abbasiyah</div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/index.html">Beranda</a></li>
+                <li><a href="/timeline.html">Timeline</a></li>
+                <li><a href="/infografis.html">Infografis</a></li>
+                <li><a href="/tokoh.html">Tokoh</a></li>
+                <li><a href="/uji-kemampuan.html">Kuis</a></li>
+                <li><a href="/papan-peringkat.html">Peringkat</a></li>
+                <li><a href="/about.html">Tentang</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Linimasa Sejarah Daulah Abbasiyah</h1>
+            <p>Perjalanan 5 abad yang mengubah peradaban dunia</p>
+        </section>
+
+        <div class="timeline-intro">
+            <h3>Ikuti Perjalanan Sejarah</h3>
+            <p>Klik pada setiap titik waktu atau gunakan tombol "Baca Selengkapnya" untuk melihat detail peristiwa penting dalam sejarah Daulah Abbasiyah.</p>
+        </div>
+
+        <div class="timeline">
+            <!-- Event 1: 750 M -->
+            <div class="timeline-item">
+                <div class="timeline-point" data-year="750">750 M</div>
+                <div class="timeline-content">
+                    <div class="date">750 M</div>
+                    <h3>Berdirinya Daulah Abbasiyah</h3>
+                    <p>Setelah memimpin revolusi yang berhasil, Abu al-Abbas As-Saffah dikukuhkan sebagai khalifah pertama Daulah Abbasiyah. Ini menandai berakhirnya kekuasaan Daulah Umayyah dan dimulainya era baru yang berpusat di Irak.</p>
+                    <span class="read-more">Baca Selengkapnya →</span>
+                </div>
+            </div>
+
+            <!-- Event 2: 762 M -->
+            <div class="timeline-item">
+                <div class="timeline-point" data-year="762">762 M</div>
+                <div class="timeline-content">
+                    <div class="date">762 M</div>
+                    <h3>Pendirian Kota Baghdad</h3>
+                    <p>Atas perintah Khalifah Al-Mansur, pembangunan ibu kota baru yang monumental, Baghdad, dimulai. Kota ini dirancang dengan arsitektur melingkar yang canggih, menjadikannya pusat pemerintahan, perdagangan, dan intelektual yang tak tertandingi pada masanya.</p>
+                    <span class="read-more">Baca Selengkapnya →</span>
+                </div>
+            </div>
+
+            <!-- Event 3: 786-809 M -->
+            <div class="timeline-item">
+                <div class="timeline-point" data-year="786">786-809 M</div>
+                <div class="timeline-content">
+                    <div class="date">786-809 M</div>
+                    <h3>Pendirian Baitul Hikmah</h3>
+                    <p>Pada masa pemerintahan Khalifah Harun al-Rasyid, yang merupakan puncak keemasan, cikal bakal Baitul Hikmah (Rumah Kebijaksanaan) didirikan. Awalnya sebagai perpustakaan pribadi khalifah, lembaga ini menjadi fondasi bagi revolusi ilmu pengetahuan.</p>
+                    <span class="read-more">Baca Selengkapnya →</span>
+                </div>
+            </div>
+
+            <!-- Event 4: 813-833 M -->
+            <div class="timeline-item">
+                <div class="timeline-point" data-year="813">813-833 M</div>
+                <div class="timeline-content">
+                    <div class="date">813-833 M</div>
+                    <h3>Pengembangan Baitul Hikmah</h3>
+                    <p>Khalifah Al-Ma'mun, seorang pecinta ilmu, mengembangkan Baitul Hikmah menjadi akademi ilmu pengetahuan terbesar di dunia. Lembaga ini menjadi pusat penerjemahan karya-karya kuno dari Yunani, Persia, dan India, serta tempat berkumpulnya para ilmuwan terhebat.</p>
+                    <span class="read-more">Baca Selengkapnya →</span>
+                </div>
+            </div>
+
+            <!-- Event 5: 847-861 M -->
+            <div class="timeline-item">
+                <div class="timeline-point" data-year="847">847-861 M</div>
+                <div class="timeline-content">
+                    <div class="date">847-861 M</div>
+                    <h3>Pembatasan Penerjemahan Filsafat</h3>
+                    <p>Masa Khalifah Al-Mutawakkil menandai adanya perubahan kebijakan. Dukungan terhadap pemikiran filsafat dan rasionalis mulai dibatasi, menandakan pergeseran fokus intelektual di dalam kekhalifahan.</p>
+                    <span class="read-more">Baca Selengkapnya →</span>
+                </div>
+            </div>
+
+            <!-- Event 6: 1258 M -->
+            <div class="timeline-item">
+                <div class="timeline-point" data-year="1258">1258 M</div>
+                <div class="timeline-content">
+                    <div class="date">1258 M</div>
+                    <h3>Invasi Bangsa Mongol</h3>
+                    <p>Setelah berabad-abad mengalami kemunduran, kota Baghdad dikepung dan dihancurkan oleh pasukan Mongol di bawah pimpinan Hulagu Khan. Peristiwa tragis ini membakar habis Baitul Hikmah dan menandai akhir dari kekuasaan Daulah Abbasiyah di Baghdad.</p>
+                    <span class="read-more">Baca Selengkapnya →</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="next-section-info">
+            <h3>Visualisasi Data Sejarah</h3>
+            <p>Setelah memahami kronologi peristiwa, mari kita lihat gambaran yang lebih besar. Di halaman Infografis, Anda akan menemukan visualisasi menarik tentang luasnya kekuasaan, silsilah pendiri, evolusi Baitul Hikmah, dan faktor-faktor yang menyebabkan keruntuhan Daulah Abbasiyah.</p>
+        </div>
+
+        <div class="btn-container">
+            <a href="/infografis.html" class="btn-lanjutkan">Lanjutkan ke Infografis →</a>
+        </div>
+    </main>
+
+    <!-- Modal untuk menampilkan detail timeline -->
+    <div id="timelineModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalContent"></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah</p>
+        <p>Dibuat untuk tujuan pendidikan</p>
+    </footer>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        // Intersection Observer untuk animasi timeline saat scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Read more functionality
+        document.querySelectorAll('.read-more').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const content = btn.closest('.timeline-content');
+                content.classList.toggle('expanded');
+
+                if (content.classList.contains('expanded')) {
+                    btn.textContent = '← Tutup';
+                } else {
+                    btn.textContent = 'Baca Selengkapnya →';
+                }
+            });
+        });
+
+        // Click timeline point to expand content
+        document.querySelectorAll('.timeline-point').forEach(point => {
+            point.addEventListener('click', () => {
+                const item = point.closest('.timeline-item');
+                const content = item.querySelector('.timeline-content');
+                const readMoreBtn = content.querySelector('.read-more');
+
+                if (!content.classList.contains('expanded')) {
+                    content.classList.add('expanded');
+                    readMoreBtn.textContent = '← Tutup';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
