@@ -4,6 +4,10 @@
 
 1. **Routing Admin Endpoints** - Ditambahkan route untuk `/admin/*` di `vercel.json`
 2. **Konfigurasi Database** - Menggunakan Turso (LibSQL) sebagai database cloud
+3. **Validasi Tipe Data** - Backend sekarang menerima skor sebagai string atau number (diperbaiki di commit terbaru)
+4. **BigInt Serialization** - Ditambahkan fix untuk mencegah error serialization BigInt di Vercel
+5. **Error Messages** - Semua pesan error sekarang dalam Bahasa Indonesia untuk UX yang lebih baik
+6. **Enhanced Logging** - Ditambahkan logging yang lebih detail untuk debugging di Vercel Function Logs
 
 ---
 

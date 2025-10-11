@@ -2,6 +2,11 @@ const express = require('express');
 const { createClient } = require('@libsql/client');
 const { Parser } = require('json2csv');
 
+// Fix for BigInt serialization in JSON (important for Vercel deployment)
+BigInt.prototype.toJSON = function() {
+    return Number(this);
+};
+
 const app = express();
 
 // Middleware
@@ -85,22 +90,35 @@ app.post('/api/scores', async (req, res) => {
 
     const { nama, skor } = req.body;
 
-    // Validation
-    if (!nama || skor === undefined) {
-        console.log('Validation failed: Missing nama or skor');
+    // Validate nama
+    if (!nama || nama.trim() === '') {
+        console.log('Validation failed: Missing or empty nama');
         return res.status(400).json({
             success: false,
-            error: 'Name and score are required',
-            received: { nama, skor }
+            error: 'Nama tidak boleh kosong'
         });
     }
 
-    if (typeof skor !== 'number' || skor < 0 || skor > 10) {
-        console.log('Validation failed: Invalid score value');
+    // Validate skor - convert to number if string
+    let scoreValue = skor;
+    if (typeof skor === 'string') {
+        scoreValue = parseInt(skor, 10);
+    }
+
+    if (scoreValue === undefined || scoreValue === null) {
+        console.log('Validation failed: Missing skor');
         return res.status(400).json({
             success: false,
-            error: 'Score must be a number between 0 and 10',
-            received: { nama, skor, type: typeof skor }
+            error: 'Skor tidak boleh kosong'
+        });
+    }
+
+    if (isNaN(scoreValue) || scoreValue < 0 || scoreValue > 10) {
+        console.log('Validation failed: Invalid score value:', scoreValue);
+        return res.status(400).json({
+            success: false,
+            error: 'Skor harus berupa angka antara 0 dan 10',
+            received: { nama, skor, scoreValue, type: typeof skor }
         });
     }
 
@@ -109,25 +127,31 @@ app.post('/api/scores', async (req, res) => {
         console.error('Database not initialized');
         return res.status(500).json({
             success: false,
-            error: 'Database connection not available'
+            error: 'Database connection not available',
+            hint: 'TURSO environment variables may not be set'
         });
     }
 
     try {
-        console.log('Attempting to insert score:', { nama, skor });
+        console.log('Attempting to insert score:', { nama: nama.trim(), scoreValue });
 
         const result = await db.execute({
             sql: 'INSERT INTO scores (name, score) VALUES (?, ?)',
-            args: [nama, skor]
+            args: [nama.trim(), scoreValue]
         });
 
         console.log('Score inserted successfully');
         console.log('Insert result:', result);
 
+        // Convert BigInt to Number to avoid serialization issues
+        const insertId = typeof result.lastInsertRowid === 'bigint'
+            ? Number(result.lastInsertRowid)
+            : result.lastInsertRowid;
+
         const response = {
             success: true,
-            id: result.lastInsertRowid,
-            message: 'Score saved successfully'
+            id: insertId,
+            message: 'Skor berhasil disimpan'
         };
 
         console.log('Sending response:', response);
@@ -138,14 +162,15 @@ app.post('/api/scores', async (req, res) => {
         console.error('Error details:', {
             message: error.message,
             stack: error.stack,
-            name: error.name
+            name: error.name,
+            code: error.code
         });
 
         return res.status(500).json({
             success: false,
-            error: 'Failed to save score',
+            error: 'Gagal menyimpan skor ke database',
             details: error.message,
-            hint: 'Check Vercel function logs for details'
+            hint: 'Periksa Vercel function logs atau environment variables'
         });
     }
 });
