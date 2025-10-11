@@ -24,6 +24,10 @@
       "dest": "/api/index.js"
     },
     {
+      "src": "/admin/(.*)",
+      "dest": "/api/index.js"
+    },
+    {
       "src": "/gambar/(.*)",
       "dest": "/gambar/$1"
     },

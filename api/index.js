@@ -8,11 +8,39 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Initialize Turso Database Connection
-const db = createClient({
-    url: process.env.TURSO_DATABASE_URL,
-    authToken: process.env.TURSO_AUTH_TOKEN
+// CORS Middleware
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
+    next();
 });
+
+// Initialize Turso Database Connection
+let db;
+
+try {
+    if (!process.env.TURSO_DATABASE_URL || !process.env.TURSO_AUTH_TOKEN) {
+        console.error('Missing Turso environment variables!');
+        console.error('TURSO_DATABASE_URL:', process.env.TURSO_DATABASE_URL ? 'Set' : 'Missing');
+        console.error('TURSO_AUTH_TOKEN:', process.env.TURSO_AUTH_TOKEN ? 'Set' : 'Missing');
+    }
+
+    db = createClient({
+        url: process.env.TURSO_DATABASE_URL,
+        authToken: process.env.TURSO_AUTH_TOKEN
+    });
+
+    console.log('Turso database client created successfully');
+} catch (error) {
+    console.error('Failed to create Turso client:', error);
+}
 
 // Initialize database table
 async function initializeDatabase() {
@@ -51,30 +79,74 @@ app.get('/api/scores', async (req, res) => {
 
 // POST /api/scores - Add a new score
 app.post('/api/scores', async (req, res) => {
+    console.log('POST /api/scores - Request received');
+    console.log('Request body:', req.body);
+    console.log('Request headers:', req.headers);
+
     const { nama, skor } = req.body;
 
+    // Validation
     if (!nama || skor === undefined) {
-        return res.status(400).json({ error: 'Name and score are required' });
+        console.log('Validation failed: Missing nama or skor');
+        return res.status(400).json({
+            success: false,
+            error: 'Name and score are required',
+            received: { nama, skor }
+        });
     }
 
     if (typeof skor !== 'number' || skor < 0 || skor > 10) {
-        return res.status(400).json({ error: 'Score must be a number between 0 and 10' });
+        console.log('Validation failed: Invalid score value');
+        return res.status(400).json({
+            success: false,
+            error: 'Score must be a number between 0 and 10',
+            received: { nama, skor, type: typeof skor }
+        });
+    }
+
+    // Check if database is initialized
+    if (!db) {
+        console.error('Database not initialized');
+        return res.status(500).json({
+            success: false,
+            error: 'Database connection not available'
+        });
     }
 
     try {
+        console.log('Attempting to insert score:', { nama, skor });
+
         const result = await db.execute({
             sql: 'INSERT INTO scores (name, score) VALUES (?, ?)',
             args: [nama, skor]
         });
 
-        res.status(201).json({
+        console.log('Score inserted successfully');
+        console.log('Insert result:', result);
+
+        const response = {
             success: true,
             id: result.lastInsertRowid,
             message: 'Score saved successfully'
-        });
+        };
+
+        console.log('Sending response:', response);
+
+        return res.status(201).json(response);
     } catch (error) {
         console.error('Error inserting score:', error);
-        res.status(500).json({ error: 'Failed to save score' });
+        console.error('Error details:', {
+            message: error.message,
+            stack: error.stack,
+            name: error.name
+        });
+
+        return res.status(500).json({
+            success: false,
+            error: 'Failed to save score',
+            details: error.message,
+            hint: 'Check Vercel function logs for details'
+        });
     }
 });
 

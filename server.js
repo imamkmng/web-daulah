@@ -64,13 +64,17 @@ app.get('/api/scores', (req, res) => {
 
 // POST /api/scores - Add a new score
 app.post('/api/scores', (req, res) => {
+    console.log('POST /api/scores - Request body:', req.body);
+
     const { nama, skor } = req.body;
 
     if (!nama || skor === undefined) {
+        console.log('Validation failed: Missing nama or skor');
         return res.status(400).json({ error: 'Name and score are required' });
     }
 
     if (typeof skor !== 'number' || skor < 0 || skor > 10) {
+        console.log('Validation failed: Invalid score value');
         return res.status(400).json({ error: 'Score must be a number between 0 and 10' });
     }
 
@@ -79,8 +83,13 @@ app.post('/api/scores', (req, res) => {
     db.run(query, [nama, skor], function(err) {
         if (err) {
             console.error('Error inserting score:', err.message);
-            return res.status(500).json({ error: 'Failed to save score' });
+            return res.status(500).json({
+                success: false,
+                error: 'Failed to save score'
+            });
         }
+
+        console.log('Score inserted successfully, ID:', this.lastID);
 
         res.status(201).json({
             success: true,

@@ -188,7 +188,12 @@ if (document.getElementById('submitQuiz')) {
                 })
             });
 
-            if (response.ok) {
+            console.log('Response status:', response.status);
+            const data = await response.json();
+            console.log('Response data:', data);
+
+            // Check for success (200 OK or 201 Created)
+            if (response.ok || response.status === 201) {
                 // Hide quiz, show result
                 document.querySelector('.quiz-container').style.display = 'none';
                 document.getElementById('resultContainer').style.display = 'block';
@@ -209,6 +214,7 @@ if (document.getElementById('submitQuiz')) {
                 // Scroll to result
                 document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
             } else {
+                console.error('Server error:', data);
                 alert('Terjadi kesalahan saat menyimpan skor. Silakan coba lagi.');
             }
         } catch (error) {
