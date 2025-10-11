@@ -6,6 +6,11 @@ const { Parser } = require('json2csv');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Fix for BigInt serialization in JSON (important for Vercel deployment)
+BigInt.prototype.toJSON = function() {
+    return Number(this);
+};
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -65,36 +70,64 @@ app.get('/api/scores', (req, res) => {
 // POST /api/scores - Add a new score
 app.post('/api/scores', (req, res) => {
     console.log('POST /api/scores - Request body:', req.body);
+    console.log('POST /api/scores - Request headers:', req.headers);
 
     const { nama, skor } = req.body;
 
-    if (!nama || skor === undefined) {
-        console.log('Validation failed: Missing nama or skor');
-        return res.status(400).json({ error: 'Name and score are required' });
+    // Validate nama
+    if (!nama || nama.trim() === '') {
+        console.log('Validation failed: Missing or empty nama');
+        return res.status(400).json({
+            success: false,
+            error: 'Nama tidak boleh kosong'
+        });
     }
 
-    if (typeof skor !== 'number' || skor < 0 || skor > 10) {
-        console.log('Validation failed: Invalid score value');
-        return res.status(400).json({ error: 'Score must be a number between 0 and 10' });
+    // Validate skor - convert to number if string
+    let scoreValue = skor;
+    if (typeof skor === 'string') {
+        scoreValue = parseInt(skor, 10);
+    }
+
+    if (scoreValue === undefined || scoreValue === null) {
+        console.log('Validation failed: Missing skor');
+        return res.status(400).json({
+            success: false,
+            error: 'Skor tidak boleh kosong'
+        });
+    }
+
+    if (isNaN(scoreValue) || scoreValue < 0 || scoreValue > 10) {
+        console.log('Validation failed: Invalid score value:', scoreValue);
+        return res.status(400).json({
+            success: false,
+            error: 'Skor harus berupa angka antara 0 dan 10'
+        });
     }
 
     const query = 'INSERT INTO scores (name, score) VALUES (?, ?)';
 
-    db.run(query, [nama, skor], function(err) {
+    db.run(query, [nama.trim(), scoreValue], function(err) {
         if (err) {
             console.error('Error inserting score:', err.message);
             return res.status(500).json({
                 success: false,
-                error: 'Failed to save score'
+                error: 'Gagal menyimpan skor ke database',
+                details: err.message
             });
         }
 
         console.log('Score inserted successfully, ID:', this.lastID);
 
+        // Convert BigInt to Number to avoid serialization error in Vercel
+        const insertId = typeof this.lastID === 'bigint'
+            ? Number(this.lastID)
+            : this.lastID;
+
         res.status(201).json({
             success: true,
-            id: this.lastID,
-            message: 'Score saved successfully'
+            id: insertId,
+            message: 'Skor berhasil disimpan'
         });
     });
 });

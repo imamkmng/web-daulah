@@ -177,6 +177,8 @@ if (document.getElementById('submitQuiz')) {
 
         // Send score to backend
         try {
+            console.log('Mengirim data:', { nama: userName, skor: score });
+
             const response = await fetch('/api/scores', {
                 method: 'POST',
                 headers: {
@@ -189,6 +191,8 @@ if (document.getElementById('submitQuiz')) {
             });
 
             console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
+
             const data = await response.json();
             console.log('Response data:', data);
 
@@ -215,11 +219,12 @@ if (document.getElementById('submitQuiz')) {
                 document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
             } else {
                 console.error('Server error:', data);
-                alert('Terjadi kesalahan saat menyimpan skor. Silakan coba lagi.');
+                const errorMessage = data.error || 'Terjadi kesalahan saat menyimpan skor';
+                alert(errorMessage + '. Silakan coba lagi.');
             }
         } catch (error) {
             console.error('Error submitting score:', error);
-            alert('Terjadi kesalahan saat menyimpan skor. Silakan coba lagi.');
+            alert('Terjadi kesalahan saat menghubungi server. Pastikan server sedang berjalan. Error: ' + error.message);
         }
     });
 }
