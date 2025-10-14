@@ -106,6 +106,159 @@
             line-height: 1.8;
         }
 
+        /* Developer Profile Styles */
+        .developer-profile {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin-top: 2rem;
+        }
+
+        .profile-image-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(8, 76, 65, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .profile-image-container:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(8, 76, 65, 0.3);
+        }
+
+        .profile-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .profile-image-container:hover .profile-image {
+            transform: scale(1.1);
+        }
+
+        .profile-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(8, 76, 65, 0.95), transparent);
+            color: var(--putih);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .profile-image-container:hover .profile-overlay {
+            transform: translateY(0);
+        }
+
+        .profile-overlay p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--putih);
+            text-align: center;
+        }
+
+        .profile-info h3 {
+            color: var(--hijau-tua);
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-role {
+            color: var(--emas-gelap);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: var(--abu-terang);
+            padding: 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .contact-item:hover {
+            border-left-color: var(--emas);
+            transform: translateX(5px);
+            background: var(--krem);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .contact-details strong {
+            display: block;
+            color: var(--hijau-tua);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details a {
+            color: var(--hitam);
+            text-decoration: none;
+            word-wrap: break-word;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--emas-gelap);
+            text-decoration: underline;
+        }
+
+        .contact-details span {
+            color: var(--hitam);
+        }
+
+        .profile-message {
+            background: linear-gradient(135deg, var(--hijau-sage), var(--krem));
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--hijau-tua);
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 968px) {
+            .developer-profile {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .profile-image-container {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .about-section {
                 padding: 1.5rem;
@@ -126,6 +279,14 @@
 
             .features-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .profile-info h3 {
+                font-size: 1.6rem;
+            }
+
+            .profile-role {
+                font-size: 1rem;
             }
         }
     </style>
@@ -210,10 +371,77 @@
             </div>
         </div>
 
+        <div class="about-section">
+            <h2>Profil Pengembang</h2>
+            <div class="developer-profile">
+                <div class="profile-image-container">
+                    <img src="/gambar/profilpembuat.jpg" alt="Profil Diah Iskamtini" class="profile-image">
+                    <div class="profile-overlay">
+                        <p>Pendidik & Pengembang</p>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h3>Diah Iskamtini</h3>
+                    <p class="profile-role">Pengembang Website Pembelajaran Daulah Abbasiyah</p>
+
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <div class="contact-details">
+                                <strong>Email</strong>
+                                <a href="mailto:diahiskamtini88@gmail.com">diahiskamtini88@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <div class="contact-details">
+                                <strong>Kontak</strong>
+                                <a href="tel:+6285211190122">+62 852 1119 0122</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="contact-icon">📝</span>
+                            <div class="contact-details">
+                                <strong>Kompasiana</strong>
+                                <a href="https://www.kompasiana.com/diah73482" target="_blank" rel="noopener">diah73482</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="contact-icon">📸</span>
+                            <div class="contact-details">
+                                <strong>Instagram</strong>
+                                <a href="https://www.instagram.com/dezu_store/" target="_blank" rel="noopener">@dezu_store</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="contact-icon">🎥</span>
+                            <div class="contact-details">
+                                <strong>YouTube</strong>
+                                <a href="https://www.youtube.com/@DiahIskamtini?app=desktop" target="_blank" rel="noopener">Diah Iskamtini</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span class="contact-icon">🎵</span>
+                            <div class="contact-details">
+                                <strong>TikTok</strong>
+                                <span>Diah</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="profile-message">Untuk pertanyaan, saran, atau kritik mengenai website pembelajaran ini, jangan ragu untuk menghubungi saya melalui kontak di atas. Mari bersama-sama mengembangkan pendidikan yang lebih baik!</p>
+                </div>
+            </div>
+        </div>
+
         <div class="team-section">
             <h3>Dikembangkan untuk Pendidikan</h3>
             <p>Website ini dikembangkan sebagai proyek pembelajaran dengan tujuan edukatif. Kami berkomitmen untuk terus meningkatkan konten dan fitur agar dapat memberikan manfaat maksimal bagi pengguna.</p>
-            <p><strong>Kontak:</strong> Untuk pertanyaan, saran, atau kritik, silakan hubungi kami melalui email atau media sosial yang tertera di footer website.</p>
         </div>
 
         <div class="btn-container">
@@ -222,8 +450,8 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah</p>
-        <p>Dibuat untuk tujuan pendidikan</p>
+        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah. Hak Cipta Dilindungi.</p>
+        <p>Dibuat oleh Diah Iskamtini untuk tujuan pendidikan</p>
     </footer>
 
     <script src="/js/common.js"></script>

@@ -168,27 +168,52 @@ app.get('/admin/download', (req, res) => {
         }
 
         try {
+            console.log('CSV Download - Total rows:', rows.length);
+            if (rows.length > 0) {
+                console.log('Sample data:', rows[0]);
+            }
+
             // Format data for CSV
             const formattedData = rows.map((row, index) => ({
                 'No': index + 1,
                 'Nama Pengguna': row.name,
                 'Skor': row.score,
-                'Tanggal & Waktu': new Date(row.timestamp).toLocaleString('id-ID')
+                'Tanggal & Waktu': new Date(row.timestamp).toLocaleString('id-ID', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                })
             }));
 
-            // Convert to CSV
+            // Convert to CSV with UTF-8 BOM for better Excel compatibility
             const parser = new Parser({
-                fields: ['No', 'Nama Pengguna', 'Skor', 'Tanggal & Waktu']
+                fields: ['No', 'Nama Pengguna', 'Skor', 'Tanggal & Waktu'],
+                delimiter: ',',
+                withBOM: true,
+                header: true
             });
             const csv = parser.parse(formattedData);
 
-            // Set headers for file download
-            res.setHeader('Content-Type', 'text/csv');
-            res.setHeader('Content-Disposition', 'attachment; filename=scores.csv');
-            res.send(csv);
+            // Add UTF-8 BOM manually to ensure proper encoding
+            const csvWithBOM = '\uFEFF' + csv;
+
+            // Set headers for file download with proper charset
+            res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+            res.setHeader('Content-Disposition', 'attachment; filename="scores-' + new Date().toISOString().split('T')[0] + '.csv"');
+
+            console.log('Sending CSV with', formattedData.length, 'rows');
+            res.send(csvWithBOM);
         } catch (error) {
             console.error('Error generating CSV:', error);
-            res.status(500).json({ error: 'Failed to generate CSV' });
+            console.error('Error stack:', error.stack);
+            res.status(500).json({
+                error: 'Failed to generate CSV',
+                details: error.message
+            });
         }
     });
 });
