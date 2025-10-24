@@ -127,6 +127,40 @@
             font-weight: 700;
         }
 
+        .insight-list {
+            counter-reset: insight;
+            list-style: none;
+            margin: 1.5rem 0 0 0;
+            padding: 0;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .insight-list li {
+            position: relative;
+            padding: 1.25rem 1.25rem 1.25rem 3.25rem;
+            background: var(--putih);
+            border-radius: 12px;
+            border: 1px solid rgba(9, 64, 55, 0.12);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            line-height: 1.7;
+        }
+
+        .insight-list li::before {
+            counter-increment: insight;
+            content: counter(insight) ".";
+            position: absolute;
+            left: 1.2rem;
+            top: 1.1rem;
+            font-weight: 700;
+            color: var(--hijau-tua);
+            font-size: 1.25rem;
+        }
+
+        .insight-list strong {
+            color: var(--hijau-tua);
+        }
+
         .info-list strong {
             color: var(--hijau-tua);
             font-weight: 700;
@@ -440,13 +474,13 @@
         }
 
         .infographic-image {
-            margin-top: 1rem;
+            margin: 1.25rem auto;
             text-align: center;
+            max-width: 640px;
         }
 
         .infographic-image img {
             width: 100%;
-            max-width: 640px;
             height: auto;
             border-radius: 12px;
             box-shadow: 0 6px 16px rgba(0,0,0,0.12);
@@ -843,337 +877,170 @@
 
     <main>
         <section class="hero">
-            <h1>Ekosistem Ilmu Abbasiyah dalam Visual</h1>
-            <p>Visual berikut menunjukkan bagaimana kekuasaan, stabilitas ekonomi, dan patronase khalifah bersinergi membentuk peradaban yang berorientasi pada ilmu pengetahuan.</p>
+            <h1>Puncak Keemasan Ilmu Abbasiyah</h1>
+            <p>Masa Daulah Abbasiyah, khususnya di Baghdad, dikenang sebagai zaman keemasan ilmu pengetahuan. Puncak peradaban ini lahir dari proyek intelektual berkelanjutan yang ditopang stabilitas negara serta visi para pemimpin yang mencintai ilmu.</p>
         </section>
 
         <div class="infographic-section" data-section="1">
-            <h3>1. Berdirinya Bayt al-Hikmah</h3>
+            <h3>1. Estafet Tiga Khalifah Sahabat Ilmu</h3>
             <div class="infographic-content">
-                <p>Bayt al-Hikmah adalah perpustakaan dan rumah belajar di Baghdad. Tempat ini mulai dirintis pada masa Khalifah al-Mansur dan tumbuh pesat di zaman Harun ar-Rasyid dan al-Ma'mun.</p>
-                <ul class="infographic-list">
-                    <li>Terdiri dari ruang baca, gudang buku, dan meja kerja untuk menerjemahkan buku asing.</li>
-                    <li>Bahasa Yunani, Persia, dan India diterjemahkan ke dalam bahasa Arab agar mudah dipelajari.</li>
-                    <li>Para penyalin dan peneliti mendapat gaji, kertas, dan alat belajar dari negara.</li>
-                </ul>
-                <div class="infographic-image">
-                    <img src="/gambar/baitul-hikmah.jpeg" alt="Ilustrasi aktivitas di Bayt al-Hikmah">
-                    <p class="image-caption">Ilustrasi suasana belajar di Bayt al-Hikmah sebagai pusat ilmu.</p>
-                </div>
-            </div>
-        </div>
-        <div class="infographic-section" data-section="2">
-            <h3>2. Tiga Khalifah Sahabat Ilmu</h3>
-            <div class="infographic-content">
-                <p>Perjalanan ilmu di Daulah Abbasiyah berjalan seperti estafet: al-Mansur -> Harun ar-Rasyid -> al-Ma'mun. Mereka saling melanjutkan proyek ilmu pengetahuan.</p>
+                <p>Perjalanan ilmu di Daulah Abbasiyah berjalan layaknya estafet: tiga khalifah besar saling melanjutkan visi dan proyek ilmu pengetahuan sehingga kemajuan berlangsung tanpa putus.</p>
                 <div class="timeline-strip">
                     <div class="timeline-card">
-                        <span>al-Mansur (754-775 M)</span>
-                        <h4>Membangun Pondasi</h4>
-                        <p>Membangun kota Baghdad, menyiapkan perpustakaan istana, dan mengundang ahli hitung dari Persia.</p>
+                        <span>Al-Mansur (754-775 M)</span>
+                        <h4>Sang Pembangun Pondasi</h4>
+                        <p>Mendirikan Baghdad sebagai kota lingkaran, merintis perpustakaan istana, dan mengundang sarjana Persia untuk memulai tradisi ilmiah di ibu kota baru.</p>
                     </div>
                     <div class="timeline-card">
                         <span>Harun ar-Rasyid (786-809 M)</span>
                         <h4>Memperluas Dukungan</h4>
-                        <p>Menata Bayt al-Hikmah, memberi gaji peneliti, serta membeli buku dari berbagai negeri.</p>
+                        <p>Mengembangkan perpustakaan istana menjadi Bayt al-Hikmah, menggaji peneliti, dan membeli naskah kuno dari berbagai negeri.</p>
                     </div>
                     <div class="timeline-card">
-                        <span>al-Ma'mun (813-833 M)</span>
-                        <h4>Puncak Penerjemahan</h4>
-                        <p>Membentuk tim penerjemah lintas agama, mendirikan observatorium, dan mengirim misi mencari buku baru.</p>
+                        <span>Al-Ma'mun (813-833 M)</span>
+                        <h4>Puncak Gerakan Penerjemahan</h4>
+                        <p>Membentuk tim penerjemah lintas agama, mengirim misi ilmu hingga Konstantinopel, dan mendirikan observatorium untuk riset astronomi.</p>
                     </div>
                 </div>
                 <div class="khalifah-gallery">
                     <figure>
-                        <img src="/gambar/kotabaghdad.jpg" alt="Ilustrasi rancangan kota Baghdad pada masa al-Mansur">
-                        <figcaption>Al-Mansur merancang Baghdad sebagai kota lingkaran dengan pusat pemerintahan dan ilmu di bagian inti.</figcaption>
+                        <img src="/gambar/kotabaghdad.jpg" alt="Ilustrasi rancangan kota Baghdad pada masa Al-Mansur">
+                        <figcaption>Gambar : Ilustrasi Kota Baghdad</figcaption>
                     </figure>
                     <figure>
-                        <img src="/gambar/baitulhikmah.jpg" alt="Ilustrasi suasana Bayt al-Hikmah zaman Harun ar-Rasyid">
-                        <figcaption>Harun ar-Rasyid memakmurkan Bayt al-Hikmah sehingga ulama dan penerjemah dapat bekerja nyaman.</figcaption>
+                        <img src="/gambar/baitulhikmah.jpg" alt="Ilustrasi suasana Bayt al-Hikmah era Harun ar-Rasyid">
+                        <figcaption>Gambar : Ilustrasi Baitul Hikmah</figcaption>
                     </figure>
                     <figure>
-                        <img src="/gambar/almamunpenerjemah.jpeg" alt="Lukisan imajinatif Al-Ma'mun memimpin majelis penerjemah">
-                        <figcaption>Al-Ma'mun mengawasi tim penerjemah lintas bangsa untuk membawa naskah astronomi dan filsafat terbaru.</figcaption>
+                        <img src="/gambar/almamunpenerjemah.jpeg" alt="Ilustrasi Al-Ma'mun memimpin majelis penerjemah">
+                        <figcaption>Gambar : Ilustrasi Al-Ma'mun memimpin majelis penerjemah</figcaption>
                     </figure>
                 </div>
             </div>
         </div>
-        <div class="infographic-section" data-section="3">
-            <h3>3. Ilmuwan Hebat dari Baghdad</h3>
+        <div class="infographic-section" data-section="2">
+            <h3>2. Bayt al-Hikmah: Jantung Intelektual Baghdad</h3>
             <div class="infographic-content">
-                <p>Berkat dukungan negara, banyak ilmuwan cemerlang lahir di Baghdad. Inilah beberapa tokoh yang sering dibahas di sekolah.</p>
+                <p>Bayt al-Hikmah adalah perpustakaan, akademi, dan pusat penerjemahan terbesar di dunia pada masanya. Tempat ini menjadi pusat gravitasi bagi para pemikir terbaik yang datang ke Baghdad.</p>
+                <div class="infographic-image">
+                    <img src="/gambar/baitul-hikmah.jpeg" alt="Ilustrasi aktivitas ilmiah di Bayt al-Hikmah Baghdad">
+                    <p class="image-caption">Bayt al-Hikmah menjadi rumah bagi perpustakaan, penerjemah, dan peneliti lintas peradaban.</p>
+                </div>
+                <div class="section-highlight" data-switcher aria-label="Fokus Bayt al-Hikmah">
+                    <div class="switcher-controls" role="tablist">
+                        <button type="button" class="switcher-chip active" data-switch="fungsi" role="tab" aria-selected="true">Fungsi Utama</button>
+                        <button type="button" class="switcher-chip" data-switch="penerjemahan" role="tab" aria-selected="false">Gerakan Penerjemahan</button>
+                        <button type="button" class="switcher-chip" data-switch="dukungan" role="tab" aria-selected="false">Dukungan Negara</button>
+                    </div>
+                    <article class="switcher-panel active" data-panel="fungsi" role="tabpanel">
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Laboratorium Ilmu Negara</h4>
+                                <p>Bayt al-Hikmah merangkum ruang baca, gudang naskah, katalog, dan observatorium dalam satu kompleks yang terhubung.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Ruang baca luas:</strong> Majelis ilmiah berlangsung sepanjang hari dengan akses naskah terbuka bagi peneliti terpilih.</li>
+                                <li><strong>Gudang naskah:</strong> Khizanat al-Kutub menyimpan manuskrip dari Persia, India, dan Yunani dengan sistem katalog rapi.</li>
+                                <li><strong>Ruang eksperimen:</strong> Observatorium dan laboratorium kecil mendukung riset astronomi serta kimia praktis.</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="switcher-panel" data-panel="penerjemahan" role="tabpanel" hidden>
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Mesin Penerjemahan Dunia</h4>
+                                <p>Tim lintas agama menerjemahkan teks filsafat, matematika, kedokteran, dan astronomi ke bahasa Arab sebagai bahasa ilmu baru.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Kurasi naskah:</strong> Utusan Al-Ma'mun menelusuri Konstantinopel hingga India untuk membeli manuskrip terbaik.</li>
+                                <li><strong>Metode kolaboratif:</strong> Penerjemah bekerja berpasangan; ahli bahasa sumber bermitra dengan pakar bahasa Arab agar istilah teknis tepat.</li>
+                                <li><strong>Revisi berlapis:</strong> Setiap terjemahan diuji ulang oleh pakar bidang terkait sebelum diperbanyak.</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="switcher-panel" data-panel="dukungan" role="tabpanel" hidden>
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Patronase Khalifah</h4>
+                                <p>Khalifah menanggung gaji, peralatan, dan kebutuhan hidup para cendekiawan sehingga mereka dapat fokus meneliti.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Gaji profesional:</strong> Penerjemah, penyalin, dan penjaga malam menerima upah tetap dari kas negara.</li>
+                                <li><strong>Logistik lengkap:</strong> Kertas Samarkand, tinta, dan alat ukur dibagikan secara gratis untuk menunjang riset.</li>
+                                <li><strong>Penghargaan ilmiah:</strong> Hasil terjemahan unggul dihargai setara berat buku dalam emas, memotivasi mutu kerja.</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="infographic-section" data-section="3">
+            <h3>3. Ilmuwan Hebat Produk Zaman Keemasan</h3>
+            <div class="infographic-content">
+                <p>Dukungan para khalifah dan atmosfer ilmiah Bayt al-Hikmah melahirkan ilmuwan cemerlang yang karyanya berdampak hingga ribuan tahun.</p>
                 <div class="scientist-grid">
+                    <div class="scientist-card">
+                        <h4>Al-Khawarizmi</h4>
+                        <p><strong>Bidang:</strong> Matematika</p>
+                        <p>Seorang sarjana Bayt al-Hikmah yang dijuluki Bapak Aljabar melalui karya <em>al-Kitab al-mukhtasar fi hisab al-jabr wa'l-muqabala</em>. Ia memopulerkan angka Hindu-Arab dan namanya melahirkan istilah "algoritma".</p>
+                    </div>
                     <div class="scientist-card">
                         <h4>Al-Kindi</h4>
                         <p><strong>Bidang:</strong> Filsafat dan Matematika</p>
-                        <p>Disebut "Filosof Arab". Ia menjelaskan ilmu sulit dengan bahasa sederhana dan menyusun cara belajar logika.</p>
+                        <p>Filosof Arab pertama yang menerjemahkan dan mengadaptasi pemikiran Yunani, sekaligus menjelaskan logika Aristoteles dengan bahasa Arab yang jelas.</p>
                     </div>
                     <div class="scientist-card">
                         <h4>Al-Farabi</h4>
                         <p><strong>Bidang:</strong> Musik dan Pemerintahan</p>
-                        <p>Mempelajari musik secara ilmiah, serta menulis buku tentang tata kota dan pemimpin yang adil.</p>
+                        <p>Dijuluki "Guru Kedua" sesudah Aristoteles. Mengembangkan teori musik ilmiah dan menulis <em>al-Madinah al-Fadilah</em> tentang tata kota dan kepemimpinan adil.</p>
                     </div>
                     <div class="scientist-card">
                         <h4>Ibnu Sina</h4>
                         <p><strong>Bidang:</strong> Kedokteran</p>
-                        <p>Menulis "Al-Qanun fi al-Tibb, buku pegangan dokter selama ratusan tahun di Asia dan Eropa.</p>
-                    </div>
-                    <div class="scientist-card">
-                        <h4>Al-Khawarizmi</h4>
-                        <p><strong>Bidang:</strong> Matematika</p>
-                        <p>Mengembangkan aljabar dan tabel angka. Istilah "algoritma" berasal dari namanya.</p>
+                        <p>Karyanya <em>Al-Qanun fi al-Tibb</em> menjadi kitab standar kedokteran di Asia dan Eropa berabad-abad lamanya, mewakili puncak tradisi medis era Abbasiyah.</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="infographic-section" data-section="4">
-            <h3>4. Orientasi Ilmu Pengetahuan</h3>
+            <h3>4. Fondasi: Kestabilan Politik, Militer, dan Ekonomi</h3>
             <div class="infographic-content">
-                <p>Orientasi ilmu Abbasiyah menempatkan pengetahuan sebagai penggerak utama administrasi, ekonomi, dan kehidupan sosial. Klik fokus di bawah untuk melihat bagaimana gagasan diterjemahkan menjadi praktik nyata.</p>
-                <div class="section-highlight" data-switcher aria-label="Fokus orientasi ilmu Abbasiyah">
-                    <div class="switcher-controls" role="tablist">
-                        <button type="button" class="switcher-chip active" data-switch="riset" role="tab" aria-selected="true">Pusat Riset Terpadu</button>
-                        <button type="button" class="switcher-chip" data-switch="aplikasi" role="tab" aria-selected="false">Penerapan Ilmu</button>
-                        <button type="button" class="switcher-chip" data-switch="kolaborasi" role="tab" aria-selected="false">Kolaborasi Disiplin</button>
+                <p>Seluruh pencapaian ilmu Abbasiyah terjadi ketika negara berada di puncak kekuatan. Pemerintahan yang kuat dan militer yang solid memberi ruang kerja aman bagi para ilmuwan.</p>
+                <div class="section-highlight">
+                    <div class="panel-grid">
+                        <div>
+                            <h4>Kestabilan Politik & Militer</h4>
+                            <p>Keamanan ibu kota Baghdad membuat ulama, penerjemah, dan peneliti dapat berkarya tanpa gangguan konflik.</p>
+                            <ul class="info-list">
+                                <li><strong>Pemerintahan terpusat:</strong> Administrasi yang rapi memastikan kebijakan ilmu dijalankan hingga tingkat lokal.</li>
+                                <li><strong>Militer solid:</strong> Pasukan menjaga ibu kota sekaligus mengawal misi pencarian naskah ke luar negeri.</li>
+                                <li><strong>Mobilitas aman:</strong> Stabilitas memungkinkan utusan ilmu bepergian jauh membawa pulang pengetahuan baru.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Kemakmuran Ekonomi</h4>
+                            <p>Baghdad menjadi pusat perdagangan dunia yang memasok anggaran besar untuk proyek ilmu pengetahuan.</p>
+                            <ul class="info-list">
+                                <li><strong>Pusat perdagangan:</strong> Jalur Timur-Barat bertemu di Baghdad, memperkaya kas negara secara konsisten.</li>
+                                <li><strong>Pendanaan ilmu:</strong> Dana negara dipakai menggaji sarjana, membeli naskah mahal, dan menutup biaya riset.</li>
+                                <li><strong>Investasi fasilitas:</strong> Kemakmuran memungkinkan pembangunan observatorium, perpustakaan, dan bimaristan modern.</li>
+                            </ul>
+                        </div>
                     </div>
-                    <article class="switcher-panel active" data-panel="riset" role="tabpanel">
-                        <div class="panel-grid">
-                            <div>
-                                <h4>Bayt al-Hikmah sebagai Laboratorium Negara</h4>
-                                <p>Pusat ilmu Baghdad menghimpun perpustakaan, ruang penerjemahan, dan observatorium dalam satu kompleks. Tugasnya bukan sekadar menyimpan naskah, tetapi menguji dan merapikan ilmu agar siap pakai oleh birokrat maupun guru.</p>
-                            </div>
-                            <ul class="info-list">
-                                <li><strong>Fasilitas lengkap:</strong> Astrolab, meja hitung, dan ruang distilasi ditempatkan berdampingan dengan ruang katalog.</li>
-                                <li><strong>Dukungan negara:</strong> Penerjemah, juru salin, hingga penjaga malam menerima gaji dan kertas Samarkand dari kas khalifah.</li>
-                                <li><strong>Distribusi data:</strong> Catatan astronomi dan katalog obat dikirim ke madrasah daerah untuk dijadikan modul pengajaran.</li>
-                            </ul>
-                        </div>
-                        <div class="quick-stats">
-                            <div class="stat-card">
-                                <span class="stat-label">Lokasi inti</span>
-                                <span class="stat-value">Baghdad</span>
-                                <p>Menyerap ilmuwan Persia, Bizantium, India, dan Syam dalam satu jejaring riset.</p>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-label">Jam riset</span>
-                                <span class="stat-value">Siang & Malam</span>
-                                <p>Keputusan khalifah menyediakan lampu minyak dan penjaga khusus agar eksperimen tidak terputus.</p>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="switcher-panel" data-panel="aplikasi" role="tabpanel" hidden>
-                        <div class="panel-grid">
-                            <div>
-                                <h4>Ilmu untuk Pelayanan Publik</h4>
-                                <p>Pengetahuan tidak berhenti di meja riset. Matematikus, ahli falak, dan insinyur merancang solusi bagi kas negara, jadwal ibadah, hingga pembangunan kanal.</p>
-                            </div>
-                            <ul class="info-list">
-                                <li><strong>Perdagangan & pajak:</strong> Al-Khawarizmi menyusun tabel zakat dan pajak berdasar perhitungan aljabar.</li>
-                                <li><strong>Navigasi & kalender:</strong> Observatorium Baghdad menentukan arah kiblat, musim tanam, dan jadwal pelayaran.</li>
-                                <li><strong>Kesehatan masyarakat:</strong> Kitab medis diterjemahkan ulang menjadi panduan praktik bagi bimaristan.</li>
-                            </ul>
-                        </div>
-                        <div class="quick-stats">
-                            <div class="stat-card">
-                                <span class="stat-label">Bidang prioritas</span>
-                                <span class="stat-value">Ekonomi & Kesehatan</span>
-                                <p>Data matematika dan farmasi dipakai untuk menstabilkan harga pasar dan meracik obat standar.</p>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="switcher-panel" data-panel="kolaborasi" role="tabpanel" hidden>
-                        <div class="panel-grid">
-                            <div>
-                                <h4>Kolaborasi Lintas Disiplin & Agama</h4>
-                                <p>Khalifah membuka ruang diskusi antara fuqaha, dokter, penerjemah Yunani, dan insinyur. Tujuannya menyatukan sains, filsafat, dan syariat dalam kebijakan publik.</p>
-                            </div>
-                            <ul class="info-list">
-                                <li><strong>Majelis hikmah:</strong> Diskusi rutin membahas dampak etis dan teknis dari temuan baru.</li>
-                                <li><strong>Tim lintas iman:</strong> Ilmuwan Kristen, Yahudi, dan Muslim bekerja pada terjemahan dan observasi.</li>
-                                <li><strong>Output kurikulum:</strong> Hasil diskusi diringkas menjadi modul madrasah dan khutbah Jumat bertema ilmu.</li>
-                            </ul>
-                        </div>
-                        <div class="quick-stats">
-                            <div class="stat-card">
-                                <span class="stat-label">Format</span>
-                                <span class="stat-value">Majelis Musyawarah</span>
-                                <p>Dipimpin vizier atau qadi untuk memastikan temuan ilmiah selaras dengan kebutuhan umat.</p>
-                            </div>
-                        </div>
-                    </article>
                 </div>
             </div>
         </div>
         <div class="infographic-section" data-section="5">
-            <h3>5. Stabilitas Politik, Militer, dan Ekonomi</h3>
+            <h3>5. Analisis: Penyebab Kemajuan Ilmu Masa Daulah Abbasiyah</h3>
             <div class="infographic-content">
-                <p>Ketenangan lingkungan ilmu dijaga lewat kerja sama birokrat, pasukan, dan bendahara. Pilih pilar di bawah untuk melihat peran masing-masing.</p>
-                <div class="section-highlight" data-switcher aria-label="Pilar stabilitas Abbasiyah">
-                    <div class="switcher-controls" role="tablist">
-                        <button type="button" class="switcher-chip active" data-switch="politik" role="tab" aria-selected="true">Politik</button>
-                        <button type="button" class="switcher-chip" data-switch="militer" role="tab" aria-selected="false">Militer</button>
-                        <button type="button" class="switcher-chip" data-switch="ekonomi" role="tab" aria-selected="false">Ekonomi</button>
-                    </div>
-                    <article class="switcher-panel active" data-panel="politik" role="tabpanel">
-                        <div class="panel-grid">
-                            <div>
-                                <h4>Birokrasi sebagai Orkestra Ilmu</h4>
-                                <p>Di bawah khalifah, vizier dan sekretaris menyusun regulasi pendidikan, memilih kepala perpustakaan, dan mengawasi wakaf ilmu agar tersalur tepat.</p>
-                            </div>
-                            <ul class="info-list">
-                                <li><strong>Vizier profesional:</strong> Mengirim instruksi tertulis ke gubernur tentang gaji guru, seleksi pustakawan, dan pengadaan buku.</li>
-                                <li><strong>Diwan pendidikan:</strong> Mencatat kebutuhan madrasah dan bimaristan serta melaporkannya tiap musim kepada khalifah.</li>
-                                <li><strong>Audit wakaf:</strong> Pengawas khusus memastikan dana wakaf kitab dipakai membeli kertas dan membayar relawan literasi.</li>
-                            </ul>
-                        </div>
-                    </article>
-                    <article class="switcher-panel" data-panel="militer" role="tabpanel" hidden>
-                        <div class="panel-grid">
-                            <div>
-                                <h4>Keamanan Jalur Ilmu</h4>
-                                <p>Tentara Abbasiyah bukan hanya bertempur; mereka menjaga kafilah buku, melindungi observatorium dari gangguan, dan memastikan perjalanan ilmuwan aman.</p>
-                            </div>
-                            <ul class="info-list">
-                                <li><strong>Penjagaan rute sutra:</strong> Pos militer rutin ditempatkan di jalur Kufahâ€“Baghdadâ€“Ray agar naskah tiba tanpa dirampok.</li>
-                                <li><strong>Pengawalan ilmuwan:</strong> Ekspedisi pemburu naskah ke Byzantium atau India ditemani pasukan elite.</li>
-                                <li><strong>Mitigasi konflik:</strong> Garnisun kota memadamkan kerusuhan pasar agar aktivitas laboratorium tidak terganggu.</li>
-                            </ul>
-                        </div>
-                    </article>
-                    <article class="switcher-panel" data-panel="ekonomi" role="tabpanel" hidden>
-                        <div class="panel-grid">
-                            <div>
-                                <h4>Kas Negara untuk Pengetahuan</h4>
-                                <p>Perdagangan rempah, kain, dan logam mulia menambah pemasukan negara. Sebagian dialokasikan khusus untuk gaji ilmuwan dan pembangunan fasilitas publik.</p>
-                            </div>
-                            <ul class="info-list">
-                                <li><strong>Pajak progresif:</strong> Pendapatan dari pasar Baghdad mendanai pengadaan kertas dan upah penyalin.</li>
-                                <li><strong>Beasiswa ilmuwan:</strong> Pelajar dari Khurasan dan Andalusia menerima tunjangan tinggal di Baghdad.</li>
-                                <li><strong>Pembangunan bimaristan:</strong> Rumah sakit pengajaran dilengkapi laboratorium obat dan perpustakaan mini.</li>
-                            </ul>
-                        </div>
-                        <div class="quick-stats">
-                            <div class="stat-card">
-                                <span class="stat-label">Sumber utama</span>
-                                <span class="stat-value">Perdagangan rempah</span>
-                                <p>Margin ekspor rempah menyediakan dana stabil untuk proyek ilmu tahunan.</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </div>
-        <div class="infographic-section" data-section="6">
-            <h3>6. Puncak Peradaban Abbasiyah</h3>
-            <div class="infographic-content">
-                <p>Masa keemasan Abbasiyah berjalan bertahap. Gunakan penanda tahun untuk melihat sorotan utama setiap fase.</p>
-                <div class="section-highlight" data-switcher aria-label="Puncak peradaban Abbasiyah">
-                    <div class="switcher-controls" role="tablist">
-                        <button type="button" class="switcher-chip active" data-switch="786" role="tab" aria-selected="true">786-809 M</button>
-                        <button type="button" class="switcher-chip" data-switch="813" role="tab" aria-selected="false">813-833 M</button>
-                        <button type="button" class="switcher-chip" data-switch="900" role="tab" aria-selected="false">900-950 M</button>
-                    </div>
-                    
-                    <article class="switcher-panel active" data-panel="786" role="tabpanel">
-                        <div class="panel-grid">
-                            <div>
-                                <h4>Patronase Ilmiah Harun ar-Rasyid</h4>
-                                <p>Khalifah menyulap perpustakaan istana menjadi Bayt al-Hikmah versi awal, membeli naskah dari Byzantium, dan mengundang ilmuwan lintas negeri.</p>
-                            </div>
-                            <ul class="info-list">
-                                <li><strong>Ekspedisi buku:</strong> Utusan membawa pulang manuskrip kedokteran, matematika, dan mekanika.</li>
-                                <li><strong>Beasiswa ilmuwan:</strong> Gaji khusus untuk penerjemah dan ahli hitung agar fokus pada riset.</li>
-                                <li><strong>Ruang eksperimen:</strong> Laboratorium logam dan kimia mulai dibangun di area istana.</li>
-                            </ul>
-                        </div>
-                    </article>
-                    <article class="switcher-panel" data-panel="813" role="tabpanel" hidden>
-                        <div class="panel-grid">
-                            <div>
-                                <h4>Revolusi Penerjemahan al-Ma'mun</h4>
-                                <p>Al-Ma'mun memperluas Bayt al-Hikmah, mendirikan observatorium Baghdad dan Damaskus, serta membayar penerjemah dengan emas seberat naskah.</p>
-                            </div>
-                            <ul class="info-list">
-                                <li><strong>Tim lintas agama:</strong> Hunayn bin Ishaq dan kawan-kawan menerjemahkan teks Yunani ke Arab.</li>
-                                <li><strong>Pemetaan langit:</strong> Observatorium menghasilkan tabel posisi matahari dan planet yang akurat.</li>
-                                <li><strong>Debat rasional:</strong> Majelis ilmiah menumbuhkan tradisi argumentasi logis dalam teologi dan sains.</li>
-                            </ul>
-                        </div>
-                        <div class="quick-stats">
-                            <div class="stat-card">
-                                <span class="stat-label">Lokasi Observatorium</span>
-                                <span class="stat-value">Baghdad & Damaskus</span>
-                                <p>Mencatat kemiringan bumi dan menentukan nilai ukuran bumi lebih presisi.</p>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="switcher-panel" data-panel="900" role="tabpanel" hidden>
-                        <div class="panel-grid">
-                            <div>
-                                <h4>Jaringan Bimaristan dan Madrasah</h4>
-                                <p>Memasuki abad ke-10, Baghdad dan kota satelit memiliki bimaristan pengajaran, madrasah, dan perpustakaan kota yang dikelola negara.</p>
-                            </div>
-                            <ul class="info-list">
-                                <li><strong>Bimaristan Baghdad:</strong> Menggabungkan rawat inap, apotek, dan kelas dokter.</li>
-                                <li><strong>Madrasah spesialis:</strong> Bidang fikih, matematika, dan teknik diajarkan dengan modul resmi.</li>
-                                <li><strong>Ekspor ilmu:</strong> Sarjana lulusan Baghdad membawa tradisi ini ke Damaskus, Kairo, hingga Andalusia.</li>
-                            </ul>
-                        </div>
-                        <div class="quick-stats">
-                            <div class="stat-card">
-                                <span class="stat-label">Sebaran</span>
-                                <span class="stat-value">Irak, Syam, Mesir</span>
-                                <p>Institusi ilmu menyeberang mengikuti jalur dagang dan rute haji.</p>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-label">Warisan</span>
-                                <span class="stat-value">Kurikulum standar</span>
-                                <p>Menjadi rujukan universitas awal di Kairo dan Toledo.</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </div>
-        <div class="infographic-section" data-section="7">
-            <h3>7. Penyebab Kemajuan Peradaban</h3>
-            <div class="infographic-content">
-                <p>Faktor-faktor berikut dapat dibaca secara ringkas dengan membuka penjelasan yang Anda butuhkan.</p>
+                <p>Kemajuan ilmu pengetahuan yang fenomenal di era Abbasiyah lahir dari kombinasi faktor yang saling menguatkan dan dipandu oleh visi negara terhadap ilmu.</p>
                 <div class="section-highlight">
-                    <details class="factor-detail" open>
-                        <summary>Lingkungan Belajar yang Kondusif</summary>
-                        <div class="factor-body">
-                            <ul>
-                                <li><strong>Keamanan politik:</strong> Kebijakan khalifah memastikan kota bebas dari konflik sehingga kelas dan riset berjalan tenang.</li>
-                                <li><strong>Pendanaan berkelanjutan:</strong> Jalur dagang ramai mengisi kas negara untuk menggaji guru, peneliti, dan pengelola perpustakaan.</li>
-                                <li><strong>Pertukaran budaya:</strong> Baghdad menjadi hub bagi ilmuwan Persia, India, dan Yunani untuk saling membagikan metodologi.</li>
-                                <li><strong>Motivasi spiritual:</strong> Menuntut ilmu dipandang sebagai amal, membuat keluarga mendukung anak belajar jauh dari kampung.</li>
-                            </ul>
-                        </div>
-                    </details>
-                    <details class="factor-detail">
-                        <summary>Kebijakan & Budaya Literasi</summary>
-                        <div class="factor-body">
-                            <ul>
-                                <li><strong>Visi pemimpin:</strong> Khalifah menempatkan ilmu sebagai legitimasi politik dan memerintahkan pejabat mendukung riset.</li>
-                                <li><strong>Jejaring global:</strong> Hubungan dagang dengan Cina, India, dan Mediterania mempercepat pertukaran teknologi dan ide.</li>
-                                <li><strong>Industri kertas:</strong> Produksi kertas Samarkand membuat buku terjangkau, memicu tumbuhnya pasar buku dan majelis baca.</li>
-                                <li><strong>Partisipasi masyarakat:</strong> Wakaf, bazar ilmu, dan komunitas relawan mendanai perpustakaan lingkungan serta kelas malam.</li>
-                            </ul>
-                            <div class="factor-tags">
-                                <span class="factor-tag">Wakaf Pendidikan</span>
-                                <span class="factor-tag">Bazar Buku</span>
-                                <span class="factor-tag">Jejaring Dagang</span>
-                            </div>
-                        </div>
-                    </details>
-                    <details class="factor-detail">
-                        <summary>Kesimpulan Singkat</summary>
-                        <div class="factor-body">
-                            <p>Abbasiyah menunjukkan bahwa kemajuan ilmu lahir dari koordinasi tiga unsur: lembaga riset yang teratur, dukungan material yang konsisten, dan budaya masyarakat yang terbuka terhadap pengetahuan. Ketiganya saling menguatkan dan menjadi teladan peradaban berikutnya.</p>
-                        </div>
-                    </details>
+                    <ol class="insight-list">
+                        <li><strong>Visi dan dukungan politik penguasa:</strong> Para khalifah, terutama Al-Mansur, Harun ar-Rasyid, dan Al-Ma'mun, memiliki <em>political will</em> kuat untuk menjadikan ilmu sebagai proyek negara.</li>
+                        <li><strong>Kemakmuran ekonomi dan stabilitas politik:</strong> Sumber daya finansial melimpah serta situasi aman memungkinkan pemerintah mendanai riset, gaji ilmuwan, dan ekspedisi pencarian naskah.</li>
+                        <li><strong>Gerakan penerjemahan yang masif:</strong> Bayt al-Hikmah berfungsi sebagai pusat penerjemahan terbesar yang menyerap ilmu Yunani, Persia, dan India untuk dikembangkan ulang dalam bahasa Arab.</li>
+                        <li><strong>Sikap terbuka dan toleransi ilmiah:</strong> Pemerintah merekrut pemikir terbaik tanpa memandang agama atau asal, sehingga kolaborasi Muslim, Kristen, Yahudi, dan Persia melahirkan temuan-temuan baru.</li>
+                    </ol>
                 </div>
             </div>
         </div>
@@ -1287,3 +1154,4 @@
     </script>
 </body>
 </html>
+
