@@ -574,6 +574,37 @@ main {
     margin-top: 2rem;
 }
 
+.tokoh-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.tokoh-filter button {
+    border: 1px solid var(--hijau-tua);
+    background: transparent;
+    color: var(--hijau-tua);
+    padding: 0.55rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tokoh-filter button:hover,
+.tokoh-filter button:focus-visible {
+    background: var(--hijau-tua);
+    color: var(--putih);
+    outline: none;
+}
+
+.tokoh-filter button.active {
+    background: var(--emas);
+    border-color: var(--emas);
+    color: var(--hitam);
+}
+
 .tokoh-card {
     background: var(--putih);
     padding: 2rem;
@@ -612,6 +643,46 @@ main {
     border-left-width: 10px;
 }
 
+.tokoh-card.hidden {
+    display: none !important;
+}
+
+.tokoh-card .tokoh-photo {
+    margin: -2rem -2rem 1.25rem -2rem;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+    background: var(--abu-terang);
+    position: relative;
+}
+
+.tokoh-card .tokoh-photo button {
+    background: none;
+    border: none;
+    width: 100%;
+    padding: 0;
+    cursor: zoom-in;
+    display: block;
+}
+
+.tokoh-card .tokoh-photo button:focus-visible {
+    outline: 3px solid var(--emas);
+    outline-offset: 2px;
+}
+
+.tokoh-card .tokoh-photo img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.05);
+    transition: transform 0.3s ease;
+}
+
+.tokoh-card .tokoh-photo button:hover img,
+.tokoh-card .tokoh-photo button:focus img {
+    transform: scale(1.03);
+}
+
 .tokoh-card h4 {
     color: var(--hijau-tua);
     margin-bottom: 0.5rem;
@@ -629,6 +700,65 @@ main {
 .tokoh-card p {
     line-height: 1.7;
     color: var(--hitam);
+}
+
+.tokoh-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 3000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.tokoh-lightbox.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tokoh-lightbox figure {
+    max-width: min(900px, 90vw);
+    max-height: 90vh;
+    background: var(--putih);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.tokoh-lightbox img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.tokoh-lightbox figcaption {
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    color: var(--hijau-tua);
+}
+
+.tokoh-lightbox .close-lightbox {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: var(--putih);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.tokoh-lightbox .close-lightbox:hover {
+    transform: scale(1.1);
 }
 
 /* ===================================

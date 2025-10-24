@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tokoh-Tokoh - Daulah Abbasiyah</title>
+    <title>Tokoh Penggerak Ilmu - Daulah Abbasiyah</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
         /* Next Section Info */
@@ -28,6 +28,88 @@
             line-height: 1.8;
             max-width: 800px;
             margin: 0 auto;
+        }
+
+        .tokoh-list {
+            list-style: disc;
+            margin: 1rem 0 0 1.5rem;
+            line-height: 1.8;
+            color: var(--hitam);
+        }
+
+        .field-groups {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .field-card {
+            background: var(--putih);
+            border: 1px solid var(--hijau-sage);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .field-card summary {
+            font-weight: 600;
+            color: var(--hijau-tua);
+            cursor: pointer;
+        }
+
+        .field-card p {
+            margin-top: 0.6rem;
+            line-height: 1.6;
+        }
+
+        .quiz-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: var(--abu-terang);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .quiz-box h3 {
+            margin-bottom: 1rem;
+            color: var(--hijau-tua);
+            font-size: 1.2rem;
+        }
+
+        .quiz-box details {
+            background: var(--putih);
+            border-radius: 8px;
+            border: 1px solid var(--hijau-sage);
+            margin-bottom: 0.8rem;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+        }
+
+        .quiz-box summary {
+            font-weight: 600;
+            color: var(--hijau-tua);
+            outline: none;
+        }
+
+        .quiz-box details[open] {
+            border-color: var(--emas);
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .quiz-box p {
+            margin-top: 0.6rem;
+            line-height: 1.6;
+        }
+
+        .tokoh-disclaimer {
+            margin: 1.5rem 0;
+            padding: 1rem 1.2rem;
+            border-left: 4px solid var(--emas);
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--hitam);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -82,86 +164,341 @@
 
     <main>
         <section class="hero">
-            <h1>Tokoh-Tokoh Kunci Era Abbasiyah</h1>
+            <h1>Tokoh Penggerak Kemajuan Ilmu Abbasiyah</h1>
+            <p>Mari kenalan dengan para pemimpin dan ilmuwan yang membuat Baghdad terkenal sebagai kota ilmu.</p>
         </section>
+
+        <p class="tokoh-disclaimer">Catatan: Potret tokoh pada halaman ini berupa ilustrasi atau interpretasi modern karena dokumentasi visual asli umumnya tidak tersedia.</p>
 
         <!-- Para Khalifah -->
         <section class="tokoh-section">
-            <h2>Para Khalifah Pembangun Peradaban</h2>
+            <h2>Para Khalifah Pembangun Ekosistem Ilmu</h2>
+
+            <div class="tokoh-filter" role="group" aria-label="Kategori tokoh">
+                <button type="button" class="active" data-filter="all" aria-pressed="true">Semua</button>
+                <button type="button" data-filter="pemimpin" aria-pressed="false">Pemimpin</button>
+                <button type="button" data-filter="filsafat" aria-pressed="false">Filsafat & Humaniora</button>
+                <button type="button" data-filter="matematika" aria-pressed="false">Matematika</button>
+                <button type="button" data-filter="astronomi" aria-pressed="false">Astronomi</button>
+                <button type="button" data-filter="sains" aria-pressed="false">Sains & Optik</button>
+                <button type="button" data-filter="kedokteran" aria-pressed="false">Kedokteran</button>
+                <button type="button" data-filter="geografi" aria-pressed="false">Geografi & Sejarah</button>
+                <button type="button" data-filter="bahasa" aria-pressed="false">Bahasa & Sastra</button>
+            </div>
 
             <div class="tokoh-grid">
-                <div class="tokoh-card">
+                <div class="tokoh-card" data-category="pemimpin">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/Abul-Abbas-As-Saffah.jpg" data-caption="Abdullah as-Saffah">
+                            <img src="/gambar/Abul-Abbas-As-Saffah.jpg" alt="Potret Abul-Abbas As-Saffah">
+                        </button>
+                    </div>
                     <h4>Abdullah as-Saffah</h4>
                     <p class="role">Pendiri Daulah Abbasiyah</p>
-                    <p>Sebagai proklamator dan khalifah pertama, ia berhasil memimpin revolusi melawan Bani Umayyah dan meletakkan fondasi bagi salah satu kekhalifahan terbesar dalam sejarah Islam.</p>
+                    <p>Sebagai khalifah pertama, ia menjaga para guru dan penulis agar aman. Ia menyiapkan dana beasiswa dan mendorong rakyat untuk bangga belajar.</p>
                 </div>
 
-                <div class="tokoh-card">
+                <div class="tokoh-card" data-category="pemimpin">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/almansur.jpg" data-caption="Abu Ja'far Al-Mansur">
+                            <img src="/gambar/almansur.jpg" alt="Potret Abu Ja'far Al-Mansur">
+                        </button>
+                    </div>
                     <h4>Al-Manshur</h4>
-                    <p class="role">Arsitek Baghdad dan pembentuk sistem administrasi</p>
-                    <p>Seorang visioner arsitektur dan administrasi. Ia adalah otak di balik pembangunan kota Baghdad yang megah dan pencipta sistem birokrasi yang efisien yang menopang kekaisaran.</p>
+                    <p class="role">Perancang Kota Baghdad</p>
+                    <p>Ia membuat Baghdad berbentuk lingkaran dengan perpustakaan dan ruang belajar di dekat istana agar mudah dijaga. Ia juga membuat jadwal gaji teratur untuk guru dan ilmuwan.</p>
                 </div>
 
-                <div class="tokoh-card">
+                <div class="tokoh-card" data-category="pemimpin">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/AlRashid.jpg" data-caption="Harun Al-Rasyid">
+                            <img src="/gambar/AlRashid.jpg" alt="Potret Harun Al-Rasyid">
+                        </button>
+                    </div>
                     <h4>Harun Al-Rasyid</h4>
                     <p class="role">Pemimpin di puncak masa keemasan</p>
-                    <p>Namanya identik dengan kemewahan, keadilan, dan kemajuan. Pada masanya, Baghdad menjadi kota terkaya di dunia, dan ia dikenal karena fokusnya pada kesejahteraan rakyat serta menjadi inspirasi kisah Seribu Satu Malam.</p>
+                    <p>Harun membeli banyak buku, mengundang ilmuwan dari Persia, India, dan Yunani, serta menjaga Bayt al-Hikmah tetap ramai. Perdagangan yang maju membuatnya sanggup membiayai alat tulis dan percobaan.</p>
                 </div>
 
-                <div class="tokoh-card">
+                <div class="tokoh-card" data-category="pemimpin">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al_mamun.jpeg" data-caption="Al-Ma'mun">
+                            <img src="/gambar/al_mamun.jpeg" alt="Potret Al-Ma'mun Ar-Rasyid">
+                        </button>
+                    </div>
                     <h4>Al-Ma'mun Ar-Rasyid</h4>
-                    <p class="role">Pelindung ilmu filsafat dan pendiri Baitul Hikmah</p>
-                    <p>Seorang khalifah yang sangat mencintai ilmu pengetahuan. Ia mengubah Baitul Hikmah menjadi akademi global, mendanai proyek penerjemahan besar-besaran, dan mendorong debat intelektual yang bebas.</p>
+                    <p class="role">Pelindung ilmu dan penerjemah</p>
+                    <p>Al-Ma'mun mengirim tim mencari buku baru, membayar penerjemah dengan emas, dan membangun gedung pengamatan bintang. Ia ingin semua ilmu asing diterjemahkan agar mudah dipelajari siswa Baghdad.</p>
                 </div>
             </div>
         </section>
 
         <!-- Para Ilmuwan -->
         <section class="tokoh-section">
-            <h2>Para Ilmuwan Pengubah Dunia</h2>
+            <h2>Ilmuwan Hebat Era Abbasiyah</h2>
 
             <div class="tokoh-grid">
-                <div class="tokoh-card">
-                    <h4>Al-Khawarizmi</h4>
-                    <p class="role">Bapak Aljabar dan penemu angka nol</p>
-                    <p>Seorang jenius matematika dan astronomi. Karyanya, "Al-Jabr", memperkenalkan konsep aljabar sistematis ke seluruh dunia, sementara penggunaan angka nol yang dipopulerkannya merevolusi perhitungan.</p>
+                <div class="tokoh-card" data-category="filsafat">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al-kindi.jpg" data-caption="Al-Kindi">
+                            <img src="/gambar/al-kindi.jpg" alt="Potret Al-Kindi">
+                        </button>
+                    </div>
+                    <h4>Al-Kindi</h4>
+                    <p class="role">Filsafat & Matematika</p>
+                    <p>Lahir di Kufah, bekerja di Baghdad. Ia menjelaskan ilmu filsafat Yunani dengan bahasa yang mudah dipahami dan menulis banyak buku tentang hitung dan musik.</p>
                 </div>
 
-                <div class="tokoh-card">
+                <div class="tokoh-card" data-category="filsafat">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al-farabi.jpg" data-caption="Al-Farabi">
+                            <img src="/gambar/al-farabi.jpg" alt="Potret Al-Farabi">
+                        </button>
+                    </div>
+                    <h4>Al-Farabi</h4>
+                    <p class="role">Filsafat & Musik</p>
+                    <p>Dijuluki "Guru Kedua" setelah Aristoteles. Ia menulis buku tentang cara memimpin kota yang adil dan menjelaskan musik secara ilmiah.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="astronomi">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al-mashar.jpg" data-caption="Al-Ma'shar al-Balkhi">
+                            <img src="/gambar/al-mashar.jpg" alt="Potret Al-Ma'shar al-Balkhi">
+                        </button>
+                    </div>
+                    <h4>Al-Ma'shar al-Balkhi</h4>
+                    <p class="role">Astronomi & Astrologi</p>
+                    <p>Ilmuwan asal Balkh, Afganistan. Di istana Abbasiyah ia membuat kalender bintang dan catatan cuaca yang dipakai sampai ke Eropa.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="matematika astronomi">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al-khwarizmi.jpg" data-caption="Muhammad ibn Musa al-Khwarizmi">
+                            <img src="/gambar/al-khwarizmi.jpg" alt="Potret Muhammad ibn Musa al-Khwarizmi">
+                        </button>
+                    </div>
+                    <h4>Muhammad ibn Musa al-Khwarizmi</h4>
+                    <p class="role">Matematika</p>
+                    <p>Tokoh Bayt al-Hikmah yang menulis buku al-Jabr. Dari namanya lahir istilah aljabar dan algoritma yang kita pakai hingga sekarang.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="sains">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/jabir-bin-hayyan-bapak-kimia-modern.jpg" data-caption="Jabir bin Hayyan">
+                            <img src="/gambar/jabir-bin-hayyan-bapak-kimia-modern.jpg" alt="Potret Jabir bin Hayyan">
+                        </button>
+                    </div>
                     <h4>Jabir bin Hayyan</h4>
-                    <p class="role">Bapak Ilmu Kimia</p>
-                    <p>Dianggap sebagai pionir metode eksperimental dalam kimia. Ia mengembangkan proses-proses dasar seperti distilasi dan kristalisasi, mengubah alkimia menjadi ilmu kimia yang lebih sistematis.</p>
+                    <p class="role">Kimia</p>
+                    <p>Ahli laboratorium yang senang bereksperimen. Ia mempelajari cara menyaring, memanaskan, dan mencampur zat hingga menjadi ilmu kimia dasar.</p>
                 </div>
 
-                <div class="tokoh-card">
+                <div class="tokoh-card" data-category="matematika">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/abu-kamil-shuja-ibn-aslam.jpg" data-caption="Abu Kamil Shuja' ibn Aslam">
+                            <img src="/gambar/abu-kamil-shuja-ibn-aslam.jpg" alt="Potret Abu Kamil Shuja' ibn Aslam">
+                        </button>
+                    </div>
+                    <h4>Abu Kamil Shuja' ibn Aslam</h4>
+                    <p class="role">Matematika</p>
+                    <p>Ahli hitung asal Mesir. Ia mengembangkan aljabar al-Khwarizmi dan mengajarkan cara menghadapi soal pecahan dan akar.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="geografi">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/abu-muhammad-al-hasan-al-hamdani.jpg" data-caption="Al-Hasan al-Hamdani">
+                            <img src="/gambar/abu-muhammad-al-hasan-al-hamdani.jpg" alt="Potret Al-Hasan al-Hamdani">
+                        </button>
+                    </div>
+                    <h4>Al-Hasan al-Hamdani</h4>
+                    <p class="role">Geografi & Sejarah</p>
+                    <p>Penulis dari Yaman yang mencatat peta, hasil bumi, dan budaya Jazirah Arab. Bukunya membantu kita memahami kehidupan luar Baghdad.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="kedokteran sains">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/ibn-sina.jpeg" data-caption="Ibnu Sina (Avicenna)">
+                            <img src="/gambar/ibn-sina.jpeg" alt="Potret Ibnu Sina">
+                        </button>
+                    </div>
+                    <h4>Ibnu Sina</h4>
+                    <p class="role">Kedokteran & Filsafat</p>
+                    <p>Penulis buku "Al-Qanun fi al-Tibb" yang menjadi pedoman dokter ratusan tahun. Ia juga menulis tentang jiwa dan akal.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="sains">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/ibn-al-haytham.jpg" data-caption="Ibn al-Haytham">
+                            <img src="/gambar/ibn-al-haytham.jpg" alt="Potret Ibn al-Haytham">
+                        </button>
+                    </div>
+                    <h4>Ibn al-Haytham</h4>
+                    <p class="role">Optik & Sains</p>
+                    <p>Lahir di Basra, bekerja di Mesir. Ia meneliti cahaya dan mata lalu menulis Buku Optik, dasar pelajaran kamera dan kacamata modern.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="kedokteran sains">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/ar-razi.jpg" data-caption="Ar-Razi">
+                            <img src="/gambar/ar-razi.jpg" alt="Potret Ar-Razi">
+                        </button>
+                    </div>
                     <h4>Ar-Razi</h4>
-                    <p class="role">Ahli kedokteran yang pertama menjelaskan penyakit campak dan cacar</p>
-                    <p>Seorang dokter dan filsuf brilian, Ar-Razi (Rhazes) menulis lebih dari 200 karya. Diagnosis klinisnya yang akurat merupakan lompatan besar dalam dunia kedokteran pada masanya.</p>
+                    <p class="role">Kedokteran</p>
+                    <p>Dokter yang memimpin rumah sakit di Ray dan Baghdad. Ia mencatat gejala penyakit campak dan cacar dan menulis buku obat yang lengkap.</p>
                 </div>
 
-                <div class="tokoh-card">
+                <div class="tokoh-card" data-category="astronomi matematika">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al-battani.png" data-caption="Jabir Al-Batany (Al-Battani)">
+                            <img src="/gambar/al-battani.png" alt="Ilustrasi Jabir Al-Batany">
+                        </button>
+                    </div>
                     <h4>Jabir Al-Batany (Al-Battani)</h4>
-                    <p class="role">Penemu teropong bintang</p>
-                    <p>Seorang astronom dan matematikawan ulung yang membuat beberapa pengamatan astronomi paling akurat pada zamannya. Ia memperbaiki perhitungan orbit bulan dan matahari serta mengembangkan konsep trigonometri.</p>
+                    <p class="role">Astronomi</p>
+                    <p>Ahli bintang yang memperbaiki tabel pergerakan Matahari dan Bulan sehingga waktu shalat dan musim panen bisa dihitung tepat.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="geografi">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al-yaqubi.jpg" data-caption="Al-Ya'qubi">
+                            <img src="/gambar/al-yaqubi.jpg" alt="Potret Al-Ya'qubi">
+                        </button>
+                    </div>
+                    <h4>Al-Ya'qubi</h4>
+                    <p class="role">Geografi & Catatan sejarah</p>
+                    <p>Sejarawan Abbasiyah yang menulis Kitab al-Buldan. Ia menggambarkan kota-kota besar, jalur dagang, dan kehidupan masyarakat.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="kedokteran sains">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al-zahrawi.jpg" data-caption="Al-Zahrawi">
+                            <img src="/gambar/al-zahrawi.jpg" alt="Potret Al-Zahrawi">
+                        </button>
+                    </div>
+                    <h4>Al-Zahrawi</h4>
+                    <p class="role">Kedokteran & Bedah</p>
+                    <p>Bekerja di Al-Andalus. Ia membuat ensiklopedia bedah lengkap dengan gambar alat operasi dan cara merawat pasien dengan aman.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="matematika astronomi">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al-mahani.jpg" data-caption="Al-Mahani">
+                            <img src="/gambar/al-mahani.jpg" alt="Potret Al-Mahani">
+                        </button>
+                    </div>
+                    <h4>Al-Mahani</h4>
+                    <p class="role">Matematika & Astronomi</p>
+                    <p>Ilmuwan Persia di Baghdad. Ia menafsirkan karya Euclid dan Archimedes dan memecahkan soal persamaan sulit untuk astronomi.</p>
+                </div>
+
+                <div class="tokoh-card" data-category="bahasa">
+                    <div class="tokoh-photo">
+                        <button type="button" class="tokoh-photo-btn" data-image="/gambar/al-qasabani.jpg" data-caption="Al-Qasabi">
+                            <img src="/gambar/al-qasabani.jpg" alt="Potret Al-Qasabi">
+                        </button>
+                    </div>
+                    <h4>Al-Qasabi</h4>
+                    <p class="role">Bahasa & Sastra</p>
+                    <p>Ahli tata bahasa Arab. Karyanya menunjukkan bahwa ilmu pada masa Abbasiyah juga mencakup bahasa dan sastra, bukan hanya sains.</p>
                 </div>
             </div>
         </section>
 
+        <div class="tokoh-lightbox" id="tokohLightbox" aria-hidden="true">
+            <button type="button" class="close-lightbox" aria-label="Tutup gambar">&times;</button>
+            <figure>
+                <img src="" alt="" id="tokohLightboxImage">
+                <figcaption id="tokohLightboxCaption"></figcaption>
+            </figure>
+        </div>
+
+
         <div class="next-section-info">
-            <h3>Uji Pengetahuan Anda!</h3>
-            <p>Anda telah mempelajari sejarah, data, dan tokoh-tokoh penting Daulah Abbasiyah. Sekarang saatnya menguji seberapa baik Anda memahami materi ini! Ikuti game interaktif dan kuis untuk mengukur pemahaman Anda, lalu lihat posisi Anda di papan peringkat.</p>
+            <h3>Uji Pemahaman </h3>
+            <p>Sudah kenal para tokoh? Sekarang saatnya menguji ingatanmu. Kuis berikut akan menanyakan alasan kemajuan ilmu dan peran setiap tokoh.</p>
         </div>
 
         <div class="btn-container">
-            <a href="/uji-kemampuan.html" class="btn-lanjutkan">Siap Menguji Kemampuan? →</a>
+            <a href="/uji-kemampuan.html" class="btn-lanjutkan">Siap Menguji Kemampuan? >></a>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah</p>
-        <p>Dibuat untuk tujuan pendidikan</p>
+        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah. Hak Cipta Dilindungi.</p>
+        <p>Dibuat oleh Diah Iskamtini untuk tujuan pendidikan</p>
     </footer>
 
     <script src="/js/common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.tokoh-filter button');
+            const tokohCards = document.querySelectorAll('.tokoh-card');
+
+            const applyFilter = (filterValue) => {
+                tokohCards.forEach(card => {
+                    const categories = (card.dataset.category || '').split(' ').filter(Boolean);
+                    const match = filterValue === 'all' || categories.includes(filterValue);
+                    card.classList.toggle('hidden', !match);
+                });
+            };
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const value = btn.getAttribute('data-filter') || 'all';
+                    filterButtons.forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-pressed', 'true');
+                    applyFilter(value);
+                });
+            });
+
+            applyFilter('all');
+
+            const lightbox = document.getElementById('tokohLightbox');
+            const lightboxImage = document.getElementById('tokohLightboxImage');
+            const lightboxCaption = document.getElementById('tokohLightboxCaption');
+            const closeBtn = lightbox.querySelector('.close-lightbox');
+
+            const closeLightbox = () => {
+                lightbox.classList.remove('open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                lightboxImage.src = '';
+                lightboxImage.alt = '';
+            };
+
+            document.querySelectorAll('.tokoh-photo-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const imgSrc = btn.getAttribute('data-image');
+                    const caption = btn.getAttribute('data-caption') || '';
+                    const altText = btn.querySelector('img')?.getAttribute('alt') || caption;
+
+                    lightboxImage.src = imgSrc;
+                    lightboxImage.alt = altText;
+                    lightboxCaption.textContent = caption;
+                    lightbox.classList.add('open');
+                    lightbox.setAttribute('aria-hidden', 'false');
+                    closeBtn.focus();
+                });
+            });
+
+            closeBtn.addEventListener('click', closeLightbox);
+
+            lightbox.addEventListener('click', (event) => {
+                if (event.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && lightbox.classList.contains('open')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

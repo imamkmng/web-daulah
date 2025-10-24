@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografis - Daulah Abbasiyah</title>
+    <title>Infografis Kemajuan Ilmu Abbasiyah</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
         /* Next Section Info */
@@ -28,6 +28,265 @@
             line-height: 1.8;
             max-width: 800px;
             margin: 0 auto;
+        }
+
+        /* Interactive summaries */
+        .section-highlight {
+            background: var(--putih);
+            border-radius: 14px;
+            padding: 2rem;
+            border: 1px solid rgba(9, 64, 55, 0.12);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            margin-top: 1.5rem;
+        }
+
+        [data-switcher] .switcher-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .switcher-chip {
+            border: 1px solid var(--hijau-tua);
+            background: rgba(9, 64, 55, 0.06);
+            color: var(--hijau-tua);
+            padding: 0.55rem 1.25rem;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .switcher-chip:hover,
+        .switcher-chip:focus-visible {
+            background: var(--hijau-tua);
+            color: var(--putih);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(9, 64, 55, 0.2);
+        }
+
+        .switcher-chip.active {
+            background: linear-gradient(135deg, var(--hijau-tua) 0%, var(--hijau-sage) 100%);
+            color: var(--putih);
+            border-color: transparent;
+            box-shadow: 0 8px 18px rgba(9, 64, 55, 0.25);
+        }
+
+        .switcher-panel {
+            display: none;
+            border-radius: 12px;
+            border: 1px solid rgba(9, 64, 55, 0.08);
+            background: rgba(181, 215, 199, 0.15);
+            padding: 1.75rem;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .switcher-panel.active {
+            display: block;
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .panel-grid h4 {
+            color: var(--hijau-tua);
+            font-size: 1.4rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .panel-grid p {
+            line-height: 1.8;
+            color: rgba(0, 0, 0, 0.78);
+        }
+
+        .info-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .info-list li::before {
+            content: '\2023';
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            color: var(--hijau-tua);
+            font-weight: 700;
+        }
+
+        .info-list strong {
+            color: var(--hijau-tua);
+            font-weight: 700;
+        }
+
+        .khalifah-gallery {
+            margin-top: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .khalifah-gallery figure {
+            background: var(--putih);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .khalifah-gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .khalifah-gallery figcaption {
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: rgba(0, 0, 0, 0.75);
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--putih);
+            border-radius: 12px;
+            border: 1px solid rgba(9, 64, 55, 0.12);
+            padding: 1rem 1.2rem;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(9, 64, 55, 0.18);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.58);
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--hijau-tua);
+            margin: 0.35rem 0;
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(0, 0, 0, 0.72);
+        }
+
+        .timeline-ribbon {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+        }
+
+        .timeline-point {
+            border-radius: 10px;
+            padding: 0.7rem 1.1rem;
+            background: rgba(9, 64, 55, 0.08);
+            border: 1px solid rgba(9, 64, 55, 0.18);
+            font-weight: 600;
+            color: var(--hijau-tua);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .timeline-point span {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            letter-spacing: 0.06em;
+        }
+
+        .factor-detail {
+            margin: 0.75rem 0;
+            border-radius: 12px;
+            border: 1px solid rgba(9, 64, 55, 0.15);
+            background: rgba(181, 215, 199, 0.2);
+            overflow: hidden;
+        }
+
+        .factor-detail summary {
+            cursor: pointer;
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            color: var(--hijau-tua);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+        }
+
+        .factor-detail summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .factor-detail summary::after {
+            content: '+';
+            font-weight: 700;
+            transition: transform 0.25s ease;
+        }
+
+        .factor-detail[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .factor-detail .factor-body {
+            padding: 0 1.25rem 1.25rem 1.25rem;
+            line-height: 1.75;
+            color: rgba(0, 0, 0, 0.75);
+        }
+
+        .factor-detail ul {
+            margin: 0.6rem 0 0 1.2rem;
+            line-height: 1.6;
+        }
+
+        .factor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .factor-tag {
+            background: rgba(9, 64, 55, 0.12);
+            color: var(--hijau-tua);
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         /* Infographic Section Styles */
@@ -66,7 +325,7 @@
         }
 
         .infographic-section h3::before {
-            content: "▼";
+                        content: ">";
             font-size: 0.8em;
             transition: transform 0.3s ease;
         }
@@ -97,6 +356,66 @@
             font-weight: 600;
         }
 
+        .infographic-list {
+            list-style: disc;
+            margin: 0 0 1rem 1.5rem;
+            color: var(--hitam);
+            line-height: 1.7;
+        }
+
+        .timeline-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .timeline-card {
+            background: var(--abu-terang);
+            border-radius: 10px;
+            padding: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .timeline-card h4 {
+            color: var(--hijau-tua);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-card span {
+            display: inline-block;
+            font-weight: 600;
+            color: var(--emas-gelap);
+            margin-bottom: 0.4rem;
+        }
+
+        .scientist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .scientist-card {
+            background: var(--putih);
+            border: 1px solid var(--hijau-sage);
+            border-radius: 10px;
+            padding: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .scientist-card h4 {
+            margin-bottom: 0.4rem;
+            color: var(--hijau-tua);
+            font-size: 1.05rem;
+        }
+
+        .scientist-card p {
+            margin: 0.2rem 0;
+            line-height: 1.6;
+        }
+
         /* Map Container */
         .map-container {
             position: relative;
@@ -118,6 +437,26 @@
 
         .map-container:hover img {
             transform: scale(1.02);
+        }
+
+        .infographic-image {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .infographic-image img {
+            width: 100%;
+            max-width: 640px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+
+        .infographic-image .image-caption {
+            margin-top: 0.6rem;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: rgba(0,0,0,0.65);
         }
 
         /* Genealogy Tree */
@@ -385,6 +724,18 @@
                 padding: 2rem 1.5rem;
             }
 
+            .section-highlight {
+                padding: 1.6rem;
+            }
+
+            [data-switcher] .switcher-controls {
+                gap: 0.5rem;
+            }
+
+            .switcher-chip {
+                flex: 1 1 calc(50% - 0.5rem);
+            }
+
             .next-section-info h3 {
                 font-size: 1.4rem;
             }
@@ -395,6 +746,24 @@
 
             .infographic-section h3 {
                 font-size: 1.3rem;
+            }
+
+            .panel-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-stats {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+
+            .khalifah-gallery img {
+                height: 150px;
+            }
+
+            .factor-detail summary {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.35rem;
             }
 
             .genealogy-tree {
@@ -420,8 +789,33 @@
                 font-size: 0.9rem;
             }
 
+            .section-highlight {
+                padding: 1.2rem;
+            }
+
+            .switcher-chip {
+                flex: 1 1 100%;
+                text-align: center;
+            }
+
+            .switcher-panel {
+                padding: 1.2rem;
+            }
+
+            .quick-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .factor-detail .factor-body {
+                padding: 0 1rem 1rem;
+            }
+
             .infographic-section h3 {
                 font-size: 1.1rem;
+            }
+
+            .khalifah-gallery img {
+                height: 130px;
             }
         }
     </style>
@@ -449,133 +843,353 @@
 
     <main>
         <section class="hero">
-            <h1>Daulah Abbasiyah dalam Visual</h1>
-            <p>Data sejarah bisa lebih mudah dipahami melalui gambar. Berikut adalah empat infografis kunci yang merangkum berbagai aspek penting dari Daulah Abbasiyah.</p>
+            <h1>Ekosistem Ilmu Abbasiyah dalam Visual</h1>
+            <p>Visual berikut menunjukkan bagaimana kekuasaan, stabilitas ekonomi, dan patronase khalifah bersinergi membentuk peradaban yang berorientasi pada ilmu pengetahuan.</p>
         </section>
 
         <div class="infographic-section" data-section="1">
-            <h3>1. Peta Kekuasaan di Puncak Keemasan</h3>
+            <h3>1. Berdirinya Bayt al-Hikmah</h3>
             <div class="infographic-content">
-                <p>
-                    <strong>Deskripsi:</strong>
-                    Visualisasikan luasnya wilayah Daulah Abbasiyah pada era Khalifah Harun al-Rasyid.
-                    Kekuasaannya membentang dari perbatasan India di Timur hingga Laut Mediterania di Barat,
-                    menguasai jalur-jalur perdagangan utama dunia.
-                </p>
-                <div class="map-container">
-                    <img src="/gambar/Wilayah-Kekuasaan-Bani-Umayyah.jpg" alt="Peta Wilayah Kekuasaan Daulah Abbasiyah">
+                <p>Bayt al-Hikmah adalah perpustakaan dan rumah belajar di Baghdad. Tempat ini mulai dirintis pada masa Khalifah al-Mansur dan tumbuh pesat di zaman Harun ar-Rasyid dan al-Ma'mun.</p>
+                <ul class="infographic-list">
+                    <li>Terdiri dari ruang baca, gudang buku, dan meja kerja untuk menerjemahkan buku asing.</li>
+                    <li>Bahasa Yunani, Persia, dan India diterjemahkan ke dalam bahasa Arab agar mudah dipelajari.</li>
+                    <li>Para penyalin dan peneliti mendapat gaji, kertas, dan alat belajar dari negara.</li>
+                </ul>
+                <div class="infographic-image">
+                    <img src="/gambar/baitul-hikmah.jpeg" alt="Ilustrasi aktivitas di Bayt al-Hikmah">
+                    <p class="image-caption">Ilustrasi suasana belajar di Bayt al-Hikmah sebagai pusat ilmu.</p>
                 </div>
             </div>
         </div>
-
         <div class="infographic-section" data-section="2">
-            <h3>2. Silsilah Sederhana Para Pendiri</h3>
+            <h3>2. Tiga Khalifah Sahabat Ilmu</h3>
             <div class="infographic-content">
-                <p>
-                    Abu al-Abbas dikukuhkan sebagai khalifah pada tahun 750 M setelah mengalahkan Daulah Bani Umayah.
-                    Bani Abbasiyah menentang Bani Umayah karena penindasan terhadap kelompok-kelompok tertentu,
-                    terutama pengikut Syi'ah, dan merasa lebih berhak memimpin umat Islam karena kedekatan
-                    garis keturunan dengan Nabi Muhammad SAW.
-                </p>
-                <p>
-                    <strong>Deskripsi:</strong>
-                    Bagan ini menunjukkan garis keturunan yang menjadi legitimasi Bani Abbas, yaitu dari
-                    Abbas bin Abdul Muthalib (paman Nabi Muhammad SAW) hingga ke cicitnya, Abu al-Abbas As-Saffah,
-                    sang pendiri Daulah.
-                </p>
-                <div class="genealogy-tree">
-                    <div class="genealogy-item">
-                        <p>Abbas bin Abdul Muthalib</p>
+                <p>Perjalanan ilmu di Daulah Abbasiyah berjalan seperti estafet: al-Mansur -> Harun ar-Rasyid -> al-Ma'mun. Mereka saling melanjutkan proyek ilmu pengetahuan.</p>
+                <div class="timeline-strip">
+                    <div class="timeline-card">
+                        <span>al-Mansur (754-775 M)</span>
+                        <h4>Membangun Pondasi</h4>
+                        <p>Membangun kota Baghdad, menyiapkan perpustakaan istana, dan mengundang ahli hitung dari Persia.</p>
                     </div>
-                    <div class="arrow">↓</div>
-                    <div class="genealogy-item">
-                        <p>Abdullah bin Abbas</p>
+                    <div class="timeline-card">
+                        <span>Harun ar-Rasyid (786-809 M)</span>
+                        <h4>Memperluas Dukungan</h4>
+                        <p>Menata Bayt al-Hikmah, memberi gaji peneliti, serta membeli buku dari berbagai negeri.</p>
                     </div>
-                    <div class="arrow">↓</div>
-                    <div class="genealogy-item">
-                        <p>Ali bin Abdullah</p>
+                    <div class="timeline-card">
+                        <span>al-Ma'mun (813-833 M)</span>
+                        <h4>Puncak Penerjemahan</h4>
+                        <p>Membentuk tim penerjemah lintas agama, mendirikan observatorium, dan mengirim misi mencari buku baru.</p>
                     </div>
-                    <div class="arrow">↓</div>
-                    <div class="genealogy-item founder">
-                        <p>Abu al-Abbas As-Saffah<br>(Pendiri Daulah Abbasiyah)</p>
-                    </div>
+                </div>
+                <div class="khalifah-gallery">
+                    <figure>
+                        <img src="/gambar/kotabaghdad.jpg" alt="Ilustrasi rancangan kota Baghdad pada masa al-Mansur">
+                        <figcaption>Al-Mansur merancang Baghdad sebagai kota lingkaran dengan pusat pemerintahan dan ilmu di bagian inti.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="/gambar/baitulhikmah.jpg" alt="Ilustrasi suasana Bayt al-Hikmah zaman Harun ar-Rasyid">
+                        <figcaption>Harun ar-Rasyid memakmurkan Bayt al-Hikmah sehingga ulama dan penerjemah dapat bekerja nyaman.</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="/gambar/almamunpenerjemah.jpeg" alt="Lukisan imajinatif Al-Ma'mun memimpin majelis penerjemah">
+                        <figcaption>Al-Ma'mun mengawasi tim penerjemah lintas bangsa untuk membawa naskah astronomi dan filsafat terbaru.</figcaption>
+                    </figure>
                 </div>
             </div>
         </div>
-
         <div class="infographic-section" data-section="3">
-            <h3>3. Evolusi Bayt al-Hikmah (Rumah Kebijaksanaan)</h3>
+            <h3>3. Ilmuwan Hebat dari Baghdad</h3>
             <div class="infographic-content">
-                <p>
-                    <strong>Deskripsi:</strong>
-                    Diagram alur ini menggambarkan bagaimana Baitul Hikmah bertransformasi dari sebuah perpustakaan
-                    pribadi menjadi institusi ilmu pengetahuan multifungsi yang mencakup biro penerjemahan,
-                    observatorium, hingga pusat pendidikan tinggi.
-                </p>
-                <div class="evolution-container">
-                    <div class="phases-grid">
-                        <div class="phase-card">
-                            <strong>Fase 1</strong><br>Perpustakaan Pribadi Khalifah
-                        </div>
-                        <div class="phase-card">
-                            <strong>Fase 2</strong><br>Biro Penerjemahan Karya Kuno
-                        </div>
-                        <div class="phase-card">
-                            <strong>Fase 3</strong><br>Observatorium & Lab Riset
-                        </div>
-                        <div class="phase-card final">
-                            <strong>Fase 4</strong><br>Akademi Global & Pusat Pendidikan
-                        </div>
+                <p>Berkat dukungan negara, banyak ilmuwan cemerlang lahir di Baghdad. Inilah beberapa tokoh yang sering dibahas di sekolah.</p>
+                <div class="scientist-grid">
+                    <div class="scientist-card">
+                        <h4>Al-Kindi</h4>
+                        <p><strong>Bidang:</strong> Filsafat dan Matematika</p>
+                        <p>Disebut "Filosof Arab". Ia menjelaskan ilmu sulit dengan bahasa sederhana dan menyusun cara belajar logika.</p>
+                    </div>
+                    <div class="scientist-card">
+                        <h4>Al-Farabi</h4>
+                        <p><strong>Bidang:</strong> Musik dan Pemerintahan</p>
+                        <p>Mempelajari musik secara ilmiah, serta menulis buku tentang tata kota dan pemimpin yang adil.</p>
+                    </div>
+                    <div class="scientist-card">
+                        <h4>Ibnu Sina</h4>
+                        <p><strong>Bidang:</strong> Kedokteran</p>
+                        <p>Menulis "Al-Qanun fi al-Tibb, buku pegangan dokter selama ratusan tahun di Asia dan Eropa.</p>
+                    </div>
+                    <div class="scientist-card">
+                        <h4>Al-Khawarizmi</h4>
+                        <p><strong>Bidang:</strong> Matematika</p>
+                        <p>Mengembangkan aljabar dan tabel angka. Istilah "algoritma" berasal dari namanya.</p>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="infographic-section" data-section="4">
-            <h3>4. Faktor-Faktor Keruntuhan Abbasiyah</h3>
+            <h3>4. Orientasi Ilmu Pengetahuan</h3>
             <div class="infographic-content">
-                <p>
-                    <strong>Deskripsi:</strong>
-                    Keruntuhan Daulah Abbasiyah adalah proses yang kompleks. Diagram ini memvisualisasikan beberapa
-                    penyebab utamanya, mulai dari munculnya dinasti-dinasti merdeka yang menggerogoti kekuasaan pusat
-                    hingga invasi Mongol yang menghancurkan.
-                </p>
-                <div class="collapse-container">
-                    <div class="factors-grid">
-                        <div class="factor-card">
-                            <strong>Fragmentasi Politik</strong>
-                            <small>Munculnya dinasti-dinasti merdeka yang melemahkan kekuasaan pusat</small>
-                        </div>
-                        <div class="factor-card">
-                            <strong>Krisis Ekonomi</strong>
-                            <small>Hilangnya kontrol atas jalur perdagangan dan penurunan pendapatan</small>
-                        </div>
-                        <div class="factor-card">
-                            <strong>Perebutan Kekuasaan Internal</strong>
-                            <small>Konflik antara khalifah dan tentara Turki yang semakin dominan</small>
-                        </div>
-                        <div class="factor-card">
-                            <strong>Invasi Mongol (1258 M)</strong>
-                            <small>Penghancuran Baghdad oleh Hulagu Khan - Akhir Era</small>
-                        </div>
+                <p>Orientasi ilmu Abbasiyah menempatkan pengetahuan sebagai penggerak utama administrasi, ekonomi, dan kehidupan sosial. Klik fokus di bawah untuk melihat bagaimana gagasan diterjemahkan menjadi praktik nyata.</p>
+                <div class="section-highlight" data-switcher aria-label="Fokus orientasi ilmu Abbasiyah">
+                    <div class="switcher-controls" role="tablist">
+                        <button type="button" class="switcher-chip active" data-switch="riset" role="tab" aria-selected="true">Pusat Riset Terpadu</button>
+                        <button type="button" class="switcher-chip" data-switch="aplikasi" role="tab" aria-selected="false">Penerapan Ilmu</button>
+                        <button type="button" class="switcher-chip" data-switch="kolaborasi" role="tab" aria-selected="false">Kolaborasi Disiplin</button>
                     </div>
+                    <article class="switcher-panel active" data-panel="riset" role="tabpanel">
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Bayt al-Hikmah sebagai Laboratorium Negara</h4>
+                                <p>Pusat ilmu Baghdad menghimpun perpustakaan, ruang penerjemahan, dan observatorium dalam satu kompleks. Tugasnya bukan sekadar menyimpan naskah, tetapi menguji dan merapikan ilmu agar siap pakai oleh birokrat maupun guru.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Fasilitas lengkap:</strong> Astrolab, meja hitung, dan ruang distilasi ditempatkan berdampingan dengan ruang katalog.</li>
+                                <li><strong>Dukungan negara:</strong> Penerjemah, juru salin, hingga penjaga malam menerima gaji dan kertas Samarkand dari kas khalifah.</li>
+                                <li><strong>Distribusi data:</strong> Catatan astronomi dan katalog obat dikirim ke madrasah daerah untuk dijadikan modul pengajaran.</li>
+                            </ul>
+                        </div>
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <span class="stat-label">Lokasi inti</span>
+                                <span class="stat-value">Baghdad</span>
+                                <p>Menyerap ilmuwan Persia, Bizantium, India, dan Syam dalam satu jejaring riset.</p>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Jam riset</span>
+                                <span class="stat-value">Siang & Malam</span>
+                                <p>Keputusan khalifah menyediakan lampu minyak dan penjaga khusus agar eksperimen tidak terputus.</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="switcher-panel" data-panel="aplikasi" role="tabpanel" hidden>
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Ilmu untuk Pelayanan Publik</h4>
+                                <p>Pengetahuan tidak berhenti di meja riset. Matematikus, ahli falak, dan insinyur merancang solusi bagi kas negara, jadwal ibadah, hingga pembangunan kanal.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Perdagangan & pajak:</strong> Al-Khawarizmi menyusun tabel zakat dan pajak berdasar perhitungan aljabar.</li>
+                                <li><strong>Navigasi & kalender:</strong> Observatorium Baghdad menentukan arah kiblat, musim tanam, dan jadwal pelayaran.</li>
+                                <li><strong>Kesehatan masyarakat:</strong> Kitab medis diterjemahkan ulang menjadi panduan praktik bagi bimaristan.</li>
+                            </ul>
+                        </div>
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <span class="stat-label">Bidang prioritas</span>
+                                <span class="stat-value">Ekonomi & Kesehatan</span>
+                                <p>Data matematika dan farmasi dipakai untuk menstabilkan harga pasar dan meracik obat standar.</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="switcher-panel" data-panel="kolaborasi" role="tabpanel" hidden>
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Kolaborasi Lintas Disiplin & Agama</h4>
+                                <p>Khalifah membuka ruang diskusi antara fuqaha, dokter, penerjemah Yunani, dan insinyur. Tujuannya menyatukan sains, filsafat, dan syariat dalam kebijakan publik.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Majelis hikmah:</strong> Diskusi rutin membahas dampak etis dan teknis dari temuan baru.</li>
+                                <li><strong>Tim lintas iman:</strong> Ilmuwan Kristen, Yahudi, dan Muslim bekerja pada terjemahan dan observasi.</li>
+                                <li><strong>Output kurikulum:</strong> Hasil diskusi diringkas menjadi modul madrasah dan khutbah Jumat bertema ilmu.</li>
+                            </ul>
+                        </div>
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <span class="stat-label">Format</span>
+                                <span class="stat-value">Majelis Musyawarah</span>
+                                <p>Dipimpin vizier atau qadi untuk memastikan temuan ilmiah selaras dengan kebutuhan umat.</p>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </div>
-
+        <div class="infographic-section" data-section="5">
+            <h3>5. Stabilitas Politik, Militer, dan Ekonomi</h3>
+            <div class="infographic-content">
+                <p>Ketenangan lingkungan ilmu dijaga lewat kerja sama birokrat, pasukan, dan bendahara. Pilih pilar di bawah untuk melihat peran masing-masing.</p>
+                <div class="section-highlight" data-switcher aria-label="Pilar stabilitas Abbasiyah">
+                    <div class="switcher-controls" role="tablist">
+                        <button type="button" class="switcher-chip active" data-switch="politik" role="tab" aria-selected="true">Politik</button>
+                        <button type="button" class="switcher-chip" data-switch="militer" role="tab" aria-selected="false">Militer</button>
+                        <button type="button" class="switcher-chip" data-switch="ekonomi" role="tab" aria-selected="false">Ekonomi</button>
+                    </div>
+                    <article class="switcher-panel active" data-panel="politik" role="tabpanel">
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Birokrasi sebagai Orkestra Ilmu</h4>
+                                <p>Di bawah khalifah, vizier dan sekretaris menyusun regulasi pendidikan, memilih kepala perpustakaan, dan mengawasi wakaf ilmu agar tersalur tepat.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Vizier profesional:</strong> Mengirim instruksi tertulis ke gubernur tentang gaji guru, seleksi pustakawan, dan pengadaan buku.</li>
+                                <li><strong>Diwan pendidikan:</strong> Mencatat kebutuhan madrasah dan bimaristan serta melaporkannya tiap musim kepada khalifah.</li>
+                                <li><strong>Audit wakaf:</strong> Pengawas khusus memastikan dana wakaf kitab dipakai membeli kertas dan membayar relawan literasi.</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="switcher-panel" data-panel="militer" role="tabpanel" hidden>
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Keamanan Jalur Ilmu</h4>
+                                <p>Tentara Abbasiyah bukan hanya bertempur; mereka menjaga kafilah buku, melindungi observatorium dari gangguan, dan memastikan perjalanan ilmuwan aman.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Penjagaan rute sutra:</strong> Pos militer rutin ditempatkan di jalur Kufahâ€“Baghdadâ€“Ray agar naskah tiba tanpa dirampok.</li>
+                                <li><strong>Pengawalan ilmuwan:</strong> Ekspedisi pemburu naskah ke Byzantium atau India ditemani pasukan elite.</li>
+                                <li><strong>Mitigasi konflik:</strong> Garnisun kota memadamkan kerusuhan pasar agar aktivitas laboratorium tidak terganggu.</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="switcher-panel" data-panel="ekonomi" role="tabpanel" hidden>
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Kas Negara untuk Pengetahuan</h4>
+                                <p>Perdagangan rempah, kain, dan logam mulia menambah pemasukan negara. Sebagian dialokasikan khusus untuk gaji ilmuwan dan pembangunan fasilitas publik.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Pajak progresif:</strong> Pendapatan dari pasar Baghdad mendanai pengadaan kertas dan upah penyalin.</li>
+                                <li><strong>Beasiswa ilmuwan:</strong> Pelajar dari Khurasan dan Andalusia menerima tunjangan tinggal di Baghdad.</li>
+                                <li><strong>Pembangunan bimaristan:</strong> Rumah sakit pengajaran dilengkapi laboratorium obat dan perpustakaan mini.</li>
+                            </ul>
+                        </div>
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <span class="stat-label">Sumber utama</span>
+                                <span class="stat-value">Perdagangan rempah</span>
+                                <p>Margin ekspor rempah menyediakan dana stabil untuk proyek ilmu tahunan.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="infographic-section" data-section="6">
+            <h3>6. Puncak Peradaban Abbasiyah</h3>
+            <div class="infographic-content">
+                <p>Masa keemasan Abbasiyah berjalan bertahap. Gunakan penanda tahun untuk melihat sorotan utama setiap fase.</p>
+                <div class="section-highlight" data-switcher aria-label="Puncak peradaban Abbasiyah">
+                    <div class="switcher-controls" role="tablist">
+                        <button type="button" class="switcher-chip active" data-switch="786" role="tab" aria-selected="true">786-809 M</button>
+                        <button type="button" class="switcher-chip" data-switch="813" role="tab" aria-selected="false">813-833 M</button>
+                        <button type="button" class="switcher-chip" data-switch="900" role="tab" aria-selected="false">900-950 M</button>
+                    </div>
+                    
+                    <article class="switcher-panel active" data-panel="786" role="tabpanel">
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Patronase Ilmiah Harun ar-Rasyid</h4>
+                                <p>Khalifah menyulap perpustakaan istana menjadi Bayt al-Hikmah versi awal, membeli naskah dari Byzantium, dan mengundang ilmuwan lintas negeri.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Ekspedisi buku:</strong> Utusan membawa pulang manuskrip kedokteran, matematika, dan mekanika.</li>
+                                <li><strong>Beasiswa ilmuwan:</strong> Gaji khusus untuk penerjemah dan ahli hitung agar fokus pada riset.</li>
+                                <li><strong>Ruang eksperimen:</strong> Laboratorium logam dan kimia mulai dibangun di area istana.</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="switcher-panel" data-panel="813" role="tabpanel" hidden>
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Revolusi Penerjemahan al-Ma'mun</h4>
+                                <p>Al-Ma'mun memperluas Bayt al-Hikmah, mendirikan observatorium Baghdad dan Damaskus, serta membayar penerjemah dengan emas seberat naskah.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Tim lintas agama:</strong> Hunayn bin Ishaq dan kawan-kawan menerjemahkan teks Yunani ke Arab.</li>
+                                <li><strong>Pemetaan langit:</strong> Observatorium menghasilkan tabel posisi matahari dan planet yang akurat.</li>
+                                <li><strong>Debat rasional:</strong> Majelis ilmiah menumbuhkan tradisi argumentasi logis dalam teologi dan sains.</li>
+                            </ul>
+                        </div>
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <span class="stat-label">Lokasi Observatorium</span>
+                                <span class="stat-value">Baghdad & Damaskus</span>
+                                <p>Mencatat kemiringan bumi dan menentukan nilai ukuran bumi lebih presisi.</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="switcher-panel" data-panel="900" role="tabpanel" hidden>
+                        <div class="panel-grid">
+                            <div>
+                                <h4>Jaringan Bimaristan dan Madrasah</h4>
+                                <p>Memasuki abad ke-10, Baghdad dan kota satelit memiliki bimaristan pengajaran, madrasah, dan perpustakaan kota yang dikelola negara.</p>
+                            </div>
+                            <ul class="info-list">
+                                <li><strong>Bimaristan Baghdad:</strong> Menggabungkan rawat inap, apotek, dan kelas dokter.</li>
+                                <li><strong>Madrasah spesialis:</strong> Bidang fikih, matematika, dan teknik diajarkan dengan modul resmi.</li>
+                                <li><strong>Ekspor ilmu:</strong> Sarjana lulusan Baghdad membawa tradisi ini ke Damaskus, Kairo, hingga Andalusia.</li>
+                            </ul>
+                        </div>
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <span class="stat-label">Sebaran</span>
+                                <span class="stat-value">Irak, Syam, Mesir</span>
+                                <p>Institusi ilmu menyeberang mengikuti jalur dagang dan rute haji.</p>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Warisan</span>
+                                <span class="stat-value">Kurikulum standar</span>
+                                <p>Menjadi rujukan universitas awal di Kairo dan Toledo.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="infographic-section" data-section="7">
+            <h3>7. Penyebab Kemajuan Peradaban</h3>
+            <div class="infographic-content">
+                <p>Faktor-faktor berikut dapat dibaca secara ringkas dengan membuka penjelasan yang Anda butuhkan.</p>
+                <div class="section-highlight">
+                    <details class="factor-detail" open>
+                        <summary>Lingkungan Belajar yang Kondusif</summary>
+                        <div class="factor-body">
+                            <ul>
+                                <li><strong>Keamanan politik:</strong> Kebijakan khalifah memastikan kota bebas dari konflik sehingga kelas dan riset berjalan tenang.</li>
+                                <li><strong>Pendanaan berkelanjutan:</strong> Jalur dagang ramai mengisi kas negara untuk menggaji guru, peneliti, dan pengelola perpustakaan.</li>
+                                <li><strong>Pertukaran budaya:</strong> Baghdad menjadi hub bagi ilmuwan Persia, India, dan Yunani untuk saling membagikan metodologi.</li>
+                                <li><strong>Motivasi spiritual:</strong> Menuntut ilmu dipandang sebagai amal, membuat keluarga mendukung anak belajar jauh dari kampung.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="factor-detail">
+                        <summary>Kebijakan & Budaya Literasi</summary>
+                        <div class="factor-body">
+                            <ul>
+                                <li><strong>Visi pemimpin:</strong> Khalifah menempatkan ilmu sebagai legitimasi politik dan memerintahkan pejabat mendukung riset.</li>
+                                <li><strong>Jejaring global:</strong> Hubungan dagang dengan Cina, India, dan Mediterania mempercepat pertukaran teknologi dan ide.</li>
+                                <li><strong>Industri kertas:</strong> Produksi kertas Samarkand membuat buku terjangkau, memicu tumbuhnya pasar buku dan majelis baca.</li>
+                                <li><strong>Partisipasi masyarakat:</strong> Wakaf, bazar ilmu, dan komunitas relawan mendanai perpustakaan lingkungan serta kelas malam.</li>
+                            </ul>
+                            <div class="factor-tags">
+                                <span class="factor-tag">Wakaf Pendidikan</span>
+                                <span class="factor-tag">Bazar Buku</span>
+                                <span class="factor-tag">Jejaring Dagang</span>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="factor-detail">
+                        <summary>Kesimpulan Singkat</summary>
+                        <div class="factor-body">
+                            <p>Abbasiyah menunjukkan bahwa kemajuan ilmu lahir dari koordinasi tiga unsur: lembaga riset yang teratur, dukungan material yang konsisten, dan budaya masyarakat yang terbuka terhadap pengetahuan. Ketiganya saling menguatkan dan menjadi teladan peradaban berikutnya.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
         <div class="next-section-info">
-            <h3>Kenali Para Tokoh Inspiratif</h3>
-            <p>Data dan angka menceritakan satu sisi dari kisah ini. Namun, di balik semua pencapaian besar terdapat individu-individu luar biasa yang membuat semuanya mungkin. Selanjutnya, mari kita pelajari tentang para khalifah visioner dan ilmuwan jenius yang membentuk peradaban Abbasiyah.</p>
+            <h3>Kenali Para Penggerak Ilmu</h3>
+            <p>Setelah melihat gambaran besar, ayo kenalan langsung dengan para tokoh yang menghidupkan ilmu. Mereka membuat ide bagus berubah menjadi karya nyata.</p>
         </div>
 
         <div class="btn-container">
-            <a href="/tokoh.html" class="btn-lanjutkan">Lanjutkan ke Halaman Tokoh →</a>
+            <a href="/tokoh.html" class="btn-lanjutkan">Lanjutkan ke Halaman Tokoh >></a>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah</p>
-        <p>Dibuat untuk tujuan pendidikan</p>
+        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah. Hak Cipta Dilindungi.</p>
+        <p>Dibuat oleh Diah Iskamtini untuk tujuan pendidikan</p>
     </footer>
 
     <script src="/js/common.js"></script>
@@ -583,6 +1197,44 @@
         // Infographic Section Toggle (Collapse/Expand)
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('.infographic-section');
+
+            const switcherModules = document.querySelectorAll('[data-switcher]');
+            switcherModules.forEach(module => {
+                const buttons = module.querySelectorAll('[data-switch]');
+                const panels = module.querySelectorAll('[data-panel]');
+                if (!buttons.length || !panels.length) return;
+
+                const activate = (target, trigger) => {
+                    buttons.forEach(btn => {
+                        const isActive = btn === trigger || btn.dataset.switch === target;
+                        btn.classList.toggle('active', isActive);
+                        if (btn.hasAttribute('aria-selected')) {
+                            btn.setAttribute('aria-selected', String(isActive));
+                        }
+                    });
+
+                    panels.forEach(panel => {
+                        const match = panel.dataset.panel === target;
+                        panel.classList.toggle('active', match);
+                        if (match) {
+                            panel.removeAttribute('hidden');
+                        } else {
+                            panel.setAttribute('hidden', '');
+                        }
+                    });
+                };
+
+                const initialButton = module.querySelector('[data-switch].active') || buttons[0];
+                if (initialButton) {
+                    activate(initialButton.dataset.switch, initialButton);
+                }
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        activate(btn.dataset.switch, btn);
+                    });
+                });
+            });
 
             sections.forEach(section => {
                 const heading = section.querySelector('h3');

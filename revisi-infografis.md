@@ -1,0 +1,1 @@
+tambahkan orientasi ilmu pengetahuan, stabilitas politik, militer dan ekonomi, puncak peradaban     abbasiyah dan tambahkan penyebab kemajuan di halaman views\infografis.html

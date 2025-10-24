@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline Sejarah - Daulah Abbasiyah</title>
+    <title>Timeline Kemajuan Ilmu Pengetahuan - Daulah Abbasiyah</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
         /* Enhanced Timeline Styles */
@@ -96,15 +96,26 @@
         }
 
         .timeline-content .read-more {
+            background: none;
+            border: none;
             color: var(--emas);
             font-weight: 600;
             cursor: pointer;
             margin-top: 0.5rem;
-            display: inline-block;
-            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        .timeline-content .read-more:hover {
+        .timeline-content .read-more:focus {
+            outline: 2px dashed var(--emas);
+            outline-offset: 4px;
+        }
+
+        .timeline-content .read-more:hover,
+        .timeline-content .read-more:focus-visible {
             color: var(--emas-gelap);
             transform: translateX(5px);
         }
@@ -279,13 +290,13 @@
 
     <main>
         <section class="hero">
-            <h1>Linimasa Sejarah Daulah Abbasiyah</h1>
-            <p>Perjalanan 5 abad yang mengubah peradaban dunia</p>
+            <h1>Linimasa Kemajuan Ilmu Pengetahuan Abbasiyah</h1>
+            <p>Ikuti rangkaian kebijakan, institusi, dan tokoh yang menjadikan kekhalifahan ini puncak kebudayaan ilmiah dunia Islam.</p>
         </section>
 
         <div class="timeline-intro">
-            <h3>Ikuti Perjalanan Sejarah</h3>
-            <p>Klik pada setiap titik waktu atau gunakan tombol "Baca Selengkapnya" untuk melihat detail peristiwa penting dalam sejarah Daulah Abbasiyah.</p>
+            <h3>Faktor Pendorong Kejayaan Ilmu</h3>
+            <p>Setiap titik waktu menyoroti kebijakan, institusi, dan stabilitas yang membuat ilmu pengetahuan berkembang pesat di Baghdad. Klik untuk melihat bagaimana politik, ekonomi, dan patronase saling menguatkan.</p>
         </div>
 
         <div class="timeline">
@@ -294,9 +305,9 @@
                 <div class="timeline-point" data-year="750">750 M</div>
                 <div class="timeline-content">
                     <div class="date">750 M</div>
-                    <h3>Berdirinya Daulah Abbasiyah</h3>
-                    <p>Setelah memimpin revolusi yang berhasil, Abu al-Abbas As-Saffah dikukuhkan sebagai khalifah pertama Daulah Abbasiyah. Ini menandai berakhirnya kekuasaan Daulah Umayyah dan dimulainya era baru yang berpusat di Irak.</p>
-                    <span class="read-more">Baca Selengkapnya →</span>
+                    <h3>Revolusi Abbasiyah dan Mandat Keilmuan</h3>
+                    <p>Kemenangan revolusi yang dipimpin Abu al-Abbas as-Saffah bukan hanya pergantian dinasti. Pemerintahan baru menjanjikan patronase bagi ulama, ilmuwan, dan penerjemah sebagai fondasi legitimasi politik serta kesejahteraan umat.</p>
+                    <button type="button" class="read-more" aria-expanded="false">Baca Selengkapnya >></button>
                 </div>
             </div>
 
@@ -305,9 +316,9 @@
                 <div class="timeline-point" data-year="762">762 M</div>
                 <div class="timeline-content">
                     <div class="date">762 M</div>
-                    <h3>Pendirian Kota Baghdad</h3>
-                    <p>Atas perintah Khalifah Al-Mansur, pembangunan ibu kota baru yang monumental, Baghdad, dimulai. Kota ini dirancang dengan arsitektur melingkar yang canggih, menjadikannya pusat pemerintahan, perdagangan, dan intelektual yang tak tertandingi pada masanya.</p>
-                    <span class="read-more">Baca Selengkapnya →</span>
+                    <h3>Baghdad: Kota Ilmu dan Perdagangan Global</h3>
+                    <p>Al-Mansur merancang Baghdad sebagai kota riset dan perdagangan. Tata ruang melingkar memudahkan koordinasi antara istana, masjid, dan pusat belajar, sementara jalur sutra yang aman menjamin pendanaan berkelanjutan bagi aktivitas ilmiah.</p>
+                    <button type="button" class="read-more" aria-expanded="false">Baca Selengkapnya >></button>
                 </div>
             </div>
 
@@ -316,9 +327,9 @@
                 <div class="timeline-point" data-year="786">786-809 M</div>
                 <div class="timeline-content">
                     <div class="date">786-809 M</div>
-                    <h3>Pendirian Baitul Hikmah</h3>
-                    <p>Pada masa pemerintahan Khalifah Harun al-Rasyid, yang merupakan puncak keemasan, cikal bakal Baitul Hikmah (Rumah Kebijaksanaan) didirikan. Awalnya sebagai perpustakaan pribadi khalifah, lembaga ini menjadi fondasi bagi revolusi ilmu pengetahuan.</p>
-                    <span class="read-more">Baca Selengkapnya →</span>
+                    <h3>Patronase Ilmiah Harun ar-Rasyid</h3>
+                    <p>Harun ar-Rasyid menyediakan dana besar untuk perpustakaan, laboratorium, dan beasiswa ilmuwan. Baitul Hikmah berkembang dari perpustakaan istana menjadi pusat riset yang mempertemukan ilmuwan Persia, Arab, India, dan Bizantium.</p>
+                    <button type="button" class="read-more" aria-expanded="false">Baca Selengkapnya >></button>
                 </div>
             </div>
 
@@ -327,9 +338,9 @@
                 <div class="timeline-point" data-year="813">813-833 M</div>
                 <div class="timeline-content">
                     <div class="date">813-833 M</div>
-                    <h3>Pengembangan Baitul Hikmah</h3>
-                    <p>Khalifah Al-Ma'mun, seorang pecinta ilmu, mengembangkan Baitul Hikmah menjadi akademi ilmu pengetahuan terbesar di dunia. Lembaga ini menjadi pusat penerjemahan karya-karya kuno dari Yunani, Persia, dan India, serta tempat berkumpulnya para ilmuwan terhebat.</p>
-                    <span class="read-more">Baca Selengkapnya →</span>
+                    <h3>Gerakan Penerjemahan al-Ma'mun</h3>
+                    <p>Al-Ma'mun membentuk tim penerjemah lintas agama, membayar mereka dengan emas seberat naskah yang selesai, dan membangun observatorium di Baghdad serta Damaskus. Stabilitas politik membuat proyek penerjemahan dan riset astronomi berjalan secara berkesinambungan.</p>
+                    <button type="button" class="read-more" aria-expanded="false">Baca Selengkapnya >></button>
                 </div>
             </div>
 
@@ -338,31 +349,42 @@
                 <div class="timeline-point" data-year="847">847-861 M</div>
                 <div class="timeline-content">
                     <div class="date">847-861 M</div>
-                    <h3>Pembatasan Penerjemahan Filsafat</h3>
-                    <p>Masa Khalifah Al-Mutawakkil menandai adanya perubahan kebijakan. Dukungan terhadap pemikiran filsafat dan rasionalis mulai dibatasi, menandakan pergeseran fokus intelektual di dalam kekhalifahan.</p>
-                    <span class="read-more">Baca Selengkapnya →</span>
+                    <h3>Konsolidasi Politik dan Pendidikan</h3>
+                    <p>Pemerintahan Al-Mutawakkil menata ulang keamanan dan keuangan negara. Penggajian guru, perluasan masjid sebagai pusat studi, dan pembiayaan bimaristan dipertahankan agar aktivitas ilmiah tetap berjalan meski terjadi penyesuaian arah teologis.</p>
+                    <button type="button" class="read-more" aria-expanded="false">Baca Selengkapnya >></button>
                 </div>
             </div>
 
-            <!-- Event 6: 1258 M -->
+            <!-- Event 6: 900-950 M -->
+            <div class="timeline-item">
+                <div class="timeline-point" data-year="900">900-950 M</div>
+                <div class="timeline-content">
+                    <div class="date">900-950 M</div>
+                    <h3>Jaringan Bimaristan dan Madrasah</h3>
+                    <p>Pada abad ke-10, Baghdad dan kota-kota satelit membangun rumah sakit pengajaran (bimaristan) dan madrasah yang digaji negara. Lembaga-lembaga ini menggabungkan riset medis, pendidikan hukum, dan pelatihan administrasi sehingga ilmu terhubung dengan kebutuhan masyarakat.</p>
+                    <button type="button" class="read-more" aria-expanded="false">Baca Selengkapnya >></button>
+                </div>
+            </div>
+
+            <!-- Event 7: 1258 M -->
             <div class="timeline-item">
                 <div class="timeline-point" data-year="1258">1258 M</div>
                 <div class="timeline-content">
                     <div class="date">1258 M</div>
                     <h3>Invasi Bangsa Mongol</h3>
-                    <p>Setelah berabad-abad mengalami kemunduran, kota Baghdad dikepung dan dihancurkan oleh pasukan Mongol di bawah pimpinan Hulagu Khan. Peristiwa tragis ini membakar habis Baitul Hikmah dan menandai akhir dari kekuasaan Daulah Abbasiyah di Baghdad.</p>
-                    <span class="read-more">Baca Selengkapnya →</span>
+                    <p>Invasi Mongol menghancurkan Baghdad dan memutus rantai kelembagaan Abbasiyah. Meski demikian, jaringan ilmuwan yang telah tersebar ke Kairo, Damaskus, dan Andalusia membawa serta tradisi keilmuan sehingga warisan pengetahuan tetap hidup.</p>
+                    <button type="button" class="read-more" aria-expanded="false">Baca Selengkapnya >></button>
                 </div>
             </div>
         </div>
 
         <div class="next-section-info">
             <h3>Visualisasi Data Sejarah</h3>
-            <p>Setelah memahami kronologi peristiwa, mari kita lihat gambaran yang lebih besar. Di halaman Infografis, Anda akan menemukan visualisasi menarik tentang luasnya kekuasaan, silsilah pendiri, evolusi Baitul Hikmah, dan faktor-faktor yang menyebabkan keruntuhan Daulah Abbasiyah.</p>
+            <p>Setelah memahami kronologi kebijakan ilmu, mari lihat gambaran yang lebih besar. Halaman Infografis menampilkan jaringan patronase, stabilitas ekonomi, dan lembaga pendidikan yang menopang kemajuan pengetahuan Abbasiyah.</p>
         </div>
 
         <div class="btn-container">
-            <a href="/infografis.html" class="btn-lanjutkan">Lanjutkan ke Infografis →</a>
+            <a href="/infografis.html" class="btn-lanjutkan">Lanjutkan ke Infografis >></a>
         </div>
     </main>
 
@@ -376,8 +398,8 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah</p>
-        <p>Dibuat untuk tujuan pendidikan</p>
+        <p>&copy; 2025 Website Pembelajaran Daulah Abbasiyah. Hak Cipta Dilindungi.</p>
+        <p>Dibuat oleh Diah Iskamtini untuk tujuan pendidikan</p>
     </footer>
 
     <script src="/js/common.js"></script>
@@ -401,33 +423,32 @@
             observer.observe(item);
         });
 
-        // Read more functionality
-        document.querySelectorAll('.read-more').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        // Toggle timeline details via button or point click
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            const content = item.querySelector('.timeline-content');
+            const readMoreBtn = item.querySelector('.read-more');
+            const timelinePoint = item.querySelector('.timeline-point');
+
+            if (!content || !readMoreBtn) {
+                return;
+            }
+
+            const setExpanded = (expanded) => {
+                content.classList.toggle('expanded', expanded);
+                readMoreBtn.textContent = expanded ? 'Tutup <<' : 'Baca Selengkapnya >>';
+                readMoreBtn.setAttribute('aria-expanded', expanded);
+            };
+
+            readMoreBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const content = btn.closest('.timeline-content');
-                content.classList.toggle('expanded');
-
-                if (content.classList.contains('expanded')) {
-                    btn.textContent = '← Tutup';
-                } else {
-                    btn.textContent = 'Baca Selengkapnya →';
-                }
+                setExpanded(!content.classList.contains('expanded'));
             });
-        });
 
-        // Click timeline point to expand content
-        document.querySelectorAll('.timeline-point').forEach(point => {
-            point.addEventListener('click', () => {
-                const item = point.closest('.timeline-item');
-                const content = item.querySelector('.timeline-content');
-                const readMoreBtn = content.querySelector('.read-more');
-
-                if (!content.classList.contains('expanded')) {
-                    content.classList.add('expanded');
-                    readMoreBtn.textContent = '← Tutup';
-                }
-            });
+            if (timelinePoint) {
+                timelinePoint.addEventListener('click', () => {
+                    setExpanded(!content.classList.contains('expanded'));
+                });
+            }
         });
     </script>
 </body>

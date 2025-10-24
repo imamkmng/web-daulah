@@ -155,16 +155,16 @@ if (document.getElementById('submitQuiz')) {
 
         // Calculate score
         const correctAnswers = {
-            q1: 'b',  // Abu al-Abbas As-Saffah
-            q2: 'c',  // Baghdad
-            q3: 'c',  // Harun al-Rasyid
-            q4: 'b',  // Baitul Hikmah
-            q5: 'c',  // Al-Khawarizmi
-            q6: 'd',  // Invasi Bangsa Mongol
-            q7: 'b',  // Kedokteran
-            q8: 'c',  // Abbas bin Abdul Muthalib
-            q9: 'b',  // Jabir bin Hayyan
-            q10: 'b'  // 750 M
+            q1: 'b',  // Fokus ilmu pengetahuan
+            q2: 'c',  // Desain Baghdad mendukung pusat ilmu
+            q3: 'b',  // Patronase Harun ar-Rasyid
+            q4: 'b',  // Tim lintas agama & observatorium al-Ma'mun
+            q5: 'b',  // Fungsi Bayt al-Hikmah
+            q6: 'd',  // Ciri jaringan bimaristan
+            q7: 'a',  // Stabilitas jalur dagang dijaga tentara
+            q8: 'a',  // Budaya literasi lewat kertas Samarkand
+            q9: 'b',  // Jabir Al-Batany
+            q10: 'b'  // Kolaborasi lembaga dan keterbukaan budaya
         };
 
         let score = 0;
