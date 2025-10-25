@@ -17,6 +17,82 @@
             color: var(--putih);
         }
 
+        .data-visualization {
+            background: radial-gradient(circle at top left, rgba(181, 215, 199, 0.45), rgba(255, 255, 255, 0.9));
+            border: 1px solid rgba(9, 64, 55, 0.12);
+            border-radius: 18px;
+            padding: 2.5rem;
+            margin: 2.5rem 0 3rem;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .data-visualization h2 {
+            font-size: 2rem;
+            color: var(--hijau-tua);
+            margin-bottom: 0.75rem;
+        }
+
+        .data-visualization > p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: rgba(0, 0, 0, 0.78);
+            margin-bottom: 1.75rem;
+        }
+
+        .visual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .visual-card {
+            background: var(--putih);
+            border-radius: 14px;
+            padding: 1.5rem;
+            border: 1px solid rgba(9, 64, 55, 0.12);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .visual-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--hijau-tua);
+        }
+
+        .visual-card p {
+            margin: 0 0 0.75rem 0;
+            line-height: 1.6;
+            color: rgba(0, 0, 0, 0.78);
+        }
+
+        .visual-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .visual-list li {
+            padding-left: 1.1rem;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .visual-list li::before {
+            content: '\2022';
+            position: absolute;
+            left: 0;
+            color: var(--emas);
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .visual-list strong {
+            color: var(--hijau-tua);
+        }
+
         .next-section-info h3 {
             color: var(--emas);
             font-size: 1.8rem;
