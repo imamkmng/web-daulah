@@ -445,14 +445,15 @@
         }
 
         .infographic-content {
-            max-height: 2000px;
-            overflow: hidden;
+            max-height: none;
+            overflow: visible;
             transition: max-height 0.4s ease, opacity 0.4s ease;
         }
 
         .infographic-section.collapsed .infographic-content {
             max-height: 0;
             opacity: 0;
+            overflow: hidden;
         }
 
         .infographic-section p {
@@ -1161,6 +1162,25 @@
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('.infographic-section');
 
+            const updateSectionHeight = (section) => {
+                const content = section.querySelector('.infographic-content');
+                if (!content) return;
+
+                if (section.classList.contains('collapsed')) {
+                    content.style.maxHeight = '0px';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            };
+
+            const refreshAllSectionHeights = () => {
+                sections.forEach(section => {
+                    if (!section.classList.contains('collapsed')) {
+                        updateSectionHeight(section);
+                    }
+                });
+            };
+
             const switcherModules = document.querySelectorAll('[data-switcher]');
             switcherModules.forEach(module => {
                 const buttons = module.querySelectorAll('[data-switch]');
@@ -1185,6 +1205,11 @@
                             panel.setAttribute('hidden', '');
                         }
                     });
+
+                    const parentSection = module.closest('.infographic-section');
+                    if (parentSection) {
+                        updateSectionHeight(parentSection);
+                    }
                 };
 
                 const initialButton = module.querySelector('[data-switch].active') || buttons[0];
@@ -1201,10 +1226,27 @@
 
             sections.forEach(section => {
                 const heading = section.querySelector('h3');
+                const content = section.querySelector('.infographic-content');
+                if (!heading || !content) return;
+
+                updateSectionHeight(section);
+
+                content.addEventListener('transitionend', (event) => {
+                    if (event.propertyName === 'max-height' && !section.classList.contains('collapsed')) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                });
 
                 heading.addEventListener('click', function() {
                     section.classList.toggle('collapsed');
+                    requestAnimationFrame(() => updateSectionHeight(section));
                 });
+            });
+
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(refreshAllSectionHeights, 150);
             });
 
             // Intersection Observer for animation trigger

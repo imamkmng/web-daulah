@@ -79,11 +79,42 @@
             color: var(--hijau-tua);
             font-size: 1.2rem;
             margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
         }
 
         .feature-card p {
             font-size: 1rem;
             text-align: left;
+        }
+
+        .feature-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--putih);
+            color: var(--emas-gelap);
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 0 1px rgba(9, 64, 55, 0.2);
+        }
+
+        .feature-link {
+            color: var(--emas-gelap);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color 0.2s ease, border-bottom-color 0.2s ease;
+        }
+
+        .feature-link:hover,
+        .feature-link:focus-visible {
+            color: var(--hijau-tua);
+            border-bottom-color: currentColor;
         }
 
         .team-section {
@@ -321,40 +352,40 @@
 
         <div class="about-section">
             <h2>Tentang Platform</h2>
-            <p>Website Pembelajaran Daulah Abbasiyah adalah platform edukasi interaktif yang dikembangkan untuk membantu siswa, mahasiswa, dan masyarakat umum memahami salah satu periode paling gemilang dalam sejarah peradaban Islam.</p>
+            <p>Website Pembelajaran Daulah Abbasiyah adalah platform terpadu yang merangkai narasi sejarah, visual interaktif, serta aktivitas evaluasi agar kisah Zaman Keemasan Islam mudah dipahami oleh siswa dan pendidik.</p>
 
-            <p>Proyek ini lahir dari kebutuhan akan media pembelajaran sejarah yang tidak hanya informatif, tetapi juga engaging dan mudah diakses. Kami percaya bahwa sejarah bukan sekadar kumpulan tanggal dan nama, melainkan kisah inspiratif yang dapat memberikan pelajaran berharga bagi kehidupan kita saat ini.</p>
+            <p>Setiap halaman&mdash;linimasa kronologis, infografis kemajuan ilmu, profil tokoh, hingga kuis&mdash;dirancang saling terhubung sehingga pengguna dapat berpindah dari gambaran besar ke contoh konkret tanpa memutus alur belajar.</p>
 
             <h3>Fitur Utama</h3>
             <div class="features-grid">
                 <div class="feature-card">
-                    <h4>📅 Timeline Interaktif</h4>
-                    <p>Jelajahi kronologi peristiwa penting dalam sejarah Daulah Abbasiyah dari tahun 750 M hingga 1258 M dengan tampilan visual yang menarik.</p>
+                    <h4><span class="feature-icon">01</span>Timeline Interaktif</h4>
+                    <p>Halaman <a href="/timeline.html" class="feature-link">Timeline</a> menampilkan rentang 750-1258 M lengkap dengan penanda politik, ilmu, dan tokoh kunci sehingga alur peristiwa mudah diikuti.</p>
                 </div>
 
                 <div class="feature-card">
-                    <h4>📊 Infografis Visual</h4>
-                    <p>Pahami konsep-konsep kompleks melalui visualisasi data yang mudah dipahami, termasuk peta kekuasaan, silsilah, dan faktor keruntuhan.</p>
+                    <h4><span class="feature-icon">02</span>Infografis Mendalam</h4>
+                    <p>Visualisasi di <a href="/infografis.html" class="feature-link">Infografis</a> merangkum faktor pendorong kemajuan ilmu, Bayt al-Hikmah, dan analisis strategis dalam format ringkas.</p>
                 </div>
 
                 <div class="feature-card">
-                    <h4>👤 Profil Tokoh</h4>
-                    <p>Kenali para khalifah visioner dan ilmuwan jenius yang menjadi penggerak peradaban pada masa Daulah Abbasiyah.</p>
+                    <h4><span class="feature-icon">03</span>Profil Tokoh & Khalifah</h4>
+                    <p>Kartu pada <a href="/tokoh.html" class="feature-link">Tokoh</a> menghadirkan biografi khalifah visioner dan ilmuwan sehingga peserta belajar memperoleh inspirasi personal.</p>
                 </div>
 
                 <div class="feature-card">
-                    <h4>🎯 Kuis Interaktif</h4>
-                    <p>Uji pemahaman Anda melalui kuis pilihan ganda dan game drag-and-drop yang menyenangkan.</p>
+                    <h4><span class="feature-icon">04</span>Uji Kemampuan Adaptif</h4>
+                    <p>Modul <a href="/uji-kemampuan.html" class="feature-link">Uji Kemampuan</a> menyediakan latihan pilihan ganda, drag-and-drop, serta umpan balik langsung untuk mengukur pemahaman.</p>
                 </div>
 
                 <div class="feature-card">
-                    <h4>🏆 Papan Peringkat</h4>
-                    <p>Lihat pencapaian Anda dan bandingkan skor dengan pengguna lain dalam papan peringkat real-time.</p>
+                    <h4><span class="feature-icon">05</span>Papan Peringkat Real-Time</h4>
+                    <p>Skor kuis direkap di <a href="/papan-peringkat.html" class="feature-link">Papan Peringkat</a> agar peserta termotivasi dan pendidik dapat memantau progres kelas.</p>
                 </div>
 
                 <div class="feature-card">
-                    <h4>📱 Mobile-Friendly</h4>
-                    <p>Akses pembelajaran dari perangkat apa pun - desktop, tablet, atau smartphone dengan tampilan yang responsif.</p>
+                    <h4><span class="feature-icon">06</span>Akses Multi Perangkat</h4>
+                    <p>Seluruh halaman dioptimalkan untuk desktop, tablet, dan gawai sehingga proses belajar dapat berlangsung di kelas maupun secara mandiri.</p>
                 </div>
             </div>
         </div>
@@ -433,7 +464,7 @@
         </div>
 
         <div class="btn-container">
-            <a href="/index.html" class="btn-lanjutkan">← Kembali ke Beranda</a>
+            <a href="/index.html" class="btn-lanjutkan">&larr; Kembali ke Beranda</a>
         </div>
     </main>
 
