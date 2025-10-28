@@ -3,6 +3,62 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const { Parser } = require('json2csv');
 
+const JAKARTA_TIME_ZONE = 'Asia/Jakarta';
+const jakartaDateTimeFormatter = new Intl.DateTimeFormat('id-ID', {
+    timeZone: JAKARTA_TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+});
+
+function getJakartaParts(date = new Date()) {
+    const parts = jakartaDateTimeFormatter.formatToParts(date);
+    return parts.reduce((acc, part) => {
+        if (part.type !== 'literal') {
+            acc[part.type] = part.value;
+        }
+        return acc;
+    }, {});
+}
+
+function normalizeTimestamp(timestamp) {
+    if (!timestamp) {
+        return new Date();
+    }
+    if (timestamp instanceof Date) {
+        return timestamp;
+    }
+    if (typeof timestamp === 'number') {
+        return new Date(timestamp);
+    }
+    if (typeof timestamp === 'string') {
+        const trimmed = timestamp.trim();
+        if (trimmed.endsWith('Z') || trimmed.includes('+')) {
+            return new Date(trimmed);
+        }
+        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(trimmed)) {
+            return new Date(trimmed.replace(' ', 'T') + 'Z');
+        }
+        return new Date(trimmed);
+    }
+    return new Date(timestamp);
+}
+
+function formatTimestampToJakarta(timestamp) {
+    const date = normalizeTimestamp(timestamp);
+    const parts = getJakartaParts(date);
+    return `${parts.day}/${parts.month}/${parts.year} ${parts.hour}:${parts.minute}:${parts.second}`;
+}
+
+function getJakartaDateForFilename(date = new Date()) {
+    const parts = getJakartaParts(date);
+    return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -105,9 +161,10 @@ app.post('/api/scores', (req, res) => {
         });
     }
 
-    const query = 'INSERT INTO scores (name, score) VALUES (?, ?)';
+    const query = 'INSERT INTO scores (name, score, timestamp) VALUES (?, ?, ?)';
+    const utcNowIso = new Date().toISOString();
 
-    db.run(query, [nama.trim(), scoreValue], function(err) {
+    db.run(query, [nama.trim(), scoreValue, utcNowIso], function(err) {
         if (err) {
             console.error('Error inserting score:', err.message);
             return res.status(500).json({
@@ -178,15 +235,7 @@ app.get('/admin/download', (req, res) => {
                 'No': index + 1,
                 'Nama Pengguna': row.name,
                 'Skor': row.score,
-                'Tanggal & Waktu': new Date(row.timestamp).toLocaleString('id-ID', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                })
+                'Tanggal & Waktu': formatTimestampToJakarta(row.timestamp)
             }));
 
             // Convert to CSV with UTF-8 BOM for better Excel compatibility
@@ -203,7 +252,7 @@ app.get('/admin/download', (req, res) => {
 
             // Set headers for file download with proper charset
             res.setHeader('Content-Type', 'text/csv; charset=utf-8');
-            res.setHeader('Content-Disposition', 'attachment; filename="scores-' + new Date().toISOString().split('T')[0] + '.csv"');
+            res.setHeader('Content-Disposition', 'attachment; filename="scores-' + getJakartaDateForFilename() + '.csv"');
 
             console.log('Sending CSV with', formattedData.length, 'rows');
             res.send(csvWithBOM);

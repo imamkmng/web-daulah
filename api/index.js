@@ -2,6 +2,62 @@ const express = require('express');
 const { createClient } = require('@libsql/client');
 const { Parser } = require('json2csv');
 
+const JAKARTA_TIME_ZONE = 'Asia/Jakarta';
+const jakartaDateTimeFormatter = new Intl.DateTimeFormat('id-ID', {
+    timeZone: JAKARTA_TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+});
+
+function getJakartaParts(date = new Date()) {
+    const parts = jakartaDateTimeFormatter.formatToParts(date);
+    return parts.reduce((acc, part) => {
+        if (part.type !== 'literal') {
+            acc[part.type] = part.value;
+        }
+        return acc;
+    }, {});
+}
+
+function normalizeTimestamp(timestamp) {
+    if (!timestamp) {
+        return new Date();
+    }
+    if (timestamp instanceof Date) {
+        return timestamp;
+    }
+    if (typeof timestamp === 'number') {
+        return new Date(timestamp);
+    }
+    if (typeof timestamp === 'string') {
+        const trimmed = timestamp.trim();
+        if (trimmed.endsWith('Z') || trimmed.includes('+')) {
+            return new Date(trimmed);
+        }
+        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(trimmed)) {
+            return new Date(trimmed.replace(' ', 'T') + 'Z');
+        }
+        return new Date(trimmed);
+    }
+    return new Date(timestamp);
+}
+
+function formatTimestampToJakarta(timestamp) {
+    const date = normalizeTimestamp(timestamp);
+    const parts = getJakartaParts(date);
+    return `${parts.day}/${parts.month}/${parts.year} ${parts.hour}:${parts.minute}:${parts.second}`;
+}
+
+function getJakartaDateForFilename(date = new Date()) {
+    const parts = getJakartaParts(date);
+    return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
 // Fix for BigInt serialization in JSON (important for Vercel deployment)
 BigInt.prototype.toJSON = function() {
     return Number(this);
@@ -136,8 +192,8 @@ app.post('/api/scores', async (req, res) => {
         console.log('Attempting to insert score:', { nama: nama.trim(), scoreValue });
 
         const result = await db.execute({
-            sql: 'INSERT INTO scores (name, score) VALUES (?, ?)',
-            args: [nama.trim(), scoreValue]
+            sql: 'INSERT INTO scores (name, score, timestamp) VALUES (?, ?, ?)',
+            args: [nama.trim(), scoreValue, new Date().toISOString()]
         });
 
         console.log('Score inserted successfully');
@@ -214,15 +270,7 @@ app.get('/admin/download', async (req, res) => {
             'No': index + 1,
             'Nama Pengguna': row.name,
             'Skor': row.score,
-            'Tanggal & Waktu': new Date(row.timestamp).toLocaleString('id-ID', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            })
+            'Tanggal & Waktu': formatTimestampToJakarta(row.timestamp)
         }));
 
         // Convert to CSV with UTF-8 BOM and semicolon delimiter for better Excel compatibility
@@ -239,7 +287,7 @@ app.get('/admin/download', async (req, res) => {
 
         // Set headers for file download with proper charset
         res.setHeader('Content-Type', 'text/csv; charset=utf-8');
-        res.setHeader('Content-Disposition', 'attachment; filename="scores-' + new Date().toISOString().split('T')[0] + '.csv"');
+        res.setHeader('Content-Disposition', 'attachment; filename="scores-' + getJakartaDateForFilename() + '.csv"');
 
         console.log('Sending CSV with', formattedData.length, 'rows');
         res.send(csvWithBOM);

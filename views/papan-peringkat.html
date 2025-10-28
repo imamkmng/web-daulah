@@ -65,6 +65,47 @@
 
     <script src="/js/common.js"></script>
     <script>
+        const JAKARTA_TIME_ZONE = 'Asia/Jakarta';
+
+        function normalizeTimestamp(timestamp) {
+            if (!timestamp) {
+                return null;
+            }
+            if (timestamp instanceof Date) {
+                return timestamp;
+            }
+            if (typeof timestamp === 'number') {
+                return new Date(timestamp);
+            }
+            if (typeof timestamp === 'string') {
+                const trimmed = timestamp.trim();
+                if (trimmed.endsWith('Z') || trimmed.includes('+')) {
+                    return new Date(trimmed);
+                }
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(trimmed)) {
+                    return new Date(trimmed.replace(' ', 'T') + 'Z');
+                }
+                return new Date(trimmed);
+            }
+            return null;
+        }
+
+        function formatTimestampToJakarta(timestamp) {
+            const date = normalizeTimestamp(timestamp);
+            if (!date || Number.isNaN(date.getTime())) {
+                return '-';
+            }
+            return new Intl.DateTimeFormat('id-ID', {
+                timeZone: JAKARTA_TIME_ZONE,
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            }).format(date);
+        }
+
         // Fetch leaderboard data from API
         async function loadLeaderboard() {
             try {
@@ -94,14 +135,7 @@
                     else if (rank === 2) row.classList.add('rank-2');
                     else if (rank === 3) row.classList.add('rank-3');
 
-                    const date = new Date(score.timestamp);
-                    const formattedDate = date.toLocaleDateString('id-ID', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
+                    const formattedDate = formatTimestampToJakarta(score.timestamp);
 
                     row.innerHTML = `
                         <td>${rank}</td>

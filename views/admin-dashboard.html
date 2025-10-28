@@ -55,6 +55,57 @@
     </footer>
 
     <script>
+        const JAKARTA_TIME_ZONE = 'Asia/Jakarta';
+        const jakartaFilenameFormatter = new Intl.DateTimeFormat('en-CA', {
+            timeZone: JAKARTA_TIME_ZONE,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
+
+        function normalizeTimestamp(timestamp) {
+            if (!timestamp) {
+                return null;
+            }
+            if (timestamp instanceof Date) {
+                return timestamp;
+            }
+            if (typeof timestamp === 'number') {
+                return new Date(timestamp);
+            }
+            if (typeof timestamp === 'string') {
+                const trimmed = timestamp.trim();
+                if (trimmed.endsWith('Z') || trimmed.includes('+')) {
+                    return new Date(trimmed);
+                }
+                if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(trimmed)) {
+                    return new Date(trimmed.replace(' ', 'T') + 'Z');
+                }
+                return new Date(trimmed);
+            }
+            return null;
+        }
+
+        function formatTimestampToJakarta(timestamp, { includeSeconds = false } = {}) {
+            const date = normalizeTimestamp(timestamp);
+            if (!date || Number.isNaN(date.getTime())) {
+                return '-';
+            }
+            const options = {
+                timeZone: JAKARTA_TIME_ZONE,
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            };
+            if (includeSeconds) {
+                options.second = '2-digit';
+            }
+            return new Intl.DateTimeFormat('id-ID', options).format(date);
+        }
+
         // Check if user is logged in
         const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
         if (!isLoggedIn) {
@@ -78,14 +129,7 @@
                 scores.forEach((score, index) => {
                     const row = document.createElement('tr');
 
-                    const date = new Date(score.timestamp);
-                    const formattedDate = date.toLocaleDateString('id-ID', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
+                    const formattedDate = formatTimestampToJakarta(score.timestamp, { includeSeconds: true });
 
                     row.innerHTML = `
                         <td>${index + 1}</td>
@@ -110,7 +154,7 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `scores_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `scores_${jakartaFilenameFormatter.format(new Date())}.csv`;
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
