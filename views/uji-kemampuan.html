@@ -224,6 +224,195 @@
             100% { transform: scale(1); }
         }
 
+        /* Word Search Game Styles */
+        .wordsearch-container {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--putih);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .wordsearch-container h3 {
+            color: var(--hijau-tua);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .wordsearch-instruction {
+            text-align: center;
+            color: var(--hitam);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .wordsearch-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .wordsearch-grid-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .wordsearch-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 3px;
+            background: var(--hijau-sage);
+            padding: 10px;
+            border-radius: 10px;
+            user-select: none;
+        }
+
+        .wordsearch-cell {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--putih);
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--hijau-tua);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .wordsearch-cell:hover {
+            background: var(--krem);
+            transform: scale(1.1);
+        }
+
+        .wordsearch-cell.selected {
+            background: var(--emas);
+            color: var(--putih);
+        }
+
+        .wordsearch-cell.found {
+            background: var(--hijau-tua);
+            color: var(--putih);
+            animation: cellFound 0.5s ease;
+        }
+
+        @keyframes cellFound {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .wordsearch-words {
+            background: var(--krem);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .wordsearch-words h4 {
+            color: var(--hijau-tua);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .word-item {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 0.8rem;
+            margin-bottom: 0.5rem;
+            background: var(--putih);
+            border-radius: 8px;
+            border-left: 4px solid var(--hijau-sage);
+            transition: all 0.3s ease;
+        }
+
+        .word-item.found {
+            border-left-color: var(--emas);
+            background: rgba(212, 175, 55, 0.1);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .word-name {
+            font-weight: 600;
+            color: var(--hijau-tua);
+            margin-right: 0.5rem;
+        }
+
+        .word-field {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .wordsearch-status {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .wordsearch-status.complete {
+            display: block;
+            background: linear-gradient(135deg, #90EE90, #98FB98);
+            color: #006400;
+            animation: fadeInScale 0.5s ease-out;
+        }
+
+        .wordsearch-score {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: var(--hijau-tua);
+        }
+
+        .wordsearch-timer {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--emas);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .wordsearch-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .wordsearch-grid {
+                grid-template-columns: repeat(10, 1fr);
+            }
+
+            .wordsearch-cell {
+                width: 28px;
+                height: 28px;
+                font-size: 0.75rem;
+            }
+
+            .wordsearch-container {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wordsearch-grid {
+                grid-template-columns: repeat(8, 1fr);
+                gap: 2px;
+                padding: 6px;
+            }
+
+            .wordsearch-cell {
+                width: 24px;
+                height: 24px;
+                font-size: 0.7rem;
+            }
+        }
+
         /* Quiz Slide Navigation Styles */
         .quiz-slide {
             display: none;
@@ -394,7 +583,68 @@
                 </div>
             </div>
 
-            <!-- Bagian 2: Kuis Pilihan Ganda -->
+            <!-- Bagian 2: Game Mencari Kata Ilmuwan -->
+            <div class="wordsearch-container">
+                <h3>Temukan Nama Ilmuwan Muslim!</h3>
+                <p class="wordsearch-instruction">Cari dan klik huruf-huruf untuk menemukan nama ilmuwan berdasarkan petunjuk bidang keilmuannya. Kata dapat ditemukan secara horizontal, vertikal, atau diagonal.</p>
+
+                <div class="wordsearch-timer">Waktu: <span id="wsTimer">00:00</span></div>
+
+                <div class="wordsearch-layout">
+                    <div class="wordsearch-grid-container">
+                        <div class="wordsearch-grid" id="wordsearchGrid">
+                            <!-- Grid akan di-generate oleh JavaScript -->
+                        </div>
+                        <div class="wordsearch-score">
+                            Ditemukan: <span id="wsFound">0</span>/<span id="wsTotal">8</span> ilmuwan
+                        </div>
+                    </div>
+
+                    <div class="wordsearch-words">
+                        <h4>Temukan Ilmuwan Berikut:</h4>
+                        <div id="wordList">
+                            <div class="word-item" data-word="KINDI">
+                                <span class="word-name">Al-Kindi</span>
+                                <span class="word-field">- Filsafat & Matematika</span>
+                            </div>
+                            <div class="word-item" data-word="FARABI">
+                                <span class="word-name">Al-Farabi</span>
+                                <span class="word-field">- Filsafat & Musik</span>
+                            </div>
+                            <div class="word-item" data-word="RAZI">
+                                <span class="word-name">Ar-Razi</span>
+                                <span class="word-field">- Kedokteran</span>
+                            </div>
+                            <div class="word-item" data-word="BATTANI">
+                                <span class="word-name">Al-Battani</span>
+                                <span class="word-field">- Astronomi</span>
+                            </div>
+                            <div class="word-item" data-word="HAYTHAM">
+                                <span class="word-name">Ibn Haytham</span>
+                                <span class="word-field">- Optik & Sains</span>
+                            </div>
+                            <div class="word-item" data-word="SINA">
+                                <span class="word-name">Ibnu Sina</span>
+                                <span class="word-field">- Kedokteran & Filsafat</span>
+                            </div>
+                            <div class="word-item" data-word="ZAHRAWI">
+                                <span class="word-name">Al-Zahrawi</span>
+                                <span class="word-field">- Kedokteran & Bedah</span>
+                            </div>
+                            <div class="word-item" data-word="JABIR">
+                                <span class="word-name">Jabir bin Hayyan</span>
+                                <span class="word-field">- Kimia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wordsearch-status" id="wsStatus">
+                    ✅ Hebat! Semua ilmuwan berhasil ditemukan!
+                </div>
+            </div>
+
+            <!-- Bagian 3: Kuis Pilihan Ganda -->
             <div class="quiz-section">
                 <h2>Kuis Utama Daulah Abbasiyah</h2>
                 <p style="text-align: center; font-style: italic; margin-bottom: 2rem;">Pilih jawaban yang paling tepat.</p>
@@ -931,6 +1181,249 @@
                     });
                 }
             });
+        }
+
+        // ===================================
+        // WORD SEARCH GAME
+        // ===================================
+        const wordSearchGame = {
+            // Grid size
+            rows: 12,
+            cols: 12,
+
+            // Words to find (simplified names for easier search)
+            words: ['KINDI', 'FARABI', 'RAZI', 'BATTANI', 'HAYTHAM', 'SINA', 'ZAHRAWI', 'JABIR'],
+
+            // Pre-defined grid with words placed
+            grid: [
+                ['K', 'I', 'N', 'D', 'I', 'M', 'B', 'A', 'T', 'T', 'A', 'N'],
+                ['F', 'A', 'R', 'A', 'B', 'I', 'X', 'Q', 'W', 'E', 'R', 'I'],
+                ['H', 'J', 'Z', 'A', 'H', 'R', 'A', 'W', 'I', 'L', 'K', 'S'],
+                ['A', 'P', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'I'],
+                ['Y', 'M', 'N', 'B', 'V', 'C', 'X', 'Z', 'Q', 'W', 'E', 'N'],
+                ['T', 'R', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'B', 'A'],
+                ['H', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H'],
+                ['A', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'J'],
+                ['M', 'J', 'A', 'B', 'I', 'R', 'A', 'S', 'D', 'F', 'G', 'K'],
+                ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Q', 'W', 'E', 'R', 'L'],
+                ['T', 'R', 'A', 'Z', 'I', 'Y', 'U', 'I', 'O', 'P', 'A', 'M'],
+                ['S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V']
+            ],
+
+            // Word positions (row, col, direction: 'H'=horizontal, 'V'=vertical, 'D'=diagonal)
+            wordPositions: {
+                'KINDI': { row: 0, col: 0, dir: 'H', length: 5 },
+                'FARABI': { row: 1, col: 0, dir: 'H', length: 6 },
+                'RAZI': { row: 10, col: 1, dir: 'H', length: 4 },
+                'BATTANI': { row: 0, col: 7, dir: 'V', length: 7 },
+                'HAYTHAM': { row: 2, col: 0, dir: 'V', length: 7 },
+                'SINA': { row: 1, col: 11, dir: 'V', length: 4 },
+                'ZAHRAWI': { row: 2, col: 2, dir: 'H', length: 7 },
+                'JABIR': { row: 8, col: 2, dir: 'H', length: 5 }
+            },
+
+            foundWords: [],
+            selectedCells: [],
+            isSelecting: false,
+            timerInterval: null,
+            seconds: 0,
+
+            init() {
+                this.createGrid();
+                this.setupEventListeners();
+                this.startTimer();
+            },
+
+            createGrid() {
+                const gridElement = document.getElementById('wordsearchGrid');
+                if (!gridElement) return;
+
+                gridElement.innerHTML = '';
+
+                for (let i = 0; i < this.rows; i++) {
+                    for (let j = 0; j < this.cols; j++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'wordsearch-cell';
+                        cell.textContent = this.grid[i][j];
+                        cell.dataset.row = i;
+                        cell.dataset.col = j;
+                        gridElement.appendChild(cell);
+                    }
+                }
+            },
+
+            setupEventListeners() {
+                const gridElement = document.getElementById('wordsearchGrid');
+                if (!gridElement) return;
+
+                // Mouse events
+                gridElement.addEventListener('mousedown', (e) => {
+                    if (e.target.classList.contains('wordsearch-cell')) {
+                        this.startSelection(e.target);
+                    }
+                });
+
+                gridElement.addEventListener('mouseover', (e) => {
+                    if (this.isSelecting && e.target.classList.contains('wordsearch-cell')) {
+                        this.continueSelection(e.target);
+                    }
+                });
+
+                gridElement.addEventListener('mouseup', () => {
+                    this.endSelection();
+                });
+
+                // Touch events for mobile
+                gridElement.addEventListener('touchstart', (e) => {
+                    const touch = e.touches[0];
+                    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+                    if (target && target.classList.contains('wordsearch-cell')) {
+                        this.startSelection(target);
+                    }
+                }, { passive: true });
+
+                gridElement.addEventListener('touchmove', (e) => {
+                    const touch = e.touches[0];
+                    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+                    if (this.isSelecting && target && target.classList.contains('wordsearch-cell')) {
+                        this.continueSelection(target);
+                    }
+                }, { passive: true });
+
+                gridElement.addEventListener('touchend', () => {
+                    this.endSelection();
+                });
+
+                // Prevent text selection while dragging
+                gridElement.addEventListener('selectstart', (e) => e.preventDefault());
+            },
+
+            startSelection(cell) {
+                this.isSelecting = true;
+                this.selectedCells = [cell];
+                cell.classList.add('selected');
+            },
+
+            continueSelection(cell) {
+                if (!this.selectedCells.includes(cell) && !cell.classList.contains('found')) {
+                    // Check if selection is in a valid line (horizontal, vertical, or diagonal)
+                    if (this.selectedCells.length > 0) {
+                        const firstCell = this.selectedCells[0];
+                        const lastCell = this.selectedCells[this.selectedCells.length - 1];
+
+                        const firstRow = parseInt(firstCell.dataset.row);
+                        const firstCol = parseInt(firstCell.dataset.col);
+                        const cellRow = parseInt(cell.dataset.row);
+                        const cellCol = parseInt(cell.dataset.col);
+
+                        // Determine direction from first two cells
+                        if (this.selectedCells.length === 1) {
+                            // Any adjacent cell is valid for second selection
+                            const rowDiff = Math.abs(cellRow - firstRow);
+                            const colDiff = Math.abs(cellCol - firstCol);
+                            if (rowDiff <= 1 && colDiff <= 1 && (rowDiff + colDiff > 0)) {
+                                this.selectedCells.push(cell);
+                                cell.classList.add('selected');
+                            }
+                        } else {
+                            // Must continue in same direction
+                            const secondCell = this.selectedCells[1];
+                            const dirRow = parseInt(secondCell.dataset.row) - firstRow;
+                            const dirCol = parseInt(secondCell.dataset.col) - firstCol;
+
+                            const lastRow = parseInt(lastCell.dataset.row);
+                            const lastCol = parseInt(lastCell.dataset.col);
+
+                            // Check if new cell continues the line
+                            if (cellRow === lastRow + dirRow && cellCol === lastCol + dirCol) {
+                                this.selectedCells.push(cell);
+                                cell.classList.add('selected');
+                            }
+                        }
+                    }
+                }
+            },
+
+            endSelection() {
+                if (!this.isSelecting) return;
+
+                this.isSelecting = false;
+
+                // Get selected word
+                const selectedWord = this.selectedCells.map(cell => cell.textContent).join('');
+                const reversedWord = selectedWord.split('').reverse().join('');
+
+                // Check if it matches any word
+                let foundWord = null;
+                if (this.words.includes(selectedWord) && !this.foundWords.includes(selectedWord)) {
+                    foundWord = selectedWord;
+                } else if (this.words.includes(reversedWord) && !this.foundWords.includes(reversedWord)) {
+                    foundWord = reversedWord;
+                }
+
+                if (foundWord) {
+                    // Word found!
+                    this.foundWords.push(foundWord);
+
+                    // Mark cells as found
+                    this.selectedCells.forEach(cell => {
+                        cell.classList.remove('selected');
+                        cell.classList.add('found');
+                    });
+
+                    // Mark word in list
+                    const wordItem = document.querySelector(`[data-word="${foundWord}"]`);
+                    if (wordItem) {
+                        wordItem.classList.add('found');
+                    }
+
+                    // Update score
+                    document.getElementById('wsFound').textContent = this.foundWords.length;
+
+                    // Check if all words found
+                    if (this.foundWords.length === this.words.length) {
+                        this.gameComplete();
+                    }
+                } else {
+                    // Not a valid word, clear selection
+                    this.selectedCells.forEach(cell => {
+                        cell.classList.remove('selected');
+                    });
+                }
+
+                this.selectedCells = [];
+            },
+
+            startTimer() {
+                this.timerInterval = setInterval(() => {
+                    this.seconds++;
+                    const mins = Math.floor(this.seconds / 60).toString().padStart(2, '0');
+                    const secs = (this.seconds % 60).toString().padStart(2, '0');
+                    document.getElementById('wsTimer').textContent = `${mins}:${secs}`;
+                }, 1000);
+            },
+
+            stopTimer() {
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                }
+            },
+
+            gameComplete() {
+                this.stopTimer();
+                const status = document.getElementById('wsStatus');
+                status.classList.add('complete');
+
+                // Scroll to status
+                setTimeout(() => {
+                    status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 300);
+            }
+        };
+
+        // Initialize word search game
+        if (document.getElementById('wordsearchGrid')) {
+            wordSearchGame.init();
         }
     </script>
 </body>
