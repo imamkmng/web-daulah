@@ -379,37 +379,141 @@
             margin-bottom: 1rem;
         }
 
+        /* Mobile hint for touch */
+        .mobile-hint {
+            display: none;
+            text-align: center;
+            padding: 0.8rem;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--hijau-tua);
+        }
+
+        /* Clear selection button for mobile */
+        .ws-clear-btn {
+            display: none;
+            margin: 1rem auto 0;
+            padding: 0.6rem 1.5rem;
+            background: var(--hijau-sage);
+            color: var(--hijau-tua);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ws-clear-btn:active {
+            background: var(--hijau-tua);
+            color: var(--putih);
+            transform: scale(0.95);
+        }
+
         @media (max-width: 768px) {
             .wordsearch-layout {
                 grid-template-columns: 1fr;
             }
 
             .wordsearch-grid {
-                grid-template-columns: repeat(10, 1fr);
+                grid-template-columns: repeat(12, 1fr);
+                gap: 2px;
+                padding: 8px;
             }
 
             .wordsearch-cell {
-                width: 28px;
-                height: 28px;
-                font-size: 0.75rem;
+                width: 26px;
+                height: 26px;
+                font-size: 0.7rem;
+                border-radius: 3px;
             }
 
             .wordsearch-container {
                 padding: 1rem;
             }
+
+            .mobile-hint {
+                display: block;
+            }
+
+            .ws-clear-btn {
+                display: block;
+            }
+
+            .wordsearch-words {
+                padding: 1rem;
+            }
+
+            .word-item {
+                padding: 0.5rem 0.6rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .word-name {
+                margin-bottom: 0.2rem;
+            }
+
+            .word-field {
+                font-size: 0.8rem;
+            }
         }
 
         @media (max-width: 480px) {
             .wordsearch-grid {
-                grid-template-columns: repeat(8, 1fr);
-                gap: 2px;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 1px;
                 padding: 6px;
             }
 
             .wordsearch-cell {
-                width: 24px;
-                height: 24px;
-                font-size: 0.7rem;
+                width: 22px;
+                height: 22px;
+                font-size: 0.65rem;
+                border-radius: 2px;
+            }
+
+            .wordsearch-instruction {
+                font-size: 0.85rem;
+            }
+
+            .wordsearch-timer {
+                font-size: 1rem;
+            }
+
+            .wordsearch-score {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .wordsearch-grid {
+                grid-template-columns: repeat(12, 1fr);
+            }
+
+            .wordsearch-cell {
+                width: 20px;
+                height: 20px;
+                font-size: 0.6rem;
+            }
+        }
+
+        /* Touch feedback for mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .wordsearch-cell {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .wordsearch-cell:active {
+                background: var(--emas);
+                color: var(--putih);
+            }
+
+            .wordsearch-cell.selected {
+                background: var(--emas);
+                color: var(--putih);
+                box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.5);
             }
         }
 
@@ -590,6 +694,10 @@
 
                 <div class="wordsearch-timer">Waktu: <span id="wsTimer">00:00</span></div>
 
+                <div class="mobile-hint">
+                    Ketuk huruf pertama, lalu seret jari ke huruf terakhir untuk memilih kata
+                </div>
+
                 <div class="wordsearch-layout">
                     <div class="wordsearch-grid-container">
                         <div class="wordsearch-grid" id="wordsearchGrid">
@@ -598,6 +706,7 @@
                         <div class="wordsearch-score">
                             Ditemukan: <span id="wsFound">0</span>/<span id="wsTotal">8</span> ilmuwan
                         </div>
+                        <button type="button" class="ws-clear-btn" id="wsClearBtn">Hapus Pilihan</button>
                     </div>
 
                     <div class="wordsearch-words">
@@ -1227,8 +1336,11 @@
             isSelecting: false,
             timerInterval: null,
             seconds: 0,
+            isMobile: false,
+            lastTouchTarget: null,
 
             init() {
+                this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
                 this.createGrid();
                 this.setupEventListeners();
                 this.startTimer();
@@ -1256,9 +1368,10 @@
                 const gridElement = document.getElementById('wordsearchGrid');
                 if (!gridElement) return;
 
-                // Mouse events
+                // Mouse events (for desktop)
                 gridElement.addEventListener('mousedown', (e) => {
                     if (e.target.classList.contains('wordsearch-cell')) {
+                        e.preventDefault();
                         this.startSelection(e.target);
                     }
                 });
@@ -1273,29 +1386,65 @@
                     this.endSelection();
                 });
 
-                // Touch events for mobile
+                document.addEventListener('mouseup', () => {
+                    if (this.isSelecting) {
+                        this.endSelection();
+                    }
+                });
+
+                // Touch events for mobile - improved handling
                 gridElement.addEventListener('touchstart', (e) => {
+                    e.preventDefault(); // Prevent scrolling while selecting
                     const touch = e.touches[0];
                     const target = document.elementFromPoint(touch.clientX, touch.clientY);
                     if (target && target.classList.contains('wordsearch-cell')) {
                         this.startSelection(target);
+                        this.lastTouchTarget = target;
                     }
-                }, { passive: true });
+                }, { passive: false });
 
                 gridElement.addEventListener('touchmove', (e) => {
+                    e.preventDefault(); // Prevent scrolling while selecting
                     const touch = e.touches[0];
                     const target = document.elementFromPoint(touch.clientX, touch.clientY);
                     if (this.isSelecting && target && target.classList.contains('wordsearch-cell')) {
-                        this.continueSelection(target);
+                        if (target !== this.lastTouchTarget) {
+                            this.continueSelection(target);
+                            this.lastTouchTarget = target;
+                        }
                     }
-                }, { passive: true });
+                }, { passive: false });
 
-                gridElement.addEventListener('touchend', () => {
+                gridElement.addEventListener('touchend', (e) => {
+                    e.preventDefault();
                     this.endSelection();
+                    this.lastTouchTarget = null;
+                }, { passive: false });
+
+                gridElement.addEventListener('touchcancel', () => {
+                    this.clearSelection();
+                    this.lastTouchTarget = null;
                 });
 
-                // Prevent text selection while dragging
+                // Prevent text selection and context menu
                 gridElement.addEventListener('selectstart', (e) => e.preventDefault());
+                gridElement.addEventListener('contextmenu', (e) => e.preventDefault());
+
+                // Clear button for mobile
+                const clearBtn = document.getElementById('wsClearBtn');
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', () => {
+                        this.clearSelection();
+                    });
+                }
+            },
+
+            clearSelection() {
+                this.selectedCells.forEach(cell => {
+                    cell.classList.remove('selected');
+                });
+                this.selectedCells = [];
+                this.isSelecting = false;
             },
 
             startSelection(cell) {
