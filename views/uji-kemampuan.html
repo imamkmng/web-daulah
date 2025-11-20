@@ -1304,15 +1304,23 @@
             words: ['KINDI', 'FARABI', 'RAZI', 'BATTANI', 'HAYTHAM', 'SINA', 'ZAHRAWI', 'JABIR'],
 
             // Pre-defined grid with words placed
+            // KINDI: row 0, col 0-4 (horizontal)
+            // FARABI: row 1, col 0-5 (horizontal)
+            // HAYTHAM: row 2-8, col 0 (vertical)
+            // ZAHRAWI: row 2, col 2-8 (horizontal)
+            // BATTANI: row 3, col 4-10 (horizontal) B-A-T-T-A-N-I
+            // SINA: row 1-4, col 11 (vertical)
+            // JABIR: row 8, col 2-6 (horizontal)
+            // RAZI: row 10, col 2-5 (horizontal)
             grid: [
-                ['K', 'I', 'N', 'D', 'I', 'M', 'B', 'A', 'T', 'T', 'A', 'N'],
-                ['F', 'A', 'R', 'A', 'B', 'I', 'X', 'Q', 'W', 'E', 'R', 'I'],
-                ['H', 'J', 'Z', 'A', 'H', 'R', 'A', 'W', 'I', 'L', 'K', 'S'],
-                ['A', 'P', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'I'],
-                ['Y', 'M', 'N', 'B', 'V', 'C', 'X', 'Z', 'Q', 'W', 'E', 'N'],
-                ['T', 'R', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'B', 'A'],
-                ['H', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H'],
-                ['A', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'J'],
+                ['K', 'I', 'N', 'D', 'I', 'M', 'Q', 'W', 'E', 'R', 'T', 'Y'],
+                ['F', 'A', 'R', 'A', 'B', 'I', 'X', 'Q', 'W', 'E', 'R', 'S'],
+                ['H', 'J', 'Z', 'A', 'H', 'R', 'A', 'W', 'I', 'L', 'K', 'I'],
+                ['A', 'P', 'T', 'Y', 'B', 'A', 'T', 'T', 'A', 'N', 'I', 'N'],
+                ['Y', 'M', 'N', 'B', 'V', 'C', 'X', 'Z', 'Q', 'W', 'E', 'A'],
+                ['T', 'R', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'B', 'O'],
+                ['H', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'P'],
+                ['A', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Q'],
                 ['M', 'J', 'A', 'B', 'I', 'R', 'A', 'S', 'D', 'F', 'G', 'K'],
                 ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Q', 'W', 'E', 'R', 'L'],
                 ['T', 'R', 'A', 'Z', 'I', 'Y', 'U', 'I', 'O', 'P', 'A', 'M'],
@@ -1323,8 +1331,8 @@
             wordPositions: {
                 'KINDI': { row: 0, col: 0, dir: 'H', length: 5 },
                 'FARABI': { row: 1, col: 0, dir: 'H', length: 6 },
-                'RAZI': { row: 10, col: 1, dir: 'H', length: 4 },
-                'BATTANI': { row: 0, col: 7, dir: 'V', length: 7 },
+                'RAZI': { row: 10, col: 2, dir: 'H', length: 4 },
+                'BATTANI': { row: 3, col: 4, dir: 'H', length: 7 },
                 'HAYTHAM': { row: 2, col: 0, dir: 'V', length: 7 },
                 'SINA': { row: 1, col: 11, dir: 'V', length: 4 },
                 'ZAHRAWI': { row: 2, col: 2, dir: 'H', length: 7 },
